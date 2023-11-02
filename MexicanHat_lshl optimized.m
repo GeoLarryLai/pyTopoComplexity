@@ -1,4 +1,6 @@
-%% Optimized code: Mexican Hat Continuous Wavelet Transform analysis
+%% Mexican Hat Continuous Wavelet Transform analysis
+%% Originated from by Adam M. Booth
+%% Optimized by Larry Syu-Heng Lai
 
 % Initial Setup
 clear; close all; clc;
