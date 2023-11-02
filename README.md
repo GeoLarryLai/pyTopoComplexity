@@ -1,6 +1,6 @@
 # TopoComlexity
 
-Mexican Hat Wavelet Analysis For Topographic Roughness
+Mexican Hat Wavelet Analysis For Topographic Complexity/Variability (Topographic Curvature)
 
 The original MATLAB code was developed from Dr. Adam M. Booth (Portland State Univeristy).
 Citations:
