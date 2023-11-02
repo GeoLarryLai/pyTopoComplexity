@@ -1,3 +1,6 @@
+%% Originated from by Adam M. Booth
+%% Optimized by Larry Syu-Heng Lai
+
 function [C, frq, wave] = conv2_mexh_lshl(dem, a, dx)
 
     %start timer
