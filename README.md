@@ -1,11 +1,14 @@
 # TopoComlexity
 
-This repository is for a set of codes that perform various types of geomorphic metrics that represent topographic complexity and/or variability. The repository is currently under development. The geomorphic metrics planned to be included here are:  
+This repository includes a set of codes that perform various types of geomorphic metrics representing topographic complexity and/or variability. The repository is currently under development. The geomorphic metrics planned to be included here are:  
 * _Mexican Hat Wavelet Tranform Analysis_ (pyMexicanHat.ipynb)
 * _Terrain Ruggedness Index_ (TBA)
 * _Rugosity_ (TBA)
 * _Roughness_ (TBA)
 * _Fractal dimension_ (TBA)
+
+Recommended reference for these topographic metrics:  
+  * Wilson, M.F.J., O’Connell, B., Brown, C., Guinan, J.C., Grehan, A.J., 2007. Multiscale Terrain Analysis of Multibeam Bathymetry Data for Habitat Mapping on the Continental Slope. Marine Geodesy 30, 3-35. https://doi.org/10.1080/01490410701295962
 
 
 The Mexican Hat Wavelet Tranform code (writen in MATLAB) code was originally developed from Dr. Adam M. Booth (Portland State Univeristy). Citations:
