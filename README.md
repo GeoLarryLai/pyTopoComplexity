@@ -1,4 +1,4 @@
-# TopoComlexity
+# pyTopoComlexity
 
 This repository includes a set of codes that perform various types of geomorphic metrics representing topographic complexity and/or variability. The repository is currently under development. The geomorphic metrics planned to be included here are:  
 * _Mexican Hat Wavelet Tranform Analysis_ (pyMexicanHat.ipynb)
