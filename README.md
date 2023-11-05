@@ -15,7 +15,7 @@ Recommended reference for these topographic metrics:
   * Du Preez, C. A new arc–chord ratio (ACR) rugosity index for quantifying three-dimensional landscape structural complexity. Landscape Ecol 30, 181–192 (2015). https://doi.org/10.1007/s10980-014-0118-8
 
 
-======
+======   
 The Mexican Hat Wavelet Tranform code (writen in MATLAB) was originally developed from Dr. Adam M. Booth (Portland State Univeristy). Citations:
   * Booth, A.M., Roering, J.J., Perron, J.T., 2009. Automated landslide mapping using spectral analysis and high-resolution topographic data: Puget Sound lowlands, Washington, and Portland Hills, Oregon.     Geomorphology 109, 132-147. https://doi.org/10.1016/j.geomorph.2009.02.027
   *Booth, A.M., LaHusen, S.R., Duvall, A.R., Montgomery, D.R., 2017. Holocene history of deep-seated landsliding in the North Fork Stillaguamish River valley from surface roughness analysis, radiocarbon dating, and numerical landscape evolution modeling. Journal of Geophysical Research: Earth Surface 122, 456-472. https://doi.org/10.1002/2016JF003934
