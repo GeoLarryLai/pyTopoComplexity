@@ -1,4 +1,6 @@
-# pyTopoComlexity
+# pyTopoComlexity (v.1.0)
+
+#### Warning: These codes still under development and not yet officially published. Additional tests is required.
 
 This repository includes a set of codes that perform various types of geomorphic metrics representing topographic complexity and/or variability. The repository is currently under development. The geomorphic metrics planned to be included here are:  
 * _Mexican Hat Wavelet Tranform Analysis_ (pyMexicanHat.ipynb)
@@ -13,8 +15,6 @@ I also include the code that calculate the surface anomalies, showing where are 
 Recommended reference for these topographic metrics:  
   * Wilson, M.F.J., O’Connell, B., Brown, C., Guinan, J.C., Grehan, A.J., 2007. Multiscale Terrain Analysis of Multibeam Bathymetry Data for Habitat Mapping on the Continental Slope. Marine Geodesy 30, 3-35. https://doi.org/10.1080/01490410701295962
   * Du Preez, C. A new arc–chord ratio (ACR) rugosity index for quantifying three-dimensional landscape structural complexity. Landscape Ecol 30, 181–192 (2015). https://doi.org/10.1007/s10980-014-0118-8
-
-## These codes still under development and not yet officially published. Additional tests is required.
 
 ======   
 The Mexican Hat Wavelet Tranform code (writen in MATLAB) was originally developed from Dr. Adam M. Booth (Portland State Univeristy). Citations:
