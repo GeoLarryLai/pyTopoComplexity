@@ -27,4 +27,4 @@ This MATLAB code was later adapted by Dr. Sean R. LaHusen (Univeristy of Washing
   * Herzig, E.N., Duvall, A.R., Booth, A.R., Stone, I., Wirth, E., LaHusen, S.R., Wartman, J., Grant, A.; Evidence of Seattle Fault Earthquakes from Patterns in Deep‐Seated Landslides. Bulletin of the Seismological Society of America 2023; https://doi.org/10.1785/0120230079
 
 In November, 2023, this MATLAB code was optimized by Dr. Larry Syu-Heng Lai (Univeristy of Washington). It is further translated into a python version. Citations:
- * ai, L. S.-H., Booth, A.M., Herzig, E.N., LaHusen, S.R., & Alison, D. (2023). pyTopoComplexity (1.1). Zenodo. https://doi.org/10.5281/zenodo.10080534
+ * Lai, L. S.-H., Booth, A.M., Herzig, E.N., LaHusen, S.R., & Alison, D. (2023). pyTopoComplexity (1.1). Zenodo. https://doi.org/10.5281/zenodo.10080534
