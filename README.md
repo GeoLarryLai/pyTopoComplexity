@@ -5,7 +5,7 @@
 This repository includes a set of codes that perform various types of geomorphic metrics representing topographic complexity and/or variability. The geomorphic metrics included here are:  
 * _Mexican Hat Wavelet Tranform Analysis_ (pyMexicanHat.ipynb)
 * _Rugosity_ (pyRugosity.ipynb)
-* _Fractal Dimension_ (pyFractalD.ipynb)
+* _Fractal Dimension_ (pyFD.ipynb)
 
 
 Recommended reference for these topographic metrics:  
