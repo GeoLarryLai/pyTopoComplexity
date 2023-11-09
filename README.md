@@ -11,8 +11,8 @@ This repository includes a set of codes that perform various types of geomorphic
 Recommended reference for these topographic metrics:  
   * Wilson, M.F.J., O’Connell, B., Brown, C., Guinan, J.C., Grehan, A.J., 2007. Multiscale Terrain Analysis of Multibeam Bathymetry Data for Habitat Mapping on the Continental Slope. Marine Geodesy 30, 3-35. https://doi.org/10.1080/01490410701295962
   * Mark, D.M., Aronson, P.B., 1984. Scale-dependent fractal dimensions of topographic surfaces: An empirical investigation, with applications in geomorphology and computer mapping. Journal of the International Association for Mathematical Geology 16, 671-683. https://doi.org/10.1007/BF01033029
-  * Du Preez, C. A new arc–chord ratio (ACR) rugosity index for quantifying three-dimensional landscape structural complexity. Landscape Ecol 30, 181–192 (2015). https://doi.org/10.1007/s10980-014-0118-8
-
+  * Taud, H., Parrot, J.-F., 2006. Measurement of DEM roughness using the local fractal dimension. Géomorphologie : relief, processus, environnement 4. https://doi.org/10.4000/geomorphologie.622
+    
 ======   
 The Mexican Hat Wavelet Tranform code (writen in MATLAB) was originally developed from Dr. Adam M. Booth (Portland State Univeristy). Citations:
   * Booth, A.M., Roering, J.J., Perron, J.T., 2009. Automated landslide mapping using spectral analysis and high-resolution topographic data: Puget Sound lowlands, Washington, and Portland Hills, Oregon.     Geomorphology 109, 132-147. https://doi.org/10.1016/j.geomorph.2009.02.027
