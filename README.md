@@ -23,5 +23,5 @@ This MATLAB code was later adapted by Dr. Sean R. LaHusen (Univeristy of Washing
   * LaHusen, S.R., Duvall, A.R., Booth, A.M., Grant, A., Mishkin, B.A., Montgomery, D.R., Struble, W., Roering, J.J., Wartman, J., 2020. Rainfall triggers more deep-seated landslides than Cascadia earthquakes in the Oregon Coast Range, USA. Science Advances 6, eaba6790. https://doi.org/10.1126/sciadv.aba6790
   * Herzig, E.N., Duvall, A.R., Booth, A.R., Stone, I., Wirth, E., LaHusen, S.R., Wartman, J., Grant, A.; Evidence of Seattle Fault Earthquakes from Patterns in Deep‐Seated Landslides. Bulletin of the Seismological Society of America 2023; https://doi.org/10.1785/0120230079
 
-In November, 2023, this MATLAB code was optimized by Dr. Larry Syu-Heng Lai (Univeristy of Washington). It is further translated into a python version. Citations:
+In November, 2023, this MATLAB code was optimized by Dr. Larry Syu-Heng Lai (Univeristy of Washington) and further translated into the python version here. Citations:
  * Lai, L. S.-H. (2023). pyTopoComplexity (1.2). Zenodo. https://doi.org/10.5281/zenodo.10086875
