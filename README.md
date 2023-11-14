@@ -1,4 +1,4 @@
-# pyTopoComlexity (v.1.2)
+# pyTopoComlexity (v.1.3)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10086875.svg)](https://doi.org/10.5281/zenodo.10086875)
 ### Warning: These codes are under development. Additional tests are required.
 
@@ -6,12 +6,15 @@ This repository includes a set of codes that perform various types of geomorphic
 * _Mexican Hat Wavelet Tranform Analysis_ (pyMexicanHat.ipynb)
 * _Rugosity_ (pyRugosity.ipynb)
 * _Fractal Dimension_ (pyFD.ipynb)
+* _Topographic Position Index_ (pyTPI.ipynb)
 
 
 Recommended reference for these topographic metrics:  
   * Wilson, M.F.J., O’Connell, B., Brown, C., Guinan, J.C., Grehan, A.J., 2007. Multiscale Terrain Analysis of Multibeam Bathymetry Data for Habitat Mapping on the Continental Slope. Marine Geodesy 30, 3-35. https://doi.org/10.1080/01490410701295962
   * Mark, D.M., Aronson, P.B., 1984. Scale-dependent fractal dimensions of topographic surfaces: An empirical investigation, with applications in geomorphology and computer mapping. Journal of the International Association for Mathematical Geology 16, 671-683. https://doi.org/10.1007/BF01033029
   * Taud, H., Parrot, J.-F., 2006. Measurement of DEM roughness using the local fractal dimension. Géomorphologie : relief, processus, environnement 4. https://doi.org/10.4000/geomorphologie.622
+  * Weiss, A. D. 2001. Topographic Positions and Landforms Analysis (poster), ESRI International User Conference, July 2001. San Diego, CA: ESRI.
+  * Lundblad, E., D. J. Wright, J. Miller, E. M. Larkin, R. Rinehart, D. F. Naar, B. T. Donahue, S. M. Anderson, and T. Battista. 2006. A Benthic Terrain Classification Scheme for American Samoa. Marine Geodesy 29(2):89–111. https://doi.org/10.1080/01490410600738021
   * A portion of the code in pyFD.ipynb was consulted with xDEM (https://xdem.readthedocs.io). Citation: https://doi.org/10.5281/zenodo.4809698
     
 ======   
