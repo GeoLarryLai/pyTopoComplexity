@@ -1,7 +1,7 @@
 # pyTopoComlexity (v0.4)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10086875.svg)](https://doi.org/10.5281/zenodo.10086875)
-### In this lastest update (v0.4), the Mexican Hat code is confirmed to be working correctly.
-### Warning: For other codes. These codes are under development. Additional tests are required.
+### In this latest update (v0.4), the Mexican Hat code is confirmed to be working correctly.
+### Warning: For other codes (Rugosity, Fractal Dimension, Topographic Position Index), please use them with caution. These codes are under development and required further testing.
 
 This repository includes a set of codes that perform various types of geomorphic metrics representing topographic complexity and/or variability. The geomorphic metrics included here are:  
 * _Mexican Hat Wavelet Tranform Analysis_ (pyMexicanHat.ipynb)
@@ -9,6 +9,7 @@ This repository includes a set of codes that perform various types of geomorphic
 * _Fractal Dimension_ (pyFD.ipynb)
 * _Topographic Position Index_ (pyTPI.ipynb)
 
+Additional Jupyter Notebooks using chunk processing & incremetal writing approach are included, in case for avoiding memory crash while running Mexican Hat Wavelet Tranform Analysis on large GeoTIFFs (pyMexicanHat_chunk.ipynb; pyMexicanHat_chunkIC.ipynb).
 
 Recommended reference for these topographic metrics:  
   * Wilson, M.F.J., O’Connell, B., Brown, C., Guinan, J.C., Grehan, A.J., 2007. Multiscale Terrain Analysis of Multibeam Bathymetry Data for Habitat Mapping on the Continental Slope. Marine Geodesy 30, 3-35. https://doi.org/10.1080/01490410701295962
