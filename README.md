@@ -1,5 +1,5 @@
 # pyTopoComlexity (v0.4)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10086875.svg)](https://doi.org/10.5281/zenodo.10086875)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10909837.svg)](https://doi.org/10.5281/zenodo.10909837)
 ### In this latest update (v0.4), the Mexican Hat code is confirmed to be working correctly.
 ### Warning: For other codes (Rugosity, Fractal Dimension, Topographic Position Index), please use them with caution. These codes are under development and required further testing.
 
@@ -30,4 +30,4 @@ This MATLAB code was later adapted by Dr. Sean R. LaHusen (Univeristy of Washing
   * Herzig, E.N., Duvall, A.R., Booth, A.R., Stone, I., Wirth, E., LaHusen, S.R., Wartman, J., Grant, A.; Evidence of Seattle Fault Earthquakes from Patterns in Deep‐Seated Landslides. Bulletin of the Seismological Society of America 2023; https://doi.org/10.1785/0120230079
 
 In November, 2023, this MATLAB code was optimized by Dr. Larry Syu-Heng Lai (Univeristy of Washington) and further translated into the python version here. Citations:
- * Lai, L. S.-H. (2024). pyTopoComplexity (0.4). Zenodo. https://doi.org/10.5281/zenodo.10086875
+ * Lai, L. S.-H. (2024). pyTopoComplexity (0.4). Zenodo. https://doi.org/10.5281/zenodo.10909837
