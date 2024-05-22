@@ -1,5 +1,5 @@
 # pyTopoComlexity (v0.5)
-Zenodo repository: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10065283.svg)](https://doi.org/10.5281/zenodo.10065283)
+**Zenodo repository:** [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10065283.svg)](https://doi.org/10.5281/zenodo.10065283)
 
 This repository contains a set of codes for measuring the topographic complexity (i.e., surface roughness) of a land surface using two-dimensional continuous wavelet transform (2D-CWT) with a Mexican Hat wevalet. Such method quanitfy the wavelet-based curvature of the surface, which has been proposed to be a effective geomorphic metric for relative age dating of deep-seated landslide deposits, allowing a quick assessment of landslide freqency and spatiotemporal pattern over a large scale area.
 
