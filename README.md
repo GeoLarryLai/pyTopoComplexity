@@ -32,8 +32,8 @@ Since November 2023, Dr. Larry Syu-Heng Lai (Univeristy of Washington) translate
 
 To use this code, please cite the Zenodo repository that hosts the latest release of this code: 
 
-Lai, L. S.-H. (2024). pyTopoComplexity. Zenodo. https://doi.org/10.5281/zenodo.10065283
-Github repository: https://github.com/LarrySHLai/pyTopoComlexity 
+* Lai, L. S.-H. (2024). pyTopoComplexity. Zenodo. https://doi.org/10.5281/zenodo.10065283
+* Github repository: https://github.com/LarrySHLai/pyTopoComlexity 
 
 **References:**
 
