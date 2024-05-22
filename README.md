@@ -21,9 +21,11 @@ The example DEM files include:
 
 | LiDAR DEM Files  | CRS | XY Grid Size | Z Unit | Descriptions |
 | ------------- | ------------- | ------------- | ------------- | ------------- |
-| Ososlid2014_f_3ftgrid.tif | NAD83/Washington South (ftUS) \n(EPSG: 2286) | 3.0 [US survey feet] | US survey feet | 2014 Oso Landslide |
+| Ososlid2014_f_3ftgrid.tif | NAD83/Washington South (ftUS) (EPSG: 2286) | 3.0 [US survey feet] | US survey feet | 2014 Oso Landslide |
+| Ososlid2014_f_6ftgrid.tif | NAD83/Washington South (ftUS) (EPSG: 2286) | 6.0 [US survey feet] | US survey feet | 2014 Oso Landslide |
+| Ososlid2014_m_3ftgrid.tif | NAD83/Washington South (EPSG: 32149) | ~0.9144 [meters] | meters | 2014 Oso Landslide |
+| Ososlid2014_m_6ftgrid.tif | NAD83/Washington South (EPSG: 32149) | ~1.8288 [meters] | meters | 2014 Oso Landslide |
+| Osoarea2014_f_6ftgrid.tif | NAD83/Washington South (ftUS) (EPSG: 2286) | 6.0 [US survey feet] | US survey feet | 2014 Oso Landslide & nearby NFSR valley |
+| Osoarea2014_m_6ftgrid.tif | NAD83/Washington South (EPSG: 32149) | ~1.8288 [meters] | meters | 2014 Oso Landslide & nearby NFSR valley |
 
 The current codes have the capability to automoatically detect the grid spacing and the unit of XYZ directions (must be in feet or meters) of the input DEM raster, which can compute the 2D-CWT result with an proper wavelet scale factor at an designated Mexican Hat wavelet. When testing the codes with the example DEM files, users should decompress the Example DEM.zip and place the whole unarchived subfolder in the same directory as the Jupyter Notebook files.
-
-# Citation:
- * Lai, L. S.-H. (2024). pyTopoComplexity. Zenodo. https://doi.org/10.5281/zenodo.10065283
