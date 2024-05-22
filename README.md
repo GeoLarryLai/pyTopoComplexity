@@ -1,31 +1,29 @@
 # pyTopoComlexity (v0.5)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.11238556.svg)](https://doi.org/10.5281/zenodo.11238556)
 
-### In this latest update (v0.5), the Mexican Hat code is confirmed to be working correctly.
-### Warning: For other codes (Rugosity, Fractal Dimension, Topographic Position Index), please use them with caution. These codes are under development and required further testing.
+pyTopoComlexity
 
-This repository includes a set of codes that perform various types of geomorphic metrics representing topographic complexity and/or variability. The geomorphic metrics included here are:  
-* _Mexican Hat Wavelet Tranform Analysis_ (pyMexicanHat.ipynb)
+Please disregard older versions (v0.1 – v0.4) that include incorrect parameters and equations. Other incomplete codes for calculating Rugosity, Fractal Dimension, and Topographic Position Index have been removed.
 
-Additional Jupyter Notebooks using chunk processing & incremetal writing approach are included, in case for avoiding memory crash while running Mexican Hat Wavelet Tranform Analysis on large GeoTIFFs (pyMexicanHat_chunk.ipynb; pyMexicanHat_chunkIC.ipynb).
+This repository contains a set of codes for measuring the topographic complexity (i.e., surface roughness) of a land surface using two-dimensional continuous wavelet transform (2D-CWT) with a Mexican Hat wevalet. Such method quanitfy the wavelet-based curvature of the surface, which has been proposed to be a effective geomorphic metric for relative age dating of deep-seated landslide deposits, allowing a quick assessment of landslide freqency and spatiotemporal pattern over a large scale area.
 
-Recommended reference for these topographic metrics:  
-  * Wilson, M.F.J., O’Connell, B., Brown, C., Guinan, J.C., Grehan, A.J., 2007. Multiscale Terrain Analysis of Multibeam Bathymetry Data for Habitat Mapping on the Continental Slope. Marine Geodesy 30, 3-35. https://doi.org/10.1080/01490410701295962
-  * Mark, D.M., Aronson, P.B., 1984. Scale-dependent fractal dimensions of topographic surfaces: An empirical investigation, with applications in geomorphology and computer mapping. Journal of the International Association for Mathematical Geology 16, 671-683. https://doi.org/10.1007/BF01033029
-  * Taud, H., Parrot, J.-F., 2006. Measurement of DEM roughness using the local fractal dimension. Géomorphologie : relief, processus, environnement 4. https://doi.org/10.4000/geomorphologie.622
-  * Weiss, A. D. 2001. Topographic Positions and Landforms Analysis (poster), ESRI International User Conference, July 2001. San Diego, CA: ESRI.
-  * Lundblad, E., D. J. Wright, J. Miller, E. M. Larkin, R. Rinehart, D. F. Naar, B. T. Donahue, S. M. Anderson, and T. Battista. 2006. A Benthic Terrain Classification Scheme for American Samoa. Marine Geodesy 29(2):89–111. https://doi.org/10.1080/01490410600738021
-  * A portion of the code in pyFD.ipynb was consulted with xDEM (https://xdem.readthedocs.io). Citation: https://doi.org/10.5281/zenodo.4809698
-    
-======   
-The Mexican Hat Wavelet Tranform code was originally developed in MATLAB by Dr. Adam M. Booth (Portland State Univeristy). Citations:
-  * Booth, A.M., Roering, J.J., Perron, J.T., 2009. Automated landslide mapping using spectral analysis and high-resolution topographic data: Puget Sound lowlands, Washington, and Portland Hills, Oregon.     Geomorphology 109, 132-147. https://doi.org/10.1016/j.geomorph.2009.02.027
-  *Booth, A.M., LaHusen, S.R., Duvall, A.R., Montgomery, D.R., 2017. Holocene history of deep-seated landsliding in the North Fork Stillaguamish River valley from surface roughness analysis, radiocarbon dating, and numerical landscape evolution modeling. Journal of Geophysical Research: Earth Surface 122, 456-472. https://doi.org/10.1002/2016JF003934
+There are three Jupyter Notebook files:
 
-This MATLAB code was later adapted by Dr. Sean R. LaHusen (Univeristy of Washington) & revised by Erich N. Herzig (Univeristy of Washington).  Citations:
-  * LaHusen, S.R., Duvall, A.R., Booth, A.M., Montgomery, D.R., 2016. Surface roughness dating of long-runout landslides near Oso, Washington (USA), reveals persistent postglacial hillslope instability. Geology 44, 111-114. https://doi.org/10.1130/G37267.1
-  * LaHusen, S.R., Duvall, A.R., Booth, A.M., Grant, A., Mishkin, B.A., Montgomery, D.R., Struble, W., Roering, J.J., Wartman, J., 2020. Rainfall triggers more deep-seated landslides than Cascadia earthquakes in the Oregon Coast Range, USA. Science Advances 6, eaba6790. https://doi.org/10.1126/sciadv.aba6790
-  * Herzig, E.N., Duvall, A.R., Booth, A.R., Stone, I., Wirth, E., LaHusen, S.R., Wartman, J., Grant, A.; Evidence of Seattle Fault Earthquakes from Patterns in Deep‐Seated Landslides. Bulletin of the Seismological Society of America 2023; https://doi.org/10.1785/0120230079
+| Code Files  | Descriptions |
+| ------------- | ------------- |
+| pyMexicanHat.ipynb  | The base version.  |
+| pyMexicanHat_chunk.ipynb  | This version is developed to mitigate the RAM issues when handling large GeoTIFF files.  |
+| pyMexicanHat_batch.ipynb  | This version is developed for batch-processing a large amount of raster files in the same directory. Chunk-processing optimization is included to mitigate the RAM issues when handling large GeoTIFF files.  |
 
-In November, 2023, this MATLAB code was optimized by Dr. Larry Syu-Heng Lai (Univeristy of Washington) and further translated into the python version here. Citations:
- * Lai, L. S.-H. (2024). pyTopoComplexity (v0.5). Zenodo. https://doi.org/10.5281/zenodo.11238556
+The example rasters include the LiDAR Digital Elevation Model (DEM) files that cover the area and nearby region of a deep-seated landslide occurred in 2014 at Oso area of the North Fork Stillaguamish River (NFSR) valley, Washington State, USA. The example DEMs have various grid size, coordinate reference system (CRS), and unit of grid value (elevation, Z).
+
+The example DEM files include:
+
+| LiDAR DEM Files  | CRS | XY Grid Size | Z Unit | Descriptions |
+| ------------- | ------------- | ------------- | ------------- | ------------- |
+| Ososlid2014_f_3ftgrid.tif | NAD83/Washington South (ftUS) (EPSG: 2286) | 3.0 [US survey feet] | US survey feet | 2014 Oso Landslide |
+
+The current codes have the capability to automoatically detect the grid spacing and the unit of XYZ directions (must be in feet or meters) of the input DEM raster, which can compute the 2D-CWT result with an proper wavelet scale factor at an designated Mexican Hat wavelet. When testing the codes with the example DEM files, users should decompress the Example DEM.zip and place the whole unarchived subfolder in the same directory as the Jupyter Notebook files.
+
+# Citation:
+ * Lai, L. S.-H. (2024). pyTopoComplexity. Zenodo. https://doi.org/10.5281/zenodo.10065283
