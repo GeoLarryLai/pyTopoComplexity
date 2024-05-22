@@ -1,5 +1,6 @@
 # pyTopoComlexity (v0.5.1)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.11239338.svg)](https://doi.org/10.5281/zenodo.11239338)
+
 Lai, L. S.-H. (2024). pyTopoComlexity. Zenodo. https://doi.org/10.5281/zenodo.11239338
 
 ![pyTopoComplexity cover](pyTopoComplexity.png)
