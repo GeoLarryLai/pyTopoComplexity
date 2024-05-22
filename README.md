@@ -37,7 +37,7 @@ To use this code, please cite the Zenodo repository that hosts the latest releas
 * Lai, L. S.-H. (2024). pyTopoComplexity. Zenodo. https://doi.org/10.5281/zenodo.10065283
 * Github repository: https://github.com/LarrySHLai/pyTopoComlexity
 
----
+
 # References:
 
 *Journal Articles:*
@@ -51,7 +51,7 @@ To use this code, please cite the Zenodo repository that hosts the latest releas
 
 * Washington Geological Survey, 2023. 'Stillaguamish 2014' and 'Snohoco Hazel 2006' projects [lidar data]: originally contracted by Washington State Department of Transportation (WSDOT). [accessed April 4, 2024, at http://lidarportal.dnr.wa.gov]
 
----
+
 # Required Python packages:
 * os
 * glob
