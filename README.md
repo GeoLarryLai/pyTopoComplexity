@@ -30,7 +30,7 @@ The example DEM files include:
 
 The current codes have the capability to automoatically detect the grid spacing and the unit of XYZ directions (must be in feet or meters) of the input DEM raster, which can compute the 2D-CWT result with an proper wavelet scale factor at an designated Mexican Hat wavelet. When testing the codes with the example DEM files, users should place the whole ***Example DEM*** subfolder in the same directory as the Jupyter Notebook files.
 
-The original MATLAB code was developed by Dr. Adam M. Booth (Portland State Univeristy) and used in Booth et al. (2009) and Both et al. (2017). This MATLAB code was later revised and adapted by Dr. Sean R. LaHusen (Univeristy of Washington) and Erich N. Herzig (Univeristy of Washington) in their research (e.g., LaHusen et al., 2020; Herzig et al., 2023).
+The original MATLAB code was developed by Dr. Adam M. Booth (Portland State Univeristy) and used in Booth et al. (2009) and Booth et al. (2017). This MATLAB code was later revised and adapted by Dr. Sean R. LaHusen (Univeristy of Washington) and Erich N. Herzig (Univeristy of Washington) in their research (e.g., LaHusen et al., 2020; Herzig et al., 2023).
 
 Since November 2023, Dr. Larry Syu-Heng Lai (Univeristy of Washington) translated the code into a open-source Python version with continous optimizations.
 
