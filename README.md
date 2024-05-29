@@ -5,7 +5,7 @@ Lai, L. S.-H. (2024). pyTopoComlexity. Zenodo. https://doi.org/10.5281/zenodo.11
 
 ![pyTopoComplexity cover](pyTopoComplexity.png)
 
-This repository contains a set of codes for measuring the topographic complexity (i.e., surface roughness) of a land surface using two-dimensional continuous wavelet transform (2D-CWT) with a Mexican Hat wevalet. Such method quanitfy the wavelet-based curvature of the surface, which has been proposed to be a effective geomorphic metric for relative age dating of deep-seated landslide deposits, allowing a quick assessment of landslide freqency and spatiotemporal pattern over a large scale area.
+This repository contains a set of codes for measuring the topographic complexity (i.e., surface roughness) of a land surface using two-dimensional continuous wavelet transform (2D-CWT) with a Mexican Hat wevalet. Such method quanitfy the wavelet-based curvature of the surface, which has been proposed to be a effective geomorphic metric for relative age dating of deep-seated landslide deposits, allowing a quick assessment of landslide freqency and spatiotemporal pattern over a large area.
 
 There are three Jupyter Notebook files:
 
