@@ -27,7 +27,7 @@ The current codes have the capability to automoatically detect the grid spacing 
 
 ## Landform Smoothing via Nonlinear Hillslope Diffusion Modeling
 
-The following Jupyter Notebook demonstrates the use of [Landlab](https://landlab.readthedocs.io/en/latest/index.html), a open-source Python framework for simulating landscape evolution, to model topographic smoothing driven by near-surface soil disturbance and downslope soil creep processes. Specifically, this notebook employs the [TaylorNonLinearDiffuser](https://landlab.readthedocs.io/en/latest/reference/components/taylor_nonlinear_hillslope_flux.html) component from LandLab, described as one element in the **terrainBento** package (Barnhart et al., 2019), to simulate topographic smoothing over time through non-linear hillslope diffusion processes (Roering et al., 1999).
+The following Jupyter Notebook demonstrates the use of [Landlab](https://landlab.readthedocs.io/en/latest/index.html), a open-source Python framework for simulating landscape evolution, to model topographic smoothing driven by near-surface soil disturbance and downslope soil creep processes. Specifically, this notebook employs the `TaylorNonLinearDiffuser` component from LandLab, described as one element in the **terrainBento** package (Barnhart et al., 2019), to simulate topographic smoothing over time through non-linear hillslope diffusion processes (Roering et al., 1999).
 
 | Code Files  | Descriptions |
 | ------------- | ------------- |
