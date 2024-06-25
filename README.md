@@ -1,4 +1,5 @@
 # pyTopoComlexity (v0.5.4)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.11239338.svg)](https://doi.org/10.5281/zenodo.11239338)
 ![pyTopoComplexity cover](pyTopoComplexity.png)
 
 This repository contains a set of codes for
@@ -9,7 +10,6 @@ This repository contains a set of codes for
 
 To use this code, please cite the Zenodo repository that hosts the latest release of this code: 
 * Lai, L. S.-H. (2024). pyTopoComplexity. Zenodo. https://doi.org/10.5281/zenodo.11239338
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.11239338.svg)](https://doi.org/10.5281/zenodo.11239338)
 
 ## 2D-CWT Measurement of Topopraphic Complexity
 
