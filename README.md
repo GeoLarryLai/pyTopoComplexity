@@ -86,3 +86,4 @@ When testing the codes with the example DEM files, users should place the whole 
 * osgeo
 
 ## License
+segmenteverygrain is licensed under the [Apache License 2.0](LICENSE.txt).
