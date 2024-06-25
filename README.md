@@ -8,9 +8,8 @@ This repository contains a set of codes for
 ## Citation
 
 To use this code, please cite the Zenodo repository that hosts the latest release of this code: 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.11239338.svg)](https://doi.org/10.5281/zenodo.11239338)
 * Lai, L. S.-H. (2024). pyTopoComplexity. Zenodo. https://doi.org/10.5281/zenodo.11239338
-* Github repository: https://github.com/LarrySHLai/pyTopoComlexity
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.11239338.svg)](https://doi.org/10.5281/zenodo.11239338)
 
 ## 2D-CWT Measurement of Topopraphic Complexity
 
