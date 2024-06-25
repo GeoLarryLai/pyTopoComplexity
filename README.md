@@ -1,9 +1,9 @@
 # pyTopoComlexity (v0.5.4)
 ![pyTopoComplexity cover](pyTopoComplexity.png)
 
-This repository contains a set of codes for 
-(1) measuring the topographic complexity (i.e., surface roughness) of a land surface, and 
-(2) simulating topographic smoothing by non-linear hillslope diffusion processes.
+This repository contains a set of codes for
+1. measuring the topographic complexity (i.e., surface roughness) of a land surface, and
+2. simulating topographic smoothing by non-linear hillslope diffusion processes.
 
 ## Citation of This Tool
 
