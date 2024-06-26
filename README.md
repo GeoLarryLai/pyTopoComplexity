@@ -86,6 +86,7 @@ When testing the codes with the example DEM files, users should place the whole 
 <hr>
 
 ## Requirements
+Python 3.10+
 * os
 * glob
 * numpy
@@ -93,7 +94,7 @@ When testing the codes with the example DEM files, users should place the whole 
 * rasterio
 * dask
 * matplotlib
-* ipywidgets
+* ipywidgets (the 'widgetsnbextension' package in the Jupyter Notebook needs to be enabled. See instruction [here](https://ipywidgets.readthedocs.io/en/7.x/user_install.html).)
 * landlab ([User Guide](https://landlab.readthedocs.io/en/latest/index.html))
   * Used components: TaylorNonLinearDiffuser, esri_ascii, imshowhs
 * osgeo
