@@ -64,7 +64,7 @@ The example DEM files include:
 | Osoarea2014_f_6ftgrid.tif | NAD83/Washington South (ftUS) (EPSG: 2286) | 6.0 [US survey feet] | US survey feet | 2014 Oso Landslide & nearby NFSR valley |
 | Osoarea2014_m_6ftgrid.tif | NAD83/Washington South (EPSG: 32149) | ~1.8288 [meters] | meters | 2014 Oso Landslide & nearby NFSR valley |
 
-When testing the codes with the example DEM files, users should place the whole ***Example DEM*** subfolder in the same directory as the Jupyter Notebook files.
+When testing the codes with the example DEM files, users should place the whole ***ExampleDEM*** subfolder in the same directory as the Jupyter Notebook files.
 
 ## References
 
