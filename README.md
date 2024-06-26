@@ -41,7 +41,7 @@ The following Jupyter Notebook demonstrates the use of [Landlab](https://landlab
 
 The current codes have the capability to automoatically detect the grid spacing and the unit of XYZ directions (must be in feet or meters) of the input DEM raster, which can convert the unit for diffusion coefficient (K) accordingly. A goal of this work is to reproduce the simulation methods and results in Booth et al. (2017).
 
-**WARNING**: There is a known/unresolved stability issue when running `TaylorNonLinearDiffuser` component with a DEM with reprojected coordinate reference system (CRS) through GIS softwares. When using the example DEM, users may only use the original DEM with CRS: NAD83/Washington South (ftUS) (EPSG: 2286) and Z unit in US survey feet (e.g., the DEM files named with *"_f_3ftgrid"* or *"_f_6ftgrid"*).
+**WARNING**: There is a known/unresolved stability issue when running `TaylorNonLinearDiffuser` component with a DEM with reprojected coordinate reference system (CRS) through GIS softwares. When using the example DEM, users may only use the pre-reprojected DEM with CRS: NAD83/Washington South (ftUS) (EPSG: 2286) and Z unit in US survey feet (e.g., the DEM files named with *"_f_3ftgrid"* or *"_f_6ftgrid"*).
 
 <p align="center">
 <img src="Cover/NonlinearDiff_demo.gif" width="50%" height="50%" align="center"/>
