@@ -15,6 +15,8 @@ To use this code, please cite the Zenodo repository that hosts the latest releas
 
 There are three Jupyter Notebook files (see table below) using two-dimensional continuous wavelet transform (2D-CWT) with a Mexican Hat wevalet to measure the topographic complexity (i.e., surface roughness) of a land surface from a Digital Elevation Model (DEM). Such method quanitfy the wavelet-based curvature of the surface, which has been proposed to be a effective geomorphic metric for relative age dating of deep-seated landslide deposits, allowing a quick assessment of landslide freqency and spatiotemporal pattern over a large area.
 
+![](pyMexicanHat_demo.gif)
+
 | Code Files  | Descriptions |
 | ------------- | ------------- |
 | pyMexicanHat.ipynb  | The base version.  |
