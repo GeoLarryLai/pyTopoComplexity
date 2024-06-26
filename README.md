@@ -13,8 +13,6 @@ To use this code, please cite the Zenodo repository that hosts the latest releas
 
 ## 2D-CWT Measurement of Topopraphic Complexity
 
-<img src="pyMexicanHat_demo.gif" width="40%" height="40%"/>
-
 There are three Jupyter Notebook files (see table below) using two-dimensional continuous wavelet transform (2D-CWT) with a Mexican Hat wevalet to measure the topographic complexity (i.e., surface roughness) of a land surface from a Digital Elevation Model (DEM). Such method quanitfy the wavelet-based curvature of the surface, which has been proposed to be a effective geomorphic metric for relative age dating of deep-seated landslide deposits, allowing a quick assessment of landslide freqency and spatiotemporal pattern over a large area.
 
 | Code Files  | Descriptions |
@@ -27,9 +25,11 @@ The original MATLAB code was developed by Dr. Adam M. Booth (Portland State Univ
 
 The current codes have the capability to automoatically detect the grid spacing and the unit of XYZ directions (must be in feet or meters) of the input DEM raster, which can compute the 2D-CWT result with an proper wavelet scale factor at an designated Mexican Hat wavelet.
 
-## Landform Smoothing via Nonlinear Hillslope Diffusion Modeling
+<img src="pyMexicanHat_demo.gif" width="40%" height="40%"/>
 
-<img src="NonlinearDiff_demo.gif" width="40%" height="40%"/>
+<hr>
+
+## Landform Smoothing via Nonlinear Hillslope Diffusion Modeling
 
 The following Jupyter Notebook demonstrates the use of [Landlab](https://landlab.readthedocs.io/en/latest/index.html), a open-source Python framework for simulating landscape evolution, to model topographic smoothing driven by near-surface soil disturbance and downslope soil creep processes. Specifically, this notebook employs the `TaylorNonLinearDiffuser` component from LandLab, described as one element in the **terrainBento** package (Barnhart et al., 2019), to simulate topographic smoothing over time through non-linear hillslope diffusion processes (Roering et al., 1999).
 
@@ -39,7 +39,11 @@ The following Jupyter Notebook demonstrates the use of [Landlab](https://landlab
 
 The current codes have the capability to automoatically detect the grid spacing and the unit of XYZ directions (must be in feet or meters) of the input DEM raster, which can convert the unit for diffusion coefficient (K) accordingly. 
 
-**WARNING**: There is a known/unresolved stability issue when running `TaylorNonLinearDiffuser` component with a DEM with reprojected coordinate reference system (CRS) through GIS softwares. When using the example DEM, users may only use the original DEM with CRS: NAD83/Washington South (ftUS) (EPSG: 2286) and Z unit in US survey feet (e.g., the DEM files named with *"_f_3ftgrid"* or *"_f_6ftgrid"*)..
+**WARNING**: There is a known/unresolved stability issue when running `TaylorNonLinearDiffuser` component with a DEM with reprojected coordinate reference system (CRS) through GIS softwares. When using the example DEM, users may only use the original DEM with CRS: NAD83/Washington South (ftUS) (EPSG: 2286) and Z unit in US survey feet (e.g., the DEM files named with *"_f_3ftgrid"* or *"_f_6ftgrid"*).
+
+<img src="NonlinearDiff_demo.gif" width="40%" height="40%"/>
+
+<hr>
 
 ## Example DEM Raster Files
 
