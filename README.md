@@ -25,7 +25,7 @@ The original MATLAB code was developed by Dr. Adam M. Booth (Portland State Univ
 
 The current codes have the capability to automoatically detect the grid spacing and the unit of XYZ directions (must be in feet or meters) of the input DEM raster, which can compute the 2D-CWT result with an proper wavelet scale factor at an designated Mexican Hat wavelet.
 
-<img src="pyMexicanHat_demo.gif" width="40%" height="40%"/>
+<img src="pyMexicanHat_demo.gif" width="50%" height="50%" align="left"/>
 
 <hr>
 
@@ -41,7 +41,7 @@ The current codes have the capability to automoatically detect the grid spacing 
 
 **WARNING**: There is a known/unresolved stability issue when running `TaylorNonLinearDiffuser` component with a DEM with reprojected coordinate reference system (CRS) through GIS softwares. When using the example DEM, users may only use the original DEM with CRS: NAD83/Washington South (ftUS) (EPSG: 2286) and Z unit in US survey feet (e.g., the DEM files named with *"_f_3ftgrid"* or *"_f_6ftgrid"*).
 
-<img src="NonlinearDiff_demo.gif" width="40%" height="40%"/>
+<img src="NonlinearDiff_demo.gif" width="50%" height="50%" align="left"/>
 
 <hr>
 
@@ -79,6 +79,7 @@ When testing the codes with the example DEM files, users should place the whole 
 
 * Washington Geological Survey, 2023. 'Stillaguamish 2014' and 'Snohoco Hazel 2006' projects [lidar data]: originally contracted by Washington State Department of Transportation (WSDOT). [accessed April 4, 2024, at http://lidarportal.dnr.wa.gov]
 
+<hr>
 
 ## Requirements
 * os
