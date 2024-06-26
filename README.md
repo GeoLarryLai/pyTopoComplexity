@@ -1,6 +1,6 @@
 # pyTopoComlexity (v0.5.4)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.11239338.svg)](https://doi.org/10.5281/zenodo.11239338)
-![pyTopoComplexity cover](pyTopoComplexity.png)
+![Cover/pyTopoComplexity cover](pyTopoComplexity.png)
 
 This repository contains a set of codes for
 1. measuring the topographic complexity (i.e., surface roughness) of a land surface, and
