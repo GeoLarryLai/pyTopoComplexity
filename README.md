@@ -100,4 +100,4 @@ Python 3.10+
 * osgeo
 
 ## License
-segmenteverygrain is licensed under the [Apache License 2.0](LICENSE).
+pyTopoComlexity is licensed under the [Apache License 2.0](LICENSE).
