@@ -1,6 +1,6 @@
 # pyTopoComlexity (v0.6.0)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.11239338.svg)](https://doi.org/10.5281/zenodo.11239338)
-<p align="center">
+<p align="left">
  <img src="Cover/pyTopoComplexity_logo.png" width="30%" height="30%""/>
 </p>
 
