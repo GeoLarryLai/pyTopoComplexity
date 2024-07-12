@@ -8,6 +8,8 @@ This repository contains a set of codes for
 1. measuring the topographic complexity (i.e., surface roughness) of a land surface, and
 2. simulating topographic smoothing by non-linear hillslope diffusion processes.
 
+<span style="color: pink"> This tool is still under developement. Use it with caution. </span>
+
 ## Citation
 
 This is still a pre-release. To use this code, please cite the following Zenodo publication and DOI:
