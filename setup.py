@@ -7,7 +7,7 @@ setup(
     name="pytopocomplexity",
     version="0.7.0",
     author="Larry Syu-Heng Lai",
-    author_email="your.email@example.com",
+    author_email="larrysyuhenglai@gmail.com",
     description="A package for topographic complexity analysis",
     long_description=long_description,
     long_description_content_type="text/markdown",
