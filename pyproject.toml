@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pytopocomplexity"
+version = "0.7.0"
+description = "A package for topographic complexity analysis"
+readme = "README.md"
+authors = [{name = "Larry Syu-Heng Lai", email = "your.email@example.com"}]
+license = {file = "LICENSE"}
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "numpy",
+    "rasterio",
+    "matplotlib",
+    "dask",
+    "numba",
+    "scipy",
+    "tqdm",
+]
+requires-python = ">=3.10"
+
+[project.urls]
+Homepage = "https://github.com/GeoLarryLai/pyTopoComplexity"
+
+[tool.setuptools]
+packages = ["pytopocomplexity"]
+exclude = ["image", "image.*", "examples", "examples.*"]

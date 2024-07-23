@@ -1,0 +1,25 @@
+name: pytopocomplexity
+
+channels:
+  - conda-forge
+  - defaults
+
+dependencies:
+  - python>=3.10
+  - numpy
+  - rasterio
+  - matplotlib
+  - dask
+  - numba
+  - scipy
+  - tqdm
+  - ipywidgets
+  - jupyter
+  - pandas
+  - os
+  - glob
+  - osgeo
+  - pip
+  - pip: # the following packages will be installed from PyPI
+    - pytopocomplexity  
+    - landlab
