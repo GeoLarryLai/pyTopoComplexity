@@ -20,6 +20,7 @@ setup(
     ],
     python_requires=">=3.10",
     install_requires=[
+        "os",
         "numpy",
         "rasterio",
         "matplotlib",

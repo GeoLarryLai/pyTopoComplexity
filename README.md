@@ -19,7 +19,7 @@ There is also an additional Jupyter Notebook, `nonlineardiff_landlab.ipynb`, whi
 > [!CAUTION]
 > This package is under developement and has not officially released. Use it with caution.
 
-## Installation 
+## Installation
 
 ```
 pip install pytopocomplexity
@@ -70,10 +70,11 @@ See `pyfracd_example.ipynb` for detailed explanations and usage instructions.
 from pytopocomplexity import pyrugosity
 ```
 
-The module `pyrugosity` measure rugosity index of the land surface, which is widely used to assess landscape structural complexity. The development of this module is influenced by another open-source Python tool [`Rugosity_Calculator`](https://github.com/drk944/Rugosity_Calculator) created by [drk944](https://github.com/drk944).
+The module `pyrugosity` measure rugosity index of the land surface, which is widely used to assess landscape structural complexity. The development of this module is influenced by another open-source tool [`Rugosity_Calculator`](https://github.com/drk944/Rugosity_Calculator) created by [drk944](https://github.com/drk944).
 
 The rugosity index is determined as the ratio of the real surface area to the geometric surface area, highlighting smaller-scale variations in surface height. This module adapt triangulated irregular networks method ([Jenness, 2004](https://doi.org/10.2193/0091-7648(2004)032[0829:CLSAFD]2.0.CO;2)), which approximate the surface area of with within each 9 cell as the sum of 8 truncated-triangle area connecting each cell centerpoint with the centerpoints of the 8 surrounding cells. The geometric surface area is assumed to be the planimetric area of the center cell. By definition, the rugosity index is as a minimum value of one (completely flate surface). Typical valuesrange from one to three although larger values are possible in very steep terrains. Such method has been applied in classifying seafloor types by marine geologists and geomorphologist, small-scale hydrodynamics by oceanographers, and studying available habitats in the landscape by ecologists and coral biologists.
 
+See `pyrugosity_example.ipynb` for detailed explanations and usage instructions.
 See `pyrugosity_example.ipynb` for detailed explanations and usage instructions.
 
 <p align="center">
@@ -115,6 +116,7 @@ The example DEM raster files have various grid size, coordinate reference system
 ## Requirements
 For `pytopocomplexity` package
 * Python >= 3.10
+* `os`
 * `numpy`
 * `scipy`
 * `rasterio`
@@ -124,7 +126,6 @@ For `pytopocomplexity` package
 * `numba`
 
 Additional packages for Jupyter Notebook examples:
-* `os`
 * `glob`
 * `pandas`
 * `jupyter`
