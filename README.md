@@ -21,9 +21,6 @@ There is also an additional Jupyter Notebook, `nonlineardiff_landlab.ipynb`, whi
 
 ## Installation 
 
-> [!CAUTION]
-> Not ready on the PyPI server. Please use `pytopocomplexity.py` in the `~/example/` for temporary usage. In future, users will be able to install the package through:
-
 ```
 pip install pytopocomplexity
 ```
