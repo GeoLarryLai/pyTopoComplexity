@@ -75,7 +75,6 @@ The module `pyrugosity` measure rugosity index of the land surface, which is wid
 The rugosity index is determined as the ratio of the real surface area to the geometric surface area, highlighting smaller-scale variations in surface height. This module adapt triangulated irregular networks method ([Jenness, 2004](https://doi.org/10.2193/0091-7648(2004)032[0829:CLSAFD]2.0.CO;2)), which approximate the surface area of with within each 9 cell as the sum of 8 truncated-triangle area connecting each cell centerpoint with the centerpoints of the 8 surrounding cells. The geometric surface area is assumed to be the planimetric area of the center cell. By definition, the rugosity index is as a minimum value of one (completely flate surface). Typical valuesrange from one to three although larger values are possible in very steep terrains. Such method has been applied in classifying seafloor types by marine geologists and geomorphologist, small-scale hydrodynamics by oceanographers, and studying available habitats in the landscape by ecologists and coral biologists.
 
 See `pyrugosity_example.ipynb` for detailed explanations and usage instructions.
-See `pyrugosity_example.ipynb` for detailed explanations and usage instructions.
 
 <p align="center">
  <img src="image/pyrugosity.png" width="100%" height="100%""/>
