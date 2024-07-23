@@ -20,4 +20,5 @@ dependencies:
   - pip: # the following packages will be installed from PyPI
     - pytopocomplexity  
     - landlab
+    - gdal
     - glob2
