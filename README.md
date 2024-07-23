@@ -48,7 +48,7 @@ The method and early version of the code was developed by Dr. Adam M. Booth (Por
 See `pycwtmexhat_example.ipynb` for detailed explanations and usage instructions.
 
 <p align="center">
- <img src="image/pycwtmexhat.png" width="95%" height="95%""/>
+ <img src="image/pycwtmexhat.png" width="100%" height="100%""/>
 </p>
 
 ### 2. `pyfracd`: Fractal Dimentsion Analysis
@@ -64,7 +64,7 @@ The local fractal dimension is determined by intersecting the surface within a m
 See `pyfracd_example.ipynb` for detailed explanations and usage instructions.
 
 <p align="center">
- <img src="image/pyfracd.png" width="95%" height="95%""/>
+ <img src="image/pyfracd.png" width="100%" height="100%""/>
 </p>
 
 ### 3. `pyrugosity`: Rugosity Index
@@ -80,7 +80,7 @@ Such method has been applied in classifying seafloor types by marine geologists 
 See `pyrugosity_example.ipynb` for detailed explanations and usage instructions.
 
 <p align="center">
- <img src="image/pyrugosity.png" width="95%" height="95%""/>
+ <img src="image/pyrugosity.png" width="100%" height="100%""/>
 </p>
 
 ## Tool for Simulating Landscape Smoothing via Nonlinear Hillslope Diffusion Processes
