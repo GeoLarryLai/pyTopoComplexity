@@ -111,7 +111,6 @@ The example DEM raster files have various grid size, coordinate reference system
 | Ososlid2014_f_6ftgrid.tif | NAD83/Washington South (ftUS) (EPSG: 2286) | 6.0 [US survey feet] | US survey feet | 2014 Oso Landslide |
 | Ososlid2014_m_6ftgrid.tif | NAD83/Washington South (EPSG: 32149) | ~1.8288 [meters] | meters | 2014 Oso Landslide |
 | Osoarea2014_f_6ftgrid.tif | NAD83/Washington South (ftUS) (EPSG: 2286) | 6.0 [US survey feet] | US survey feet | 2014 Oso Landslide & nearby NFSR valley |
-| Osoarea2014_m_6ftgrid.tif | NAD83/Washington South (EPSG: 32149) | ~1.8288 [meters] | meters | 2014 Oso Landslide & nearby NFSR valley |
 
 > [!NOTE]
 > When testing the code with the example DEM files, users should place the entire `~/ExampleDEM/` subfolder in the same directory as the Jupyter Notebook files. Both the `pytopocomplexity` package and the `nonlineardiff_landlab.ipynb` land-smoothing modeling tool have the capability to automatically detect the grid spacing and the units of the XYZ directions (must be in feet or meters) of the input DEM raster and compute the results in SI units.
