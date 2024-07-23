@@ -83,7 +83,7 @@ See `pyrugosity_example.ipynb` for detailed explanations and usage instructions.
  <img src="image/pyrugosity.png" width="100%" height="100%""/>
 </p>
 
-## Tool for Simulating Landscape Smoothing via Nonlinear Hillslope Diffusion Processes
+## Landscape Smoothing Simulation via Nonlinear Hillslope Diffusion Modeling
 
 In the `~/example/` folder, the Jupyter Notebook file `nonlineardiff_landlab.ipynb` demonstrates the use of [`landlab`](https://landlab.readthedocs.io/en/latest/index.html), an open-source Python framework for simulating landscape evolution, to model topographic smoothing driven by near-surface soil disturbance and downslope soil creep processes. Specifically, this notebook employs the [`TaylorNonLinearDiffuser`](https://landlab.readthedocs.io/en/latest/reference/components/taylor_nonlinear_hillslope_flux.html) component from LandLab, described as one element in the [`terrainBento`](https://github.com/TerrainBento/terrainbento) package (developed by [Barnhart et al. (2019)](https://gmd.copernicus.org/articles/12/1267/2019/), to simulate topographic smoothing over time through non-linear hillslope diffusion processes ([Roering et al., 1999](https://doi.org/10.1029/1998WR900090)).
 
