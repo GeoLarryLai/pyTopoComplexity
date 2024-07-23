@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="pytopocomplexity",
-    version="0.7.1",
+    version="0.7.3",
     author="Larry Syu-Heng Lai",
     author_email="larrysyuhenglai@gmail.com",
     description="A package for topographic complexity analysis",
@@ -20,7 +20,6 @@ setup(
     ],
     python_requires=">=3.10",
     install_requires=[
-        "os",
         "numpy",
         "rasterio",
         "matplotlib",

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pytopocomplexity"
-version = "0.7.1"
+version = "0.7.3"
 description = "A package for topographic complexity analysis"
 readme = "README.md"
 authors = [{name = "Larry Syu-Heng Lai", email = "larrysyuhenglai@gmail.com"}]
@@ -15,7 +15,6 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 dependencies = [
-    "os",
     "numpy",
     "rasterio",
     "matplotlib",

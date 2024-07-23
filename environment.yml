@@ -16,10 +16,8 @@ dependencies:
   - ipywidgets
   - jupyter
   - pandas
-  - os
-  - glob
-  - osgeo
   - pip
   - pip: # the following packages will be installed from PyPI
     - pytopocomplexity  
     - landlab
+    - glob2
