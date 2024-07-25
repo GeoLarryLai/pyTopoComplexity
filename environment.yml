@@ -1,24 +1,25 @@
 name: pytopocomplexity
-
 channels:
   - conda-forge
   - defaults
-
 dependencies:
   - python>=3.10
   - numpy
-  - rasterio
-  - matplotlib
-  - dask
-  - numba
   - scipy
+  - rasterio
+  - dask
+  - matplotlib
   - tqdm
-  - ipywidgets
+  - numba
   - jupyter
-  - pandas
+  - jupyterlab
+  - notebook
+  - ipywidgets
+  - landlab
+  - gdal
+  - geopandas
+  - scikit-image
+  - statsmodels
   - pip
-  - pip: # the following packages will be installed from PyPI
-    - pytopocomplexity  
-    - landlab
-    - gdal
-    - glob2
+  - pip:
+    - pytopocomplexity

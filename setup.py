@@ -1,11 +1,11 @@
 from setuptools import setup, find_packages
 
-with open("README.md", "r", encoding="utf-8") as fh:
+with open("README-pypi.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 setup(
     name="pytopocomplexity",
-    version="0.7.3",
+    version="0.7.4",
     author="Larry Syu-Heng Lai",
     author_email="larrysyuhenglai@gmail.com",
     description="A package for topographic complexity analysis",
@@ -20,12 +20,15 @@ setup(
     ],
     python_requires=">=3.10",
     install_requires=[
-        "numpy",
-        "rasterio",
-        "matplotlib",
-        "dask",
-        "numba",
-        "scipy",
-        "tqdm",
+        "numpy>=1.20",
+        "scipy>=1.6",
+        "rasterio>=1.2",
+        "dask>=2021.0",
+        "matplotlib>=3.3",
+        "tqdm>=4.0",
+        "numba>=0.53",
+        "gdal>=3.0",
+        "statsmodels>=0.12",
     ],
+    license="Apache License 2.0",
 )

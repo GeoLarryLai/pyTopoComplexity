@@ -1,12 +1,12 @@
 [build-system]
-requires = ["setuptools>=42", "wheel"]
+requires = ["setuptools>=45", "wheel", "setuptools_scm[toml]>=6.2"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "pytopocomplexity"
-version = "0.7.3"
+dynamic = ["version"]
 description = "A package for topographic complexity analysis"
-readme = "README.md"
+readme = "README-pypi.md"
 authors = [{name = "Larry Syu-Heng Lai", email = "larrysyuhenglai@gmail.com"}]
 license = {file = "LICENSE"}
 classifiers = [
@@ -14,19 +14,25 @@ classifiers = [
     "License :: OSI Approved :: Apache Software License",
     "Operating System :: OS Independent",
 ]
-dependencies = [
-    "numpy",
-    "rasterio",
-    "matplotlib",
-    "dask",
-    "numba",
-    "scipy",
-    "tqdm",
-]
 requires-python = ">=3.10"
+dependencies = [
+    "numpy>=1.20",
+    "scipy>=1.6",
+    "rasterio>=1.2",
+    "dask>=2021.0",
+    "matplotlib>=3.3",
+    "tqdm>=4.0",
+    "numba>=0.53",
+    "gdal>=3.0",
+    "statsmodels>=0.12",
+]
 
 [project.urls]
 Homepage = "https://github.com/GeoLarryLai/pyTopoComplexity"
+Repository = "https://github.com/GeoLarryLai/pyTopoComplexity.git"
 
 [tool.setuptools]
 packages = ["pytopocomplexity"]
+
+[tool.setuptools_scm]
+write_to = "pytopocomplexity/_version.py"

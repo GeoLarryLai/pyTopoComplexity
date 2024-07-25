@@ -1,6 +1,7 @@
 import os
 import numpy as np
 import rasterio
+import dask
 import dask.array as da
 from dask.diagnostics import ProgressBar
 from scipy.signal import fftconvolve, convolve2d
@@ -98,8 +99,21 @@ class pycwtmexhat:
         else:
             raise ValueError("The unit of elevation 'z' must be in feet or meters.")
         
-        C2 = self.conv2_mexh(Z, s, Delta)
-        result = np.abs(C2)
+        # Create a dask array from Z
+        dask_Z = da.from_array(Z, chunks=Z.shape)
+        
+        # Create a delayed version of conv2_mexh
+        delayed_conv2_mexh = dask.delayed(self.conv2_mexh)
+        
+        # Apply the convolution
+        C2 = delayed_conv2_mexh(dask_Z, s, Delta)
+        
+        # Compute the absolute value
+        result = da.abs(C2)
+        
+        # Compute the result with a progress bar
+        with ProgressBar():
+            result = result.compute()
 
         cropedge = np.ceil(s * 4)
         fringeval = int(cropedge)

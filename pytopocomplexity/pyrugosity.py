@@ -8,7 +8,7 @@ from scipy.ndimage import generic_filter
 from tqdm.auto import tqdm
 
 class pyrugosity:
-    def __init__(self, chunk_processing=False, chunksize=(512, 512)):
+    def __init__(self, chunk_processing=True, chunksize=(512, 512)):
         self.ft2mUS = 1200/3937  # US survey foot to meter conversion factor
         self.ft2mInt = 0.3048    # International foot to meter conversion factor
         self.chunk_processing = chunk_processing
