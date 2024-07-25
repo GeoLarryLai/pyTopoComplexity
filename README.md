@@ -122,6 +122,8 @@ For `pytopocomplexity` package
 * `matplotlib`
 * `tqdm`
 * `numba`
+* `gdal`
+* `statsmodels` 
 
 Additional packages for Jupyter Notebook examples:
 * `glob`
