@@ -90,9 +90,6 @@ Users need to define the diffusion coefficient (K) for the simulation. The code 
 <img src="image/NonlinearDiff_demo.gif" width="65%" height="65%" align="center"/>
 </p>
 
-> [!WARNING]
-> There is a known/unresolved stability issue when running `TaylorNonLinearDiffuser` component with a DEM with reprojected coordinate reference system (CRS) through GIS softwares. When using the example DEM, users may only use the pre-reprojected DEM with CRS: NAD83/Washington South (ftUS) (EPSG: 2286) and Z unit in US survey feet (e.g., the DEM files named with *"_f_3ftgrid"* or *"_f_6ftgrid"*).
-
 ## Example DEM Raster Files
 
 Along with he example Jupyter Notebook files, this repository include example LiDAR DEM files under `~/example/ExampleDEM/` that cover the area and nearby region of a deep-seated landslide occurred in 2014 at Oso area of the North Fork Stillaguamish River (NFSR) valley, Washington State, USA. The souce LiDAR DEM files were compiled from 'Stillaguamish 2014' and 'Snohoco Hazel 2006' projects that was originally contracted by Washington State Department of Transportation (WSDOT), downloaded from the [Washington Lidar Portal](http://lidarportal.dnr.wa.gov) on April 4, 2024.
