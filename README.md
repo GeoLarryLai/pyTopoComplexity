@@ -1,4 +1,4 @@
-# pyTopoComlexity (v0.7.4)
+# pyTopoComlexity (v0.7.5)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.11239338.svg)](https://doi.org/10.5281/zenodo.11239338)
 <p align="left">
  <img src="image/pyTopoComplexity_logo.png" width="30%" height="30%""/>
