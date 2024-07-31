@@ -27,7 +27,6 @@ setup(
         "matplotlib>=3.3",
         "tqdm>=4.0",
         "numba>=0.53",
-        "gdal>=3.0",
         "statsmodels>=0.12",
     ],
     license="Apache License 2.0",
