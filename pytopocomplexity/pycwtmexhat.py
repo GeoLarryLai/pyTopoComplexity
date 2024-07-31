@@ -36,8 +36,6 @@ class pycwtmexhat:
         The input elevation data.
     result : numpy.ndarray
         The result of the 2D-CWT analysis.
-    meta : dict
-        Metadata of the input raster.
 
     Methods:
     --------
@@ -51,7 +49,7 @@ class pycwtmexhat:
     Example:
     --------
     >>> cwt = pycwtmexhat(Lambda=15)
-    >>> Z, result, meta = cwt.analyze('input_dem.tif')
+    >>> Z, result = cwt.analyze('input_dem.tif')
     >>> cwt.export_result('output_cwt.tif')
     >>> cwt.plot_result()
 
@@ -121,16 +119,16 @@ class pycwtmexhat:
             Scale parameter for the wavelet.
         """
         with rasterio.open(input_dir) as src:
-            transform = src.transform
-            crs = src.crs
+            gridsize = src.transform
+            Zunit = src.crs.linear_units
 
-        if any(unit in crs.linear_units.lower() for unit in ["metre", "meter"]):
-            Delta = np.mean([transform[0], -transform[4]])
-        elif any(unit in crs.linear_units.lower() for unit in ["foot", "feet", "ft"]):
-            if any(unit in crs.linear_units.lower() for unit in ["us", "united states"]):
-                Delta = np.mean([transform[0] * self.ft2mUS, -transform[4] * self.ft2mUS])
+        if any(unit in Zunit.lower() for unit in ["metre", "meter"]):
+            Delta = np.mean([gridsize[0], -gridsize[4]])
+        elif any(unit in Zunit.lower() for unit in ["foot", "feet", "ft"]):
+            if any(unit in Zunit.lower() for unit in ["us", "united states"]):
+                Delta = np.mean([gridsize[0] * self.ft2mUS, -gridsize[4] * self.ft2mUS])
             else:
-                Delta = np.mean([transform[0] * self.ft2mInt, -transform[4] * self.ft2mInt])
+                Delta = np.mean([gridsize[0] * self.ft2mInt, -gridsize[4] * self.ft2mInt])
         else:
             raise ValueError("The units of XY directions must be in feet or meters.")
 
@@ -229,6 +227,7 @@ class pycwtmexhat:
         with ProgressBar():
             self.result = result.compute()
 
+        # Replace edges with NaN
         cropedge = np.ceil(s * 4)
         fringeval = int(cropedge)
         self.result[:fringeval, :] = np.nan
@@ -272,7 +271,7 @@ class pycwtmexhat:
         else:
             self.process_mexhat(input_dir, s, Delta)
         
-        return self.Z, self.result, self.meta
+        return self.Z, self.result
 
     def export_result(self, output_dir):
         """
@@ -309,8 +308,8 @@ class pycwtmexhat:
         base_dir = os.path.dirname(self.input_dir)
 
         with rasterio.open(self.input_dir) as src:
-            transform = src.transform
-            crs = src.crs
+            gridsize = src.transform
+            Zunit = src.crs.linear_units
 
         fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(12, 6))
 
@@ -318,8 +317,8 @@ class pycwtmexhat:
         ls = LightSource(azdeg=315, altdeg=45)
         hs = axes[0].imshow(ls.hillshade(self.Z, vert_exag=2), cmap='gray')
         axes[0].set_title(input_file)
-        axes[0].set_xlabel(f'X-axis grids \n(grid size ≈ {round(transform[0],4)} [{crs.linear_units}])')
-        axes[0].set_ylabel(f'Y-axis grids \n(grid size ≈ {-round(transform[4],4)} [{crs.linear_units}])')
+        axes[0].set_xlabel(f'X-axis grids \n(grid size ≈ {round(gridsize[0],4)} [{Zunit}])')
+        axes[0].set_ylabel(f'Y-axis grids \n(grid size ≈ {-round(gridsize[4],4)} [{Zunit}])')
         cbar1 = fig.colorbar(hs, ax=axes[0], orientation='horizontal', fraction=0.045, pad=0.13)
         cbar1.ax.set_visible(False)
 
@@ -327,8 +326,8 @@ class pycwtmexhat:
         im = axes[1].imshow(self.result, cmap='viridis')
         im.set_clim(0, round(np.nanpercentile(self.result, 99), 2))
         axes[1].set_title(f'Mexican Hat {self.Lambda}m 2D-CWT')
-        axes[1].set_xlabel(f'X-axis grids \n(grid size ≈ {round(transform[0],4)} [{crs.linear_units}])')
-        axes[1].set_ylabel(f'Y-axis grids \n(grid size ≈ {-round(transform[4],4)} [{crs.linear_units}])')
+        axes[1].set_xlabel(f'X-axis grids \n(grid size ≈ {round(gridsize[0],4)} [{Zunit}])')
+        axes[1].set_ylabel(f'Y-axis grids \n(grid size ≈ {-round(gridsize[4],4)} [{Zunit}])')
         cbar2 = fig.colorbar(im, ax=axes[1], orientation='horizontal', fraction=0.045, pad=0.13)
         cbar2.set_label(f'Mexican Hat {self.Lambda} m 2D-CWT surface roughness [m$^{{-1}}$]')
 

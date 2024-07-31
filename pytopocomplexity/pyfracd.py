@@ -43,12 +43,14 @@ class pyfracd:
         Conversion factor from US survey feet to meters.
     ft2mInt : float
         Conversion factor from international feet to meters.
+    window_size_m : float
+            Window size converted in meters based on grid size.
 
     Methods:
     --------
     analyze(input_dir, variograms=True, chunk_processing=True, chunksize=(512, 512))
         Perform fractal dimension analysis on the input DEM.
-    export_results(fd2_output_dir, se2_output_dir, r2_output_dir, meta)
+    export_results(fd2_output_dir, se2_output_dir, r2_output_dir)
         Export the analysis results to GeoTIFF files.
     plot_result(savefig=True)
         Plot and optionally save the analysis results.
@@ -56,8 +58,8 @@ class pyfracd:
     Example:
     --------
     >>> fa = pyfracd(window_size=10)
-    >>> Z, fd_result, se_result, r2_result, meta, window_m = fa.analyze('input_dem.tif')
-    >>> fa.export_results('fd_output.tif', 'se_output.tif', 'r2_output.tif', meta)
+    >>> Z, fd_result, se_result, r2_result, window_m = fa.analyze('input_dem.tif')
+    >>> fa.export_results('fd_output.tif', 'se_output.tif', 'r2_output.tif')
     >>> fa.plot_result()
 
     References:
@@ -79,10 +81,11 @@ class pyfracd:
         self.input_dir = None
         self.Z = None
         self.window_size_m = None
+        self.meta = None
 
     @staticmethod
     @jit(nopython=True, fastmath=True)
-    def vario(z, window_size, imo):
+    def vario(Z, window_size, imo):
         """
         Calculate the variogram for a given profile.
 
@@ -91,7 +94,7 @@ class pyfracd:
 
         Parameters:
         -----------
-        z : numpy.ndarray
+        Z : numpy.ndarray
             1D array of elevation values.
         window_size : int
             Size of the moving window.
@@ -113,7 +116,7 @@ class pyfracd:
         npa = np.zeros(window_size, dtype=np.int32)
 
         for i in range(window_size):
-            diffs = z[:-i-1] - z[i+1:]
+            diffs = Z[:-i-1] - Z[i+1:]
             y[i] = np.sum(diffs**2) / (2 * len(diffs))
             npa[i] = len(diffs)
 
@@ -176,17 +179,15 @@ class pyfracd:
             Standard errors of fractal dimensions.
         r2_out : numpy.ndarray
             R² values.
-        meta : dict
-            Metadata of the input raster.
         window_size_m : float
-            Window size in meters.
+            Window size converted in meters based on grid size.
         """
         self.input_dir = input_dir
         self.chunk_processing = chunk_processing
         self.chunksize = chunksize
         with rasterio.open(input_dir) as src:
-            meta = src.meta.copy()
-            Z = src.read(1)
+            self.meta = src.meta.copy()
+            self.Z = src.read(1)
             Zunit = src.crs.linear_units
             self.fd2_out = np.full((src.height, src.width), np.nan, dtype=np.float32)
             self.se2_out = np.full((src.height, src.width), np.nan, dtype=np.float32)
@@ -199,18 +200,18 @@ class pyfracd:
                 pass
             elif any(unit in Zunit.lower() for unit in ["foot", "feet", "ft"]):
                 if any(unit in Zunit.lower() for unit in ["us", "united states"]):
-                    Z = Z * self.ft2mUS
+                    self.Z = self.Z * self.ft2mUS
                     cell_size = cell_size * self.ft2mUS
                 else:
-                    Z = Z * self.ft2mInt
+                    self.Z = self.Z * self.ft2mInt
                     cell_size = cell_size * self.ft2mInt
             else:
-                raise ValueError("The unit of elevation 'z' must be in feet or meters.")
+                raise ValueError("The unit of elevation 'Z' must be in feet or meters.")
 
             if not self.chunk_processing:
-                self._process_non_chunked(Z, src.height, src.width)
+                self._process_non_chunked(self.Z, src.height, src.width)
             else:
-                self._process_chunked(Z, src.height, src.width)
+                self._process_chunked(self.Z, src.height, src.width)
 
             # Replace edges with NaN
             fringeval = self.window_size // 2 + 1
@@ -235,13 +236,12 @@ class pyfracd:
             print(f"R2 MAX : {np.nanmax(self.r2_out)}")
 
         if variograms:
-            self.plot_sample_variograms(Z)
+            self.plot_sample_variograms(self.Z)
 
         # Calculate window size in meters
         self.window_size_m = cell_size * self.window_size
 
-        self.Z = Z
-        return Z, self.fd2_out, self.se2_out, self.r2_out, meta, self.window_size_m
+        return self.Z, self.fd2_out, self.se2_out, self.r2_out, self.window_size_m
 
     def _process_non_chunked(self, Z, height, width):
         """
@@ -407,7 +407,7 @@ class pyfracd:
         diagonal_slice = [Z[i, i] for i in range(max(0, Z.shape[0]//2-self.window_size), min(Z.shape[0]//2+self.window_size+1, min(Z.shape)))]
         self.plot_variogram(diagonal_slice, imo=2, title="Diagonal Variogram")
 
-    def plot_variogram(self, z, imo, title=None):
+    def plot_variogram(self, Z, imo, title=None):
         """
         Plot a variogram for a given slice of the DEM.
 
@@ -416,21 +416,21 @@ class pyfracd:
 
         Parameters:
         -----------
-        z : numpy.ndarray
+        Z : numpy.ndarray
             1D array of elevation values.
         imo : int
             Indicator for the profile direction (1 for orthogonal, 2 for diagonal).
         title : str, optional
             Title for the plot. If None, a default title is used.
         """
-        z = np.array(z)
+        Z = np.array(Z)
         fac = 1.0 if imo == 1 else np.sqrt(2.0)
         x = np.arange(1, self.window_size + 1) * fac
         y = np.zeros(self.window_size)
         npa = np.zeros(self.window_size, dtype=np.int32)
 
         for i in range(self.window_size):
-            diffs = z[:-i-1] - z[i+1:]
+            diffs = Z[:-i-1] - Z[i+1:]
             y[i] = np.sum(diffs**2) / (2 * len(diffs))
             npa[i] = len(diffs)
 
@@ -460,7 +460,7 @@ class pyfracd:
         fd2 = 3.0 - slope / 2.0
         print(f"Estimated Fractal Dimension: {fd2}")
 
-    def export_results(self, fd2_output_dir, se2_output_dir, r2_output_dir, meta):
+    def export_results(self, fd2_output_dir, se2_output_dir, r2_output_dir):
         """
         Export the analysis results to GeoTIFF files.
 
@@ -475,28 +475,26 @@ class pyfracd:
             Path to save the standard error results.
         r2_output_dir : str
             Path to save the R² results.
-        meta : dict
-            Metadata for the output rasters, typically derived from the input DEM.
 
         Raises:
         -------
         ValueError
             If the metadata is missing and results cannot be exported.
         """
-        if meta is None:
+        if self.meta is None:
             raise ValueError("Metadata is missing. Cannot export the result.")
         
-        meta.update(dtype=rasterio.float32, count=1, compress='deflate', bigtiff='IF_SAFER')
+        self.meta.update(dtype=rasterio.float32, count=1, compress='deflate', bigtiff='IF_SAFER')
 
-        with rasterio.open(fd2_output_dir, 'w', **meta) as dst:
+        with rasterio.open(fd2_output_dir, 'w', **self.meta) as dst:
             dst.write(self.fd2_out.astype(rasterio.float32), 1)
         print(f"Processed result saved to {os.path.basename(fd2_output_dir)}")
 
-        with rasterio.open(se2_output_dir, 'w', **meta) as dst:
+        with rasterio.open(se2_output_dir, 'w', **self.meta) as dst:
             dst.write(self.se2_out.astype(rasterio.float32), 1)
         print(f"Processed result saved to {os.path.basename(se2_output_dir)}")
 
-        with rasterio.open(r2_output_dir, 'w', **meta) as dst:
+        with rasterio.open(r2_output_dir, 'w', **self.meta) as dst:
             dst.write(self.r2_out.astype(rasterio.float32), 1)
         print(f"Processed result saved to {os.path.basename(r2_output_dir)}")
 
@@ -527,8 +525,8 @@ class pyfracd:
         base_dir = os.path.dirname(self.input_dir)
 
         with rasterio.open(self.input_dir) as src:
-            transform = src.transform
-            crs = src.crs
+            gridsize = src.transform
+            Zunit = src.crs.linear_units
 
         fig, axes = plt.subplots(nrows=2, ncols=2, figsize=(12, 12))
 
@@ -537,8 +535,8 @@ class pyfracd:
         hillshade = ls.hillshade(self.Z, vert_exag=2)
         hs = axes[0, 0].imshow(hillshade, cmap='gray')
         axes[0, 0].set_title(input_file)
-        axes[0, 0].set_xlabel(f'X-axis grids \n(grid size ≈ {round(transform[0],4)} [{crs.linear_units}])')
-        axes[0, 0].set_ylabel(f'Y-axis grids \n(grid size ≈ {-round(transform[4],4)} [{crs.linear_units}])')
+        axes[0, 0].set_xlabel(f'X-axis grids \n(grid size ≈ {round(gridsize[0],4)} [{Zunit}])')
+        axes[0, 0].set_ylabel(f'Y-axis grids \n(grid size ≈ {-round(gridsize[4],4)} [{Zunit}])')
         cbar1 = fig.colorbar(hs, ax=axes[0, 0], orientation='horizontal', fraction=0.045, pad=0.13)
         cbar1.ax.set_visible(False)
 
@@ -546,24 +544,24 @@ class pyfracd:
         im1 = axes[0, 1].imshow(self.fd2_out, cmap='viridis')
         im1.set_clim(2, 3)
         axes[0, 1].set_title(f'Fractal Dimension (~{round(self.window_size_m, 2)}m x ~{round(self.window_size_m, 2)}m window)')
-        axes[0, 1].set_xlabel(f'X-axis grids \n(grid size ≈ {round(transform[0],4)} [{crs.linear_units}])')
-        axes[0, 1].set_ylabel(f'Y-axis grids \n(grid size ≈ {-round(transform[4],4)} [{crs.linear_units}])')
+        axes[0, 1].set_xlabel(f'X-axis grids \n(grid size ≈ {round(gridsize[0],4)} [{Zunit}])')
+        axes[0, 1].set_ylabel(f'Y-axis grids \n(grid size ≈ {-round(gridsize[4],4)} [{Zunit}])')
         cbar2 = fig.colorbar(im1, ax=axes[0, 1], orientation='horizontal', fraction=0.045, pad=0.13)
 
         # Plot the Standard Error
         im2 = axes[1, 0].imshow(self.se2_out, cmap='plasma')
         im2.set_clim(round(np.nanpercentile(self.se2_out, 0), 2), round(np.nanpercentile(self.se2_out, 100), 2))
         axes[1, 0].set_title('Standard Error of Fractal Dimension')
-        axes[1, 0].set_xlabel(f'X-axis grids \n(grid size ≈ {round(transform[0],4)} [{crs.linear_units}])')
-        axes[1, 0].set_ylabel(f'Y-axis grids \n(grid size ≈ {-round(transform[4],4)} [{crs.linear_units}])')
+        axes[1, 0].set_xlabel(f'X-axis grids \n(grid size ≈ {round(gridsize[0],4)} [{Zunit}])')
+        axes[1, 0].set_ylabel(f'Y-axis grids \n(grid size ≈ {-round(gridsize[4],4)} [{Zunit}])')
         cbar3 = fig.colorbar(im2, ax=axes[1, 0], orientation='horizontal', fraction=0.045, pad=0.13)
 
         # Plot the r-square
         im3 = axes[1, 1].imshow(self.r2_out, cmap='coolwarm_r')
         im3.set_clim(0, round(np.nanpercentile(self.r2_out, 100), 2))
         axes[1, 1].set_title('Coefficient of determination (R$^{2}$)')
-        axes[1, 1].set_xlabel(f'X-axis grids \n(grid size ≈ {round(transform[0],4)} [{crs.linear_units}])')
-        axes[1, 1].set_ylabel(f'Y-axis grids \n(grid size ≈ {-round(transform[4],4)} [{crs.linear_units}])')
+        axes[1, 1].set_xlabel(f'X-axis grids \n(grid size ≈ {round(gridsize[0],4)} [{Zunit}])')
+        axes[1, 1].set_ylabel(f'Y-axis grids \n(grid size ≈ {-round(gridsize[4],4)} [{Zunit}])')
         cbar4 = fig.colorbar(im3, ax=axes[1, 1], orientation='horizontal', fraction=0.045, pad=0.13)
 
         plt.tight_layout()

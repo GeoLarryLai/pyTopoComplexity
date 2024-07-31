@@ -8,7 +8,6 @@ from scipy.ndimage import generic_filter
 from tqdm.auto import tqdm
 import matplotlib.pyplot as plt
 from matplotlib.colors import LightSource
-import logging
 
 class pyrugosity:
     """
@@ -35,8 +34,6 @@ class pyrugosity:
         The input elevation data.
     result : numpy.ndarray
         The calculated rugosity index.
-    meta : dict
-        Metadata of the input raster.
     input_dir : str
         Path to the input DEM file.
     window_size_m : float
@@ -44,7 +41,7 @@ class pyrugosity:
 
     Methods:
     --------
-    analyze(input_path, chunk_processing=True, chunksize=(512, 512))
+    analyze(input_dir, chunk_processing=True, chunksize=(512, 512))
         Perform rugosity analysis on the input DEM.
     export_result(output_dir)
         Export the rugosity result to a GeoTIFF file.
@@ -195,7 +192,7 @@ class pyrugosity:
         
         return result
 
-    def analyze(self, input_path, chunk_processing=True, chunksize=(512, 512)):
+    def analyze(self, input_dir, chunk_processing=True, chunksize=(512, 512)):
         """
         Perform rugosity analysis on the input DEM.
 
@@ -204,7 +201,7 @@ class pyrugosity:
 
         Parameters:
         -----------
-        input_path : str
+        input_dir : str
             Path to the input DEM file.
         chunk_processing : bool, optional
             Whether to use chunk processing for large DEMs. Default is True.
@@ -222,19 +219,15 @@ class pyrugosity:
         window_size_m : float
             Window size in meters.
         """
-        self.input_dir = input_path
+        self.input_dir = input_dir
         self.chunk_processing = chunk_processing
         self.chunksize = chunksize
 
-        with rasterio.open(input_path) as src:
+        with rasterio.open(input_dir) as src:
             self.meta = src.meta.copy()
-            
-            # Read the raster data
             self.Z = src.read(1)
             Zunit = src.crs.linear_units
-            
-            # Get the cell size
-            cell_size = src.transform[0]
+            gridsize = src.transform[0]
             
             # Convert to meters if necessary            
             if any(unit in Zunit.lower() for unit in ["metre", "meter", "meters"]):
@@ -242,15 +235,15 @@ class pyrugosity:
             elif any(unit in Zunit.lower() for unit in ["foot", "feet", "ft"]):
                 if any(unit in Zunit.lower() for unit in ["us", "united states"]):
                     self.Z = self.Z * self.ft2mUS
-                    cell_size = cell_size * self.ft2mUS
+                    gridsize = gridsize * self.ft2mUS
                 else:
                     self.Z = self.Z * self.ft2mInt
-                    cell_size = cell_size * self.ft2mInt
+                    gridsize = gridsize * self.ft2mInt
             else:
                 raise ValueError("The unit of elevation 'z' must be in feet or meters.")
 
             # Calculate rugosity
-            self.result = self.calculate_rugosity(self.Z, cell_size)        
+            self.result = self.calculate_rugosity(self.Z, gridsize)        
 
             # Replace edges with NaN
             fringeval = self.window_size // 2 + 1
@@ -260,7 +253,7 @@ class pyrugosity:
             self.result[:, -fringeval:] = np.nan
 
             # Calculate window size in meters
-            self.window_size_m = cell_size * self.window_size
+            self.window_size_m = gridsize * self.window_size
 
         return self.Z, self.result, self.meta, self.window_size_m
 
@@ -310,15 +303,15 @@ class pyrugosity:
         ValueError
             If the analysis hasn't been run before calling this method.
         """
-        if self.Z is None or self.result is None or self.input_dir is None:
+        if self.Z is None or self.result is None:
             raise ValueError("Analysis must be run before plotting results.")
 
         input_file = os.path.basename(self.input_dir)
         base_dir = os.path.dirname(self.input_dir)
 
         with rasterio.open(self.input_dir) as src:
-            transform = src.transform
-            crs = src.crs
+            gridsize = src.transform
+            Zunit = src.crs.linear_units
 
         fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(12, 6))
 
@@ -326,8 +319,8 @@ class pyrugosity:
         ls = LightSource(azdeg=315, altdeg=45)
         hs = axes[0].imshow(ls.hillshade(self.Z, vert_exag=2), cmap='gray')
         axes[0].set_title(input_file)
-        axes[0].set_xlabel(f'X-axis grids \n(grid size ≈ {round(transform[0],4)} [{crs.linear_units}])')
-        axes[0].set_ylabel(f'Y-axis grids \n(grid size ≈ {-round(transform[4],4)} [{crs.linear_units}])')
+        axes[0].set_xlabel(f'X-axis grids \n(grid size ≈ {round(gridsize[0],4)} [{Zunit}])')
+        axes[0].set_ylabel(f'Y-axis grids \n(grid size ≈ {-round(gridsize[4],4)} [{Zunit}])')
         cbar1 = fig.colorbar(hs, ax=axes[0], orientation='horizontal', fraction=0.045, pad=0.13)
         cbar1.ax.set_visible(False)
 
@@ -335,8 +328,8 @@ class pyrugosity:
         im = axes[1].imshow(self.result, cmap='viridis')
         im.set_clim(round(np.nanpercentile(self.result, 1), 2), round(np.nanpercentile(self.result, 99), 2))
         axes[1].set_title(f'Rugosity Index (~{round(self.window_size_m, 2)}m x ~{round(self.window_size_m, 2)}m window)')
-        axes[1].set_xlabel(f'X-axis grids \n(grid size ≈ {round(transform[0],4)} [{crs.linear_units}])')
-        axes[1].set_ylabel(f'Y-axis grids \n(grid size ≈ {-round(transform[4],4)} [{crs.linear_units}])')
+        axes[1].set_xlabel(f'X-axis grids \n(grid size ≈ {round(gridsize[0],4)} [{Zunit}])')
+        axes[1].set_ylabel(f'Y-axis grids \n(grid size ≈ {-round(gridsize[4],4)} [{Zunit}])')
         cbar2 = fig.colorbar(im, ax=axes[1], orientation='horizontal', fraction=0.045, pad=0.13)
 
         plt.tight_layout()
