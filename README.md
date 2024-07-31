@@ -112,26 +112,24 @@ The example DEM raster files have various grid size, coordinate reference system
 ## Requirements
 For `pytopocomplexity` package
 * Python >= 3.10
-* `numpy`
-* `scipy`
-* `rasterio`
-* `dask`
-* `matplotlib`
-* `tqdm`
-* `numba`
-* `gdal`
-* `statsmodels` 
+* `numpy` >= 1.24
+* `scipy` >= 1.10
+* `rasterio` >= 1.3
+* `dask` >= 2024.3
+* `matplotlib` >= 3.7
+* `tqdm` >= 4.66
+* `numba` >= 0.57
+* `statsmodels` >= 0.14
 
 Additional packages for Jupyter Notebook examples:
-* `glob`
-* `pandas`
-* `jupyter`
+* `pandas` >= 2.1
+* `jupyter` >= 1.0
 
 for landscape smoothing simulation
 * [`landlab`](https://landlab.readthedocs.io/en/latest/index.html) >= 2.7
   * Used components: `TaylorNonLinearDiffuser`, `esri_ascii`, `imshowhs`
-* `osgeo` [if imported raster is in the geotiff format]
-* `ipywidgets` [optional for interactive visualization]
+* `gdal`>= 3.6
+* `ipywidgets` >= 8.1 [optional for interactive visualization]
 
 See also the `environment.yml` file which can be used to create a virtual environment.
 
