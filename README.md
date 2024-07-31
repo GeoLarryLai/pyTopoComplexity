@@ -128,7 +128,7 @@ Additional packages for Jupyter Notebook examples:
 * `jupyter`
 
 for landscape smoothing simulation
-* `landlab` for landscape smoothing simulation ([User Guide](https://landlab.readthedocs.io/en/latest/index.html))
+* `landlab` >= 2.7 for landscape smoothing simulation ([User Guide](https://landlab.readthedocs.io/en/latest/index.html))
   * Used components: `TaylorNonLinearDiffuser`, `esri_ascii`, `imshowhs`
 * `osgeo` [if imported raster is in the geotiff format]
 * `ipywidgets` [optional for interactive visualization]
