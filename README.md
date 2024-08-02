@@ -6,11 +6,11 @@
 
 `pytopocomplexity` is an open-source Python package designed to measure the topographic complexity (i.e., surface roughness) of land surfaces using digital elevation model (DEM) data. This package includes modules for three methods commonly used in the fields of geomorphology and oceanography for measuring topographic complexity, which are not fully available in Geographic Information System (GIS) software like QGIS.
 
-| Modules  | Method Descriptions |
-| ------------- | ------------- |
-| pycwtmexhat.py  | Quanitfy the wavelet-based curvature of the land surface using two-dimensional continuous wavelet transform (2D-CWT) with a Mexican Hat wevalet |
-| pyfracd.py  | Conduct fractal dimension analysis on the land surface |
-| pyrugostiy.py  | Calculate rugosity indext of the land surface |
+| Modules  | Classes | Method Descriptions |
+| ------------- | ------------- | ------------- |
+| pycwtmexhat.py | CWTMexHat | Quanitfy the wavelet-based curvature of the land surface using two-dimensional continuous wavelet transform (2D-CWT) with a Mexican Hat wevalet |
+| pyfracd.py | FracD | Conduct fractal dimension analysis on the land surface |
+| pyrugostiy.py | RugosityIndex | Calculate rugosity indext of the land surface |
 
 In this GitHub repository, each module has a corresponding example Jupyter Notebook file that includes detailed instructions on module usage and brief explanations of the applied theories with cited references. Example raster file data are included in the `~/example/` folder.
 
