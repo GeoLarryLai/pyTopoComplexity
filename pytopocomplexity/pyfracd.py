@@ -7,7 +7,7 @@ from tqdm.auto import tqdm
 from multiprocessing import Pool, cpu_count
 from matplotlib.colors import LightSource
 
-class pyfracd:
+class FracD:
     """
     A class for calculating local fractal dimensions to assess topographic complexity.
 

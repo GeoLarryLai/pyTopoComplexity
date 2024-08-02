@@ -8,7 +8,7 @@ from scipy.signal import fftconvolve, convolve2d
 import matplotlib.pyplot as plt
 from matplotlib.colors import LightSource
 
-class pycwtmexhat:
+class CWTMexHat:
     """
     A class for performing 2D Continuous Wavelet Transform (CWT) analysis using a Mexican Hat wavelet.
 
