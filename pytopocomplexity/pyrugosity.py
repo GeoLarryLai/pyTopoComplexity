@@ -9,7 +9,7 @@ from tqdm.auto import tqdm
 import matplotlib.pyplot as plt
 from matplotlib.colors import LightSource
 
-class Rugosity:
+class RugosityIndex:
     """
     A class for calculating the rugosity index of a land surface using Digital Elevation Model (DEM) data.
 
