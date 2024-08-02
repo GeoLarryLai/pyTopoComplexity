@@ -5,118 +5,28 @@ import matplotlib.pyplot as plt
 from numba import jit
 from tqdm.auto import tqdm
 from multiprocessing import Pool, cpu_count
-from matplotlib.colors import LightSource
 
-class FracD:
-    """
-    A class for calculating local fractal dimensions to assess topographic complexity.
-
-    This class implements a methodology for fractal dimension analysis of Digital Elevation
-    Model (DEM) data. It calculates local fractal dimensions and provides reliability
-    parameters such as the standard error and coefficient of determination (R²).
-
-    The local fractal dimension is determined by intersecting the surface within a moving
-    window with four vertical planes in principal geographical directions. The fractal
-    dimension of these profiles is estimated using the variogram method, which models the
-    relationship between dissimilarity and distance using a power-law function.
-
-    Parameters:
-    -----------
-    window_size : int, optional
-        The size of the moving window for fractal dimension calculation. Default is 10.
-
-    Attributes:
-    -----------
-    window_size : int
-        Size of the moving window for fractal dimension calculation.
-    chunk_processing : bool
-        Whether to use chunk processing for large DEMs.
-    chunksize : tuple
-        Size of chunks for processing.
-    fd2_out : numpy.ndarray
-        Array to store calculated fractal dimensions.
-    se2_out : numpy.ndarray
-        Array to store standard errors of fractal dimensions.
-    r2_out : numpy.ndarray
-        Array to store R² values.
-    ft2mUS : float
-        Conversion factor from US survey feet to meters.
-    ft2mInt : float
-        Conversion factor from international feet to meters.
-    window_size_m : float
-            Window size converted in meters based on grid size.
-
-    Methods:
-    --------
-    analyze(input_dir, variograms=True, chunk_processing=True, chunksize=(512, 512))
-        Perform fractal dimension analysis on the input DEM.
-    export_results(fd2_output_dir, se2_output_dir, r2_output_dir)
-        Export the analysis results to GeoTIFF files.
-    plot_result(savefig=True)
-        Plot and optionally save the analysis results.
-
-    Example:
-    --------
-    >>> fa = pyfracd(window_size=10)
-    >>> Z, fd_result, se_result, r2_result, window_m = fa.analyze('input_dem.tif')
-    >>> fa.export_results('fd_output.tif', 'se_output.tif', 'r2_output.tif')
-    >>> fa.plot_result()
-
-    References:
-    -----------
-    Pardo-Igúzquiza, E., Dowd, P.A., 2022. The roughness of martian topography: A metre-scale
-    fractal analysis of six selected areas. Icarus 384, 115109.
-    https://doi.org/10.1016/j.icarus.2022.115109
-    """
-
-    def __init__(self, window_size=10):
+class pyfracd:
+    def __init__(self, window_size=10, chunk_processing=True, chunksize=(512, 512)):
         self.window_size = window_size
-        self.chunk_processing = True
-        self.chunksize = (512, 512)
+        self.chunk_processing = chunk_processing
+        self.chunksize = chunksize
         self.fd2_out = None
         self.se2_out = None
         self.r2_out = None
         self.ft2mUS = 1200/3937  # US survey foot to meter conversion factor
         self.ft2mInt = 0.3048    # International foot to meter conversion factor
-        self.input_dir = None
-        self.Z = None
-        self.window_size_m = None
-        self.meta = None
 
     @staticmethod
     @jit(nopython=True, fastmath=True)
-    def vario(Z, window_size, imo):
-        """
-        Calculate the variogram for a given profile.
-
-        This method computes the variogram, which is a measure of spatial correlation
-        in the data. It is used to estimate the fractal dimension of the profile.
-
-        Parameters:
-        -----------
-        Z : numpy.ndarray
-            1D array of elevation values.
-        window_size : int
-            Size of the moving window.
-        imo : int
-            Indicator for the profile direction (1 for orthogonal, 2 for diagonal).
-
-        Returns:
-        --------
-        fd2 : float
-            Estimated fractal dimension.
-        se2 : float
-            Standard error of the fractal dimension estimate.
-        r2 : float
-            Coefficient of determination (R²) of the variogram fit.
-        """
+    def vario(z, window_size, imo):
         fac = 1.0 if imo == 1 else np.sqrt(2.0)
         x = np.arange(1, window_size + 1) * fac
         y = np.zeros(window_size)
         npa = np.zeros(window_size, dtype=np.int32)
 
         for i in range(window_size):
-            diffs = Z[:-i-1] - Z[i+1:]
+            diffs = z[:-i-1] - z[i+1:]
             y[i] = np.sum(diffs**2) / (2 * len(diffs))
             npa[i] = len(diffs)
 
@@ -151,47 +61,15 @@ class FracD:
 
         return fd2, se2, r2
     
-    def analyze(self, input_dir, variograms=True, chunk_processing=True, chunksize=(512, 512)):
-        """
-        Perform fractal dimension analysis on the input DEM.
-
-        This method reads the input DEM, processes it to calculate fractal dimensions,
-        standard errors, and R² values for each pixel, and optionally plots sample variograms.
-
-        Parameters:
-        -----------
-        input_dir : str
-            Path to the input DEM file.
-        variograms : bool, optional
-            Whether to plot sample variograms. Default is True.
-        chunk_processing : bool, optional
-            Whether to use chunk processing for large DEMs. Default is True.
-        chunksize : tuple of int, optional
-            Size of chunks for processing. Default is (512, 512).
-
-        Returns:
-        --------
-        Z : numpy.ndarray
-            The input elevation data.
-        fd2_out : numpy.ndarray
-            Calculated fractal dimensions.
-        se2_out : numpy.ndarray
-            Standard errors of fractal dimensions.
-        r2_out : numpy.ndarray
-            R² values.
-        window_size_m : float
-            Window size converted in meters based on grid size.
-        """
+    def analyze(self, input_dir, variograms=True):
         self.input_dir = input_dir
-        self.chunk_processing = chunk_processing
-        self.chunksize = chunksize
         with rasterio.open(input_dir) as src:
-            self.meta = src.meta.copy()
-            self.Z = src.read(1)
+            meta = src.meta.copy()
+            Z = src.read(1)
             Zunit = src.crs.linear_units
-            self.fd2_out = np.full((src.height, src.width), np.nan, dtype=np.float32)
-            self.se2_out = np.full((src.height, src.width), np.nan, dtype=np.float32)
-            self.r2_out = np.full((src.height, src.width), np.nan, dtype=np.float32)
+            self.fd2_out = np.zeros((src.height, src.width), dtype=np.float32)
+            self.se2_out = np.zeros((src.height, src.width), dtype=np.float32)
+            self.r2_out = np.zeros((src.height, src.width), dtype=np.float32)
 
             # Get the cell size
             cell_size = src.transform[0]
@@ -200,33 +78,18 @@ class FracD:
                 pass
             elif any(unit in Zunit.lower() for unit in ["foot", "feet", "ft"]):
                 if any(unit in Zunit.lower() for unit in ["us", "united states"]):
-                    self.Z = self.Z * self.ft2mUS
+                    Z = Z * self.ft2mUS
                     cell_size = cell_size * self.ft2mUS
                 else:
-                    self.Z = self.Z * self.ft2mInt
+                    Z = Z * self.ft2mInt
                     cell_size = cell_size * self.ft2mInt
             else:
-                raise ValueError("The unit of elevation 'Z' must be in feet or meters.")
+                raise ValueError("The unit of elevation 'z' must be in feet or meters.")
 
             if not self.chunk_processing:
-                self._process_non_chunked(self.Z, src.height, src.width)
+                self._process_non_chunked(Z, src.height, src.width)
             else:
-                self._process_chunked(self.Z, src.height, src.width)
-
-            # Replace edges with NaN
-            fringeval = self.window_size // 2 + 1
-            self.fd2_out[:fringeval, :] = np.nan
-            self.fd2_out[:, :fringeval] = np.nan
-            self.fd2_out[-fringeval:, :] = np.nan
-            self.fd2_out[:, -fringeval:] = np.nan
-            self.se2_out[:fringeval, :] = np.nan
-            self.se2_out[:, :fringeval] = np.nan
-            self.se2_out[-fringeval:, :] = np.nan
-            self.se2_out[:, -fringeval:] = np.nan
-            self.r2_out[:fringeval, :] = np.nan
-            self.r2_out[:, :fringeval] = np.nan
-            self.r2_out[-fringeval:, :] = np.nan
-            self.r2_out[:, -fringeval:] = np.nan
+                self._process_chunked(Z, src.height, src.width)
 
             print(f"FD2 MIN : {np.nanmin(self.fd2_out)}")
             print(f"FD2 MAX : {np.nanmax(self.fd2_out)}")
@@ -236,29 +99,14 @@ class FracD:
             print(f"R2 MAX : {np.nanmax(self.r2_out)}")
 
         if variograms:
-            self.plot_sample_variograms(self.Z)
+            self.plot_sample_variograms(Z)
 
         # Calculate window size in meters
-        self.window_size_m = cell_size * self.window_size
+        window_size_m = cell_size * self.window_size
 
-        return self.Z, self.fd2_out, self.se2_out, self.r2_out, self.window_size_m
+        return Z, self.fd2_out, self.se2_out, self.r2_out, meta, window_size_m
 
     def _process_non_chunked(self, Z, height, width):
-        """
-        Process the entire DEM without chunking.
-
-        This method calculates fractal dimensions, standard errors, and R² values
-        for each pixel in the DEM without dividing it into chunks.
-
-        Parameters:
-        -----------
-        Z : numpy.ndarray
-            The input elevation data.
-        height : int
-            Height of the DEM.
-        width : int
-            Width of the DEM.
-        """
         for j in tqdm(range(height), desc="Analyzing rows"):
             for i in range(width):
                 results = []
@@ -285,21 +133,6 @@ class FracD:
                     self.r2_out[j, i] = r2
 
     def _process_chunked(self, Z, height, width):
-        """
-        Process the DEM in chunks for improved memory efficiency.
-
-        This method divides the DEM into overlapping chunks and processes them in parallel,
-        which can significantly reduce memory usage for large DEMs.
-
-        Parameters:
-        -----------
-        Z : numpy.ndarray
-            The input elevation data.
-        height : int
-            Height of the DEM.
-        width : int
-            Width of the DEM.
-        """
         chunk_height, chunk_width = self.chunksize
         overlap = self.window_size // 2 + 1
         chunks = []
@@ -315,42 +148,16 @@ class FracD:
                     h, w = fd2.shape
                     non_overlap_h = max(0, h - 2*overlap)
                     non_overlap_w = max(0, w - 2*overlap)
-                    self.fd2_out[j+overlap:j+overlap+non_overlap_h, i+overlap:i+overlap+non_overlap_w] = fd2[overlap:overlap+non_overlap_h, overlap:overlap+non_overlap_w]
-                    self.se2_out[j+overlap:j+overlap+non_overlap_h, i+overlap:i+overlap+non_overlap_w] = se2[overlap:overlap+non_overlap_h, overlap:overlap+non_overlap_w]
-                    self.r2_out[j+overlap:j+overlap+non_overlap_h, i+overlap:i+overlap+non_overlap_w] = r2[overlap:overlap+non_overlap_h, overlap:overlap+non_overlap_w]
+                    self.fd2_out[j:j+non_overlap_h, i:i+non_overlap_w] = fd2[overlap:overlap+non_overlap_h, overlap:overlap+non_overlap_w]
+                    self.se2_out[j:j+non_overlap_h, i:i+non_overlap_w] = se2[overlap:overlap+non_overlap_h, overlap:overlap+non_overlap_w]
+                    self.r2_out[j:j+non_overlap_h, i:i+non_overlap_w] = r2[overlap:overlap+non_overlap_h, overlap:overlap+non_overlap_w]
                     pbar.update(non_overlap_h)
 
     def _process_chunk_parallel(self, args):
-        """
-        Process a single chunk of the DEM.
-
-        This method is designed to be run in parallel, calculating fractal dimensions,
-        standard errors, and R² values for each pixel in a given chunk of the DEM.
-
-        Parameters:
-        -----------
-        args : tuple
-            A tuple containing (Z_chunk, offset_i, offset_j), where:
-            - Z_chunk is a numpy.ndarray of the DEM chunk
-            - offset_i and offset_j are the offsets of the chunk in the full DEM
-
-        Returns:
-        --------
-        fd2_out : numpy.ndarray
-            Fractal dimensions for the chunk.
-        se2_out : numpy.ndarray
-            Standard errors for the chunk.
-        r2_out : numpy.ndarray
-            R² values for the chunk.
-        offset_i : int
-            X-offset of the chunk in the full DEM.
-        offset_j : int
-            Y-offset of the chunk in the full DEM.
-        """
         Z, offset_i, offset_j = args
-        fd2_out = np.full(Z.shape, np.nan, dtype=np.float32)
-        se2_out = np.full(Z.shape, np.nan, dtype=np.float32)
-        r2_out = np.full(Z.shape, np.nan, dtype=np.float32)
+        fd2_out = np.zeros(Z.shape, dtype=np.float32)
+        se2_out = np.zeros(Z.shape, dtype=np.float32)
+        r2_out = np.zeros(Z.shape, dtype=np.float32)
 
         for j in range(Z.shape[0]):
             for i in range(Z.shape[1]):
@@ -382,20 +189,8 @@ class FracD:
                     r2_out[j, i] = r2
 
         return fd2_out, se2_out, r2_out, offset_i, offset_j
-    
+
     def plot_sample_variograms(self, Z):
-        """
-        Plot sample variograms for the middle row, column, and diagonal of the DEM.
-
-        This method provides a visual representation of the variograms used in the
-        fractal dimension calculation, which can be useful for understanding the
-        spatial structure of the DEM.
-
-        Parameters:
-        -----------
-        Z : numpy.ndarray
-            The input elevation data.
-        """
         middle_row = Z.shape[0] // 2
         horizontal_slice = Z[middle_row, max(0, Z.shape[1]//2-self.window_size):min(Z.shape[1]//2+self.window_size+1, Z.shape[1])]
         self.plot_variogram(horizontal_slice, imo=1, title="Horizontal Variogram (Middle Row)")
@@ -407,30 +202,15 @@ class FracD:
         diagonal_slice = [Z[i, i] for i in range(max(0, Z.shape[0]//2-self.window_size), min(Z.shape[0]//2+self.window_size+1, min(Z.shape)))]
         self.plot_variogram(diagonal_slice, imo=2, title="Diagonal Variogram")
 
-    def plot_variogram(self, Z, imo, title=None):
-        """
-        Plot a variogram for a given slice of the DEM.
-
-        This method calculates and plots the variogram for a given 1D slice of the DEM,
-        which helps visualize the spatial correlation structure used in fractal dimension estimation.
-
-        Parameters:
-        -----------
-        Z : numpy.ndarray
-            1D array of elevation values.
-        imo : int
-            Indicator for the profile direction (1 for orthogonal, 2 for diagonal).
-        title : str, optional
-            Title for the plot. If None, a default title is used.
-        """
-        Z = np.array(Z)
+    def plot_variogram(self, z, imo, title=None):
+        z = np.array(z)
         fac = 1.0 if imo == 1 else np.sqrt(2.0)
         x = np.arange(1, self.window_size + 1) * fac
         y = np.zeros(self.window_size)
         npa = np.zeros(self.window_size, dtype=np.int32)
 
         for i in range(self.window_size):
-            diffs = Z[:-i-1] - Z[i+1:]
+            diffs = z[:-i-1] - z[i+1:]
             y[i] = np.sum(diffs**2) / (2 * len(diffs))
             npa[i] = len(diffs)
 
@@ -460,116 +240,20 @@ class FracD:
         fd2 = 3.0 - slope / 2.0
         print(f"Estimated Fractal Dimension: {fd2}")
 
-    def export_results(self, fd2_output_dir, se2_output_dir, r2_output_dir):
-        """
-        Export the analysis results to GeoTIFF files.
-
-        This method saves the calculated fractal dimensions, standard errors, and R² values
-        as separate GeoTIFF files, preserving the georeferencing information from the input DEM.
-
-        Parameters:
-        -----------
-        fd2_output_dir : str
-            Path to save the fractal dimension results.
-        se2_output_dir : str
-            Path to save the standard error results.
-        r2_output_dir : str
-            Path to save the R² results.
-
-        Raises:
-        -------
-        ValueError
-            If the metadata is missing and results cannot be exported.
-        """
-        if self.meta is None:
+    def export_results(self, fd2_output_dir, se2_output_dir, r2_output_dir, meta):
+        if meta is None:
             raise ValueError("Metadata is missing. Cannot export the result.")
         
-        self.meta.update(dtype=rasterio.float32, count=1, compress='deflate', bigtiff='IF_SAFER')
+        meta.update(dtype=rasterio.float32, count=1, compress='deflate', bigtiff='IF_SAFER')
 
-        with rasterio.open(fd2_output_dir, 'w', **self.meta) as dst:
+        with rasterio.open(fd2_output_dir, 'w', **meta) as dst:
             dst.write(self.fd2_out.astype(rasterio.float32), 1)
         print(f"Processed result saved to {os.path.basename(fd2_output_dir)}")
 
-        with rasterio.open(se2_output_dir, 'w', **self.meta) as dst:
+        with rasterio.open(se2_output_dir, 'w', **meta) as dst:
             dst.write(self.se2_out.astype(rasterio.float32), 1)
         print(f"Processed result saved to {os.path.basename(se2_output_dir)}")
 
-        with rasterio.open(r2_output_dir, 'w', **self.meta) as dst:
+        with rasterio.open(r2_output_dir, 'w', **meta) as dst:
             dst.write(self.r2_out.astype(rasterio.float32), 1)
         print(f"Processed result saved to {os.path.basename(r2_output_dir)}")
-
-    def plot_result(self, savefig=True):
-        """
-        Plot the original DEM and the fractal dimension analysis results side by side.
-
-        This method creates a 2x2 plot showing:
-        1. The original DEM as a hillshade
-        2. The calculated fractal dimensions
-        3. The standard errors of the fractal dimension estimates
-        4. The R² values of the variogram fits
-
-        Parameters:
-        -----------
-        savefig : bool, optional
-            Whether to save the figure as a PNG file. Default is True.
-
-        Raises:
-        -------
-        ValueError
-            If the analysis hasn't been run before calling this method.
-        """
-        if self.Z is None or self.fd2_out is None or self.input_dir is None:
-            raise ValueError("Analysis must be run before plotting results.")
-
-        input_file = os.path.basename(self.input_dir)
-        base_dir = os.path.dirname(self.input_dir)
-
-        with rasterio.open(self.input_dir) as src:
-            gridsize = src.transform
-            Zunit = src.crs.linear_units
-
-        fig, axes = plt.subplots(nrows=2, ncols=2, figsize=(12, 12))
-
-        # Plot the hillshade
-        ls = LightSource(azdeg=315, altdeg=45)
-        hillshade = ls.hillshade(self.Z, vert_exag=2)
-        hs = axes[0, 0].imshow(hillshade, cmap='gray')
-        axes[0, 0].set_title(input_file)
-        axes[0, 0].set_xlabel(f'X-axis grids \n(grid size ≈ {round(gridsize[0],4)} [{Zunit}])')
-        axes[0, 0].set_ylabel(f'Y-axis grids \n(grid size ≈ {-round(gridsize[4],4)} [{Zunit}])')
-        cbar1 = fig.colorbar(hs, ax=axes[0, 0], orientation='horizontal', fraction=0.045, pad=0.13)
-        cbar1.ax.set_visible(False)
-
-        # Plot the Fractal Dimension
-        im1 = axes[0, 1].imshow(self.fd2_out, cmap='viridis')
-        im1.set_clim(2, 3)
-        axes[0, 1].set_title(f'Fractal Dimension (~{round(self.window_size_m, 2)}m x ~{round(self.window_size_m, 2)}m window)')
-        axes[0, 1].set_xlabel(f'X-axis grids \n(grid size ≈ {round(gridsize[0],4)} [{Zunit}])')
-        axes[0, 1].set_ylabel(f'Y-axis grids \n(grid size ≈ {-round(gridsize[4],4)} [{Zunit}])')
-        cbar2 = fig.colorbar(im1, ax=axes[0, 1], orientation='horizontal', fraction=0.045, pad=0.13)
-
-        # Plot the Standard Error
-        im2 = axes[1, 0].imshow(self.se2_out, cmap='plasma')
-        im2.set_clim(round(np.nanpercentile(self.se2_out, 0), 2), round(np.nanpercentile(self.se2_out, 100), 2))
-        axes[1, 0].set_title('Standard Error of Fractal Dimension')
-        axes[1, 0].set_xlabel(f'X-axis grids \n(grid size ≈ {round(gridsize[0],4)} [{Zunit}])')
-        axes[1, 0].set_ylabel(f'Y-axis grids \n(grid size ≈ {-round(gridsize[4],4)} [{Zunit}])')
-        cbar3 = fig.colorbar(im2, ax=axes[1, 0], orientation='horizontal', fraction=0.045, pad=0.13)
-
-        # Plot the r-square
-        im3 = axes[1, 1].imshow(self.r2_out, cmap='coolwarm_r')
-        im3.set_clim(0, round(np.nanpercentile(self.r2_out, 100), 2))
-        axes[1, 1].set_title('Coefficient of determination (R$^{2}$)')
-        axes[1, 1].set_xlabel(f'X-axis grids \n(grid size ≈ {round(gridsize[0],4)} [{Zunit}])')
-        axes[1, 1].set_ylabel(f'Y-axis grids \n(grid size ≈ {-round(gridsize[4],4)} [{Zunit}])')
-        cbar4 = fig.colorbar(im3, ax=axes[1, 1], orientation='horizontal', fraction=0.045, pad=0.13)
-
-        plt.tight_layout()
-        
-        if savefig:
-            output_filename = os.path.splitext(input_file)[0] + f'_pyFD({round(self.window_size_m, 2)}m).png'
-            output_dir = os.path.join(base_dir, output_filename)
-            plt.savefig(output_dir, dpi=200, bbox_inches='tight')
-            print(f"Figure saved as '{output_filename}'")
-        
-        plt.show()

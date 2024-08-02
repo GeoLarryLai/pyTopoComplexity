@@ -1,6 +1,5 @@
-"Measure Topographic Complexity"
-from .pycwtmexhat import CWTMexHat
-from .pyfracd import FracD
-from .pyrugosity import RugosityIndex
+from .pycwtmexhat import pycwtmexhat
+from .pyfracd import pyfracd
+from .pyrugosity import pyrugosity
 
-__all__ = ['CWTMexHat', 'FracD', 'RugosityIndex']
+__all__ = ['pycwtmexhat', 'pyfracd', 'pyrugosity']
