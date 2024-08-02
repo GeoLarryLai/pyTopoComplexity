@@ -35,7 +35,7 @@ The current version is still a pre-release. If you use the current version of `p
 ### 1. `pycwtmexhat`: 2D Continuous Wavelet Transform Method
 
 ```python
-from pytopocomplexity import pycwtmexhat
+from pytopocomplexity import CWTMexHat
 ```
 
 The module `pycwtmexhat` uses two-dimensional continuous wavelet transform (2D-CWT) with a Mexican Hat wevalet to measure the topographic complexity (i.e., surface roughness) of a land surface from a Digital Elevation Model (DEM). Such method quanitfy the wavelet-based curvature of the surface, which has been proposed to be a effective geomorphic metric for identifying and estimating the ages of historical deep-seated landslide deposits.
@@ -51,7 +51,7 @@ See `pycwtmexhat_example.ipynb` for detailed explanations and usage instructions
 ### 2. `pyfracd`: Fractal Dimentsion Analysis
 
 ```python
-from pytopocomplexity import pyfracd
+from pytopocomplexity import FracD
 ```
 
 The `pyfracd` module calculates local fractal dimensions to assess topographic complexity. It also computes reliability parameters such as the standard error and the coefficient of determination (R²). The development of pyfracd is made possible through the gratitude of Dr. Eulogio Pardo-Iguzquiza, who kindly shared his Fortran code used in his recent publication [Pardo-Igúzquiza and Dowd (2022)](https://doi.org/10.1016/j.icarus.2022.115109).
@@ -67,7 +67,7 @@ See `pyfracd_example.ipynb` for detailed explanations and usage instructions.
 ### 3. `pyrugosity`: Rugosity Index
 
 ```python
-from pytopocomplexity import pyrugosity
+from pytopocomplexity import RugosityIndex
 ```
 
 The module `pyrugosity` measure rugosity index of the land surface, which is widely used to assess landscape structural complexity. The development of this module is influenced by another open-source tool [`Rugosity_Calculator`](https://github.com/drk944/Rugosity_Calculator) created by [drk944](https://github.com/drk944).
