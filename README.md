@@ -8,9 +8,9 @@
 
 | Modules  | Classes | Method Descriptions |
 | ------------- | ------------- | ------------- |
-| pycwtmexhat.py | CWTMexHat | Quanitfy the wavelet-based curvature of the land surface using two-dimensional continuous wavelet transform (2D-CWT) with a Mexican Hat wevalet |
-| pyfracd.py | FracD | Conduct fractal dimension analysis on the land surface |
-| pyrugostiy.py | RugosityIndex | Calculate rugosity indext of the land surface |
+| pycwtmexhat.py | CWTMexHat | Quanitfy the wavelet-based curvature of the terrain surface using two-dimensional continuous wavelet transform (2D-CWT) with a Mexican Hat wevalet |
+| pyfracd.py | FracD | Conduct fractal dimension analysis on the terrain surface using variogram procedure |
+| pyrugostiy.py | RugosityIndex | Calculate rugosity index of the terrain surface |
 
 In this GitHub repository, each module has a corresponding example Jupyter Notebook file that includes detailed instructions on module usage and brief explanations of the applied theories with cited references. Example raster file data are included in the `~/example/` folder.
 
