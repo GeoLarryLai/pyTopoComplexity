@@ -41,7 +41,7 @@ class RugosityIndex:
 
     Methods:
     --------
-    analyze(input_dir, chunk_processing=True, chunksize=(512, 512))
+    analyze(input_dir, slope_correction=True, chunk_processing=True, chunksize=(512, 512))
         Perform rugosity analysis on the input DEM.
     export_result(output_dir)
         Export the rugosity result to a GeoTIFF file.
@@ -59,6 +59,9 @@ class RugosityIndex:
     -----------
     Jenness, J.S. (2004). Calculating landscape surface area from digital elevation models.
     Wildlife Society Bulletin, 32: 829-839. https://doi.org/10.2193/0091-7648(2004)032[0829:CLSAFD]2.0.CO;2
+
+    Du Preez, C. (2015) A new arc–chord ratio (ACR) rugosity index for quantifying three-dimensional 
+    landscape structural complexity. Landscape Ecol 30, 181–192. https://doi.org/10.1007/s10980-014-0118-8
     """
 
     def __init__(self, window_size=3):
@@ -129,7 +132,51 @@ class RugosityIndex:
         
         return total_surface_area
 
-    def calculate_rugosity(self, Z, cell_size):
+    @staticmethod
+    @jit(nopython=True)
+    def calculate_window_slope(values, cell_size):
+        """
+        Calculate the slope for a window using the planar method, adapted for variable window sizes.
+        
+        Parameters:
+        -----------
+        values : numpy.ndarray
+            Elevation values within the moving window, flattened to 1D array.
+        cell_size : float
+            Size of each cell in the DEM (in the same units as values).
+        
+        Returns:
+        --------
+        float
+            Slope of the window in degrees.
+
+        The planar method for estimating the slope of center cell is adatped from 
+        https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-analyst/how-slope-works.htm
+        """
+        window_size = int(np.sqrt(len(values)))
+        
+        # Extract the 9 key points
+        a = values[0]                           # top-left corner
+        b = values[window_size // 2]            # top-middle
+        c = values[window_size - 1]             # top-right corner
+        d = values[(window_size // 2) * window_size]  # middle-left
+        e = values[len(values) // 2]            # center
+        f = values[(window_size // 2 + 1) * window_size - 1]  # middle-right
+        g = values[window_size * (window_size - 1)]  # bottom-left corner
+        h = values[window_size * (window_size - 1) + window_size // 2]  # bottom-middle
+        i = values[-1]                          # bottom-right corner
+        
+        # Calculate rates of change in x and y directions
+        dz_dx = ((c + 2*f + i) - (a + 2*d + g)) / (8 * cell_size * (window_size - 1))
+        dz_dy = ((g + 2*h + i) - (a + 2*b + c)) / (8 * cell_size * (window_size - 1))
+        
+        # Calculate slope
+        rise_run = np.sqrt(dz_dx**2 + dz_dy**2)
+        slope_radians = np.arctan(rise_run)
+        
+        return slope_radians
+
+    def calculate_rugosity(self, Z, cell_size, slope_correction):
         """
         Calculate the rugosity index for the entire DEM.
 
@@ -143,6 +190,8 @@ class RugosityIndex:
             Input elevation data.
         cell_size : float
             Size of each cell in the DEM (in the same units as Z).
+        slope_correction : bool
+            Whether to apply slope correction to the planar area calculation.
 
         Returns:
         --------
@@ -159,13 +208,25 @@ class RugosityIndex:
         The rugosity index is calculated as the ratio of the real surface area
         to the planar area within each moving window. This method uses the
         compute_triangle_areas function to calculate the surface area.
+
+        When slope correction is applied (default), it returns the arc-chord ratio (ACR) 
+        rugosity index (Du Preez, 2015). When slope correction is turned off, it returns 
+        the conventional rugosity index (Jenness, 2004).
+
         """
         if self.window_size % 2 == 0 or self.window_size < 3:
             raise ValueError("'window_size' must be an odd integer >= 3.")
 
         def rugosity_filter(values):
             surface_area = self.compute_triangle_areas(values, cell_size)
-            planar_area = ((self.window_size - 1) * cell_size)**2
+            flat_planar_area = ((self.window_size - 1) * cell_size)**2
+            
+            if slope_correction:
+                slope_radians = self.calculate_window_slope(values, cell_size)
+                planar_area = flat_planar_area / np.cos(slope_radians)
+            else:
+                planar_area = flat_planar_area
+            
             rugosity = surface_area / planar_area
             return rugosity
 
@@ -192,7 +253,7 @@ class RugosityIndex:
         
         return result
 
-    def analyze(self, input_dir, chunk_processing=True, chunksize=(512, 512)):
+    def analyze(self, input_dir, slope_correction=True, chunk_processing=True, chunksize=(512, 512)):
         """
         Perform rugosity analysis on the input DEM.
 
@@ -203,6 +264,8 @@ class RugosityIndex:
         -----------
         input_dir : str
             Path to the input DEM file.
+        slope_correction : bool, optional
+            Whether to apply slope correction to the planar area calculation. Default is True.
         chunk_processing : bool, optional
             Whether to use chunk processing for large DEMs. Default is True.
         chunksize : tuple of int, optional
@@ -222,6 +285,7 @@ class RugosityIndex:
         self.input_dir = input_dir
         self.chunk_processing = chunk_processing
         self.chunksize = chunksize
+        self.slope_correction = slope_correction
 
         with rasterio.open(input_dir) as src:
             self.meta = src.meta.copy()
@@ -243,7 +307,7 @@ class RugosityIndex:
                 raise ValueError("The unit of elevation 'z' must be in feet or meters.")
 
             # Calculate rugosity
-            self.result = self.calculate_rugosity(self.Z, gridsize)        
+            self.result = self.calculate_rugosity(self.Z, gridsize, slope_correction)        
 
             # Replace edges with NaN
             fringeval = self.window_size // 2 + 1
@@ -327,7 +391,13 @@ class RugosityIndex:
         # Plot the rugosity
         im = axes[1].imshow(self.result, cmap='viridis')
         im.set_clim(round(np.nanpercentile(self.result, 1), 2), round(np.nanpercentile(self.result, 99), 2))
-        axes[1].set_title(f'Rugosity Index (~{round(self.window_size_m, 2)}m x ~{round(self.window_size_m, 2)}m window)')
+        
+        # Set the title based on whether slope correction was applied
+        if self.slope_correction:
+            axes[1].set_title(f'Arc-Chord Ratio (ACR) Rugosity Index\n(~{round(self.window_size_m, 2)}m x ~{round(self.window_size_m, 2)}m window)')
+        else:
+            axes[1].set_title(f'Conventional Rugosity Index\n(~{round(self.window_size_m, 2)}m x ~{round(self.window_size_m, 2)}m window)')
+        
         axes[1].set_xlabel(f'X-axis grids \n(grid size ≈ {round(gridsize[0],4)} [{Zunit}])')
         axes[1].set_ylabel(f'Y-axis grids \n(grid size ≈ {-round(gridsize[4],4)} [{Zunit}])')
         cbar2 = fig.colorbar(im, ax=axes[1], orientation='horizontal', fraction=0.045, pad=0.13)
@@ -335,7 +405,12 @@ class RugosityIndex:
         plt.tight_layout()
         
         if savefig:
-            output_filename = os.path.splitext(input_file)[0] + f'_pyRugosity({round(self.window_size_m, 2)}m).png'
+            # Set the file name based on whether slope correction was applied
+            if self.slope_correction:
+                output_filename = os.path.splitext(input_file)[0] + f'_pyRugosity_ACR({round(self.window_size_m, 2)}m).png'
+            else:
+                output_filename = os.path.splitext(input_file)[0] + f'_pyRugosity_Conv({round(self.window_size_m, 2)}m).png'
+
             output_dir = os.path.join(base_dir, output_filename)
             plt.savefig(output_dir, dpi=200, bbox_inches='tight')
             print(f"Figure saved as '{output_filename}'")
