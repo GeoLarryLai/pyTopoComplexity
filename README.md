@@ -1,4 +1,4 @@
-# pyTopoComlexity (v0.7.4)
+# pyTopoComlexity
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.11239338.svg)](https://doi.org/10.5281/zenodo.11239338)
 <p align="left">
  <img src="image/pyTopoComplexity_logo.png" width="30%" height="30%""/>
@@ -6,11 +6,11 @@
 
 `pytopocomplexity` is an open-source Python package designed to measure the topographic complexity (i.e., surface roughness) of land surfaces using digital elevation model (DEM) data. This package includes modules for three methods commonly used in the fields of geomorphology and oceanography for measuring topographic complexity, which are not fully available in Geographic Information System (GIS) software like QGIS.
 
-| Modules  | Method Descriptions |
-| ------------- | ------------- |
-| pycwtmexhat.py  | Quanitfy the wavelet-based curvature of the land surface using two-dimensional continuous wavelet transform (2D-CWT) with a Mexican Hat wevalet |
-| pyfracd.py  | Conduct fractal dimension analysis on the land surface |
-| pyrugostiy.py  | Calculate rugosity indext of the land surface |
+| Modules  | Classes | Method Descriptions |
+| ------------- | ------------- | ------------- |
+| pycwtmexhat.py | CWTMexHat | Quanitfy the wavelet-based curvature of the land surface using two-dimensional continuous wavelet transform (2D-CWT) with a Mexican Hat wevalet |
+| pyfracd.py | FracD | Conduct fractal dimension analysis on the land surface |
+| pyrugostiy.py | RugosityIndex | Calculate rugosity indext of the land surface |
 
 In this GitHub repository, each module has a corresponding example Jupyter Notebook file that includes detailed instructions on module usage and brief explanations of the applied theories with cited references. Example raster file data are included in the `~/example/` folder.
 
@@ -35,7 +35,7 @@ The current version is still a pre-release. If you use the current version of `p
 ### 1. `pycwtmexhat`: 2D Continuous Wavelet Transform Method
 
 ```python
-from pytopocomplexity import pycwtmexhat
+from pytopocomplexity import CWTMexHat
 ```
 
 The module `pycwtmexhat` uses two-dimensional continuous wavelet transform (2D-CWT) with a Mexican Hat wevalet to measure the topographic complexity (i.e., surface roughness) of a land surface from a Digital Elevation Model (DEM). Such method quanitfy the wavelet-based curvature of the surface, which has been proposed to be a effective geomorphic metric for identifying and estimating the ages of historical deep-seated landslide deposits.
@@ -51,7 +51,7 @@ See `pycwtmexhat_example.ipynb` for detailed explanations and usage instructions
 ### 2. `pyfracd`: Fractal Dimentsion Analysis
 
 ```python
-from pytopocomplexity import pyfracd
+from pytopocomplexity import FracD
 ```
 
 The `pyfracd` module calculates local fractal dimensions to assess topographic complexity. It also computes reliability parameters such as the standard error and the coefficient of determination (R²). The development of pyfracd is made possible through the gratitude of Dr. Eulogio Pardo-Iguzquiza, who kindly shared his Fortran code used in his recent publication [Pardo-Igúzquiza and Dowd (2022)](https://doi.org/10.1016/j.icarus.2022.115109).
@@ -67,12 +67,14 @@ See `pyfracd_example.ipynb` for detailed explanations and usage instructions.
 ### 3. `pyrugosity`: Rugosity Index
 
 ```python
-from pytopocomplexity import pyrugosity
+from pytopocomplexity import RugosityIndex
 ```
 
 The module `pyrugosity` measure rugosity index of the land surface, which is widely used to assess landscape structural complexity. The development of this module is influenced by another open-source tool [`Rugosity_Calculator`](https://github.com/drk944/Rugosity_Calculator) created by [drk944](https://github.com/drk944).
 
-The rugosity index is determined as the ratio of the real surface area to the geometric surface area, highlighting smaller-scale variations in surface height. This module adapt triangulated irregular networks method ([Jenness, 2004](https://doi.org/10.2193/0091-7648(2004)032[0829:CLSAFD]2.0.CO;2)), which approximate the surface area of with within each 9 cell as the sum of 8 truncated-triangle area connecting each cell centerpoint with the centerpoints of the 8 surrounding cells. The geometric surface area is assumed to be the planimetric area of the center cell. By definition, the rugosity index is as a minimum value of one (completely flate surface). Typical valuesrange from one to three although larger values are possible in very steep terrains. Such method has been applied in classifying seafloor types by marine geologists and geomorphologist, small-scale hydrodynamics by oceanographers, and studying available habitats in the landscape by ecologists and coral biologists.
+The geometric surface area is assumed to be the planimetric area of the center cell. Without local slope correction, planimetric area is set to be the horizontal planar area of the $N \times N$ moving window (following [Jenness, 2004](https://doi.org/10.2193/0091-7648(2004)032[0829:CLSAFD]2.0.CO;2)). Another approach is to correct the planar area for slope ([Du Preez, 2015](https://doi.org/10.1007/s10980-014-0118-8)), so that the planimetric area projected onto the plane of the local slope. 
+
+By definition, the rugosity index is as a minimum value of one (completely flate surface). Typical valuesrange of the conventional rugosity index (without slope correction) from one to three although larger values are possible in very steep terrains. The slope-corrected rugosity index, also called arc-chord ratio (ACR) rugosity index, could provide a better representation of local surface complexity. Such method has been applied in classifying seafloor types by marine geologists and geomorphologist, small-scale hydrodynamics by oceanographers, and studying available habitats in the landscape by ecologists and coral biologists.
 
 See `pyrugosity_example.ipynb` for detailed explanations and usage instructions.
 
@@ -89,9 +91,6 @@ Users need to define the diffusion coefficient (K) for the simulation. The code 
 <p align="center">
 <img src="image/NonlinearDiff_demo.gif" width="65%" height="65%" align="center"/>
 </p>
-
-> [!WARNING]
-> There is a known/unresolved stability issue when running `TaylorNonLinearDiffuser` component with a DEM with reprojected coordinate reference system (CRS) through GIS softwares. When using the example DEM, users may only use the pre-reprojected DEM with CRS: NAD83/Washington South (ftUS) (EPSG: 2286) and Z unit in US survey feet (e.g., the DEM files named with *"_f_3ftgrid"* or *"_f_6ftgrid"*).
 
 ## Example DEM Raster Files
 
@@ -115,26 +114,24 @@ The example DEM raster files have various grid size, coordinate reference system
 ## Requirements
 For `pytopocomplexity` package
 * Python >= 3.10
-* `numpy`
-* `scipy`
-* `rasterio`
-* `dask`
-* `matplotlib`
-* `tqdm`
-* `numba`
-* `gdal`
-* `statsmodels` 
+* `numpy` >= 1.24
+* `scipy` >= 1.10
+* `rasterio` >= 1.3
+* `dask` >= 2024.3
+* `matplotlib` >= 3.7
+* `tqdm` >= 4.66
+* `numba` >= 0.57
+* `statsmodels` >= 0.14
 
 Additional packages for Jupyter Notebook examples:
-* `glob`
-* `pandas`
-* `jupyter`
+* `pandas` >= 2.1
+* `jupyter` >= 1.0
 
 for landscape smoothing simulation
-* `landlab` for landscape smoothing simulation ([User Guide](https://landlab.readthedocs.io/en/latest/index.html))
+* [`landlab`](https://landlab.readthedocs.io/en/latest/index.html) >= 2.7
   * Used components: `TaylorNonLinearDiffuser`, `esri_ascii`, `imshowhs`
-* `osgeo` [if imported raster is in the geotiff format]
-* `ipywidgets` [optional for interactive visualization]
+* `gdal`>= 3.6
+* `ipywidgets` >= 8.1 [optional for interactive visualization]
 
 See also the `environment.yml` file which can be used to create a virtual environment.
 
