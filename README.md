@@ -16,9 +16,6 @@ In this GitHub repository, each module has a corresponding example Jupyter Noteb
 
 There is also an additional Jupyter Notebook, `nonlineardiff_landlab.ipynb`, which leverages the power of [`landlab`](https://landlab.readthedocs.io/en/latest/index.html) to perform forward simulation of landscape smoothing through non-linear hillslope diffusion process.
 
-> [!CAUTION]
-> This package is under developement and has not officially released. Use it with caution.
-
 ## Installation
 
 ```
