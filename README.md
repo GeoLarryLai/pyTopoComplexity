@@ -66,7 +66,7 @@ See `pyfracd_example.ipynb` for detailed explanations and usage instructions.
 from pytopocomplexity import RugosityIndex
 ```
 
-The module **pyrugosity.py** measure rugosity index of the land surface, which is widely used to assess landscape structural complexity. The development of this module is influenced by another open-source tool [`Rugosity_Calculator`](https://github.com/drk944/Rugosity_Calculator) created by [drk944](https://github.com/drk944).
+The module **pyrugosity.py** measure rugosity index of the land surface, which is widely used to assess landscape structural complexity.
 
 By definition, the rugosity index is as a minimum value of one (completely flate surface). Typical valuesrange of the conventional rugosity index (without slope correction, following [Jenness (2004)](https://doi.org/10.2193/0091-7648(2004)032[0829:CLSAFD]2.0.CO;2)) from one to three although larger values are possible in very steep terrains. The slope-corrected rugosity index, also called arc-chord ratio (ACR) rugosity index ([Du Preez, 2015](https://doi.org/10.1007/s10980-014-0118-8)), could provide a better representation of local surface complexity. Such method has been applied in classifying seafloor types by marine geologists and geomorphologist, small-scale hydrodynamics by oceanographers, and studying available habitats in the landscape by ecologists and coral biologists.
 
@@ -130,4 +130,4 @@ for landscape smoothing simulation
 See also the `environment.yml` file which can be used to create a virtual environment.
 
 ## License
-pyTopoComlexity is licensed under the [Apache License 2.0](LICENSE).
+**pyTopoComlexity** is licensed under the [Apache License 2.0](LICENSE).
