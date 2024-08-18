@@ -28,7 +28,7 @@ A manuscript is being prepared for submission to the [Journal of Open Source Sof
 
 ## Modules for Surface Complexity Measurement
 
-### 1. `pycwtmexhat.py`: 2-D Continuous Wavelet Transform Analysis
+### 1. 2-D Continuous Wavelet Transform Analysis
 
 ```python
 from pytopocomplexity import CWTMexHat
@@ -44,13 +44,13 @@ See **pycwtmexhat_example.ipynb** for detailed explanations and usage instructio
  <img src="image/CWTMexHat.png" width="100%" height="100%""/>
 </p>
 
-### 2. `pyfracd.py`: Fractal Dimentsion Analysis
+### 2. Fractal Dimentsion Analysis
 
 ```python
 from pytopocomplexity import FracD
 ```
 
-The **pyfracd.py** module calculates local fractal dimensions to assess topographic complexity. It also computes reliability parameters such as the standard error and the coefficient of determination (R²). The development of pyfracd is made possible through the gratitude of Dr. Eulogio Pardo-Iguzquiza, who kindly shared his Fortran code used in his recent publication [Pardo-Igúzquiza and Dowd (2022)](https://doi.org/10.1016/j.icarus.2022.115109).
+The **pyfracd.py** module calculates local fractal dimensions to assess topographic complexity. It also computes reliability parameters such as the standard error and the coefficient of determination (R²). The development of this module was greatly influenced by the Fortran code shared by Dr. Eulogio Pardo-Igúzquiza from his work in [Pardo-Igúzquiza and Dowd (2022)](https://doi.org/10.1016/j.icarus.2022.115109).
 
 The local fractal dimension is determined by intersecting the surface within a moving window with four vertical planes in principal geographical directions, simplifying the problem to one-dimensional topographic profiles. The fractal dimension of these profiles is estimated using the variogram method, which models the relationship between dissimilarity and distance using a power-law function. While the fractal dimension value does not directly scale with the degree of surface roughness, smoother or more regular surfaces generally have lower fractal dimension values (closer to 2), whereas surfaces with higher fractal dimension values tend to be more complex or irregular. This method has been applied in terrain analysis for understanding spatial variability in surface roughness, classifying geomorphologic features, uncovering hidden spatial structures, and supporting geomorphological and geological mapping on Earth and other planetary bodies.
 
@@ -60,7 +60,7 @@ See **pyfracd_example.ipynb** for detailed explanations and usage instructions.
  <img src="image/FracD.png" width="100%" height="100%""/>
 </p>
 
-### 3. `pyrugosity.py`: Rugosity Index Calculation
+### 3. Rugosity Index Calculation
 
 ```python
 from pytopocomplexity import RugosityIndex
