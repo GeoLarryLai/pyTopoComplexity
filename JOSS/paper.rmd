@@ -32,13 +32,12 @@ bibliography: paper.bib
 
 # Summary
 
-**pyTopoComplexity** is a Python package that provides a computationally efficient and highly 
-customizable implementation of three methods for quantifying topographic complexity. 
-These methods include two-dimensional continuous wavelet 
-transform (2D-CWT) analysis, fractal dimension estimation, and rugosity index calculation across 
-various spatial scales. This package addresses the scarcity of open-source software for these 
-sophisticated methods, which are crucial in modern terrain analysis, and facilitates data 
-comparison and reproducibility. In the [software respository](https://github.com/GeoLarryLai/pyTopoComlexity.git), 
+**pyTopoComplexity** is a Python package that provides a computationally efficient and customizable 
+implementation of three methods for quantifying topographic complexity. These methods include 
+two-dimensional continuous wavelet transform (2D-CWT) analysis, fractal dimension estimation, and 
+rugosity index calculation across various spatial scales. This package addresses the scarcity of 
+open-source software for these sophisticated methods, which are crucial in modern terrain analysis, 
+and facilitates data comparison and reproducibility. In the [software respository](https://github.com/GeoLarryLai/pyTopoComlexity.git), 
 we also include a Jupyter Notebook file that integrates components from the Python-based 
 surface-process modeling platform **Landlab** [@Hobley2017]. This allows researchers to 
 simulate the smoothing of topography over time through terrestrial nonlinear hillslope 
