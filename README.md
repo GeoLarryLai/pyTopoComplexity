@@ -28,7 +28,7 @@ A manuscript is being prepared for submission to the [Journal of Open Source Sof
 
 ## Modules for Surface Complexity Measurement
 
-### 1. `pycwtmexhat`: 2D Continuous Wavelet Transform Method
+### 1. `pycwtmexhat.py`: 2-D Continuous Wavelet Transform Analysis
 
 ```python
 from pytopocomplexity import CWTMexHat
@@ -44,7 +44,7 @@ See **pycwtmexhat_example.ipynb** for detailed explanations and usage instructio
  <img src="image/CWTMexHat.png" width="100%" height="100%""/>
 </p>
 
-### 2. `pyfracd`: Fractal Dimentsion Analysis
+### 2. `pyfracd.py`: Fractal Dimentsion Analysis
 
 ```python
 from pytopocomplexity import FracD
@@ -60,7 +60,7 @@ See **pyfracd_example.ipynb** for detailed explanations and usage instructions.
  <img src="image/FracD.png" width="100%" height="100%""/>
 </p>
 
-### 3. `pyrugosity`: Rugosity Index
+### 3. `pyrugosity.py`: Rugosity Index Calculation
 
 ```python
 from pytopocomplexity import RugosityIndex
