@@ -24,8 +24,7 @@ pip install pytopocomplexity
 
 ## Citation
 
-The current version is still a pre-release. If you use the current version of **pyTopoComplexity** and associated Jupyter Notebooks (including nonlinear diffusion simulation) in your work, please cite the Zenodo DOI:
-* Zenodo: https://doi.org/10.5281/zenodo.11239338
+A manuscript is prepared to be submitted to [Journal of Open Source Software](https://joss.theoj.org). If you use **pyTopoComplexity** and associated Jupyter Notebooks in your work, please consider to cite it when it is out. (Currently, users may cite the [Zenodo DOI](https://doi.org/10.5281/zenodo.11239338)).
 
 ## Modules for Surface Complexity Measurement
 
