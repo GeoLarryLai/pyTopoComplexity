@@ -261,12 +261,6 @@ nonlinear hillslope diffusion model used in the `pyrugosity` module, in attempt 
 
 # Acknowledgements
 
-The development of **pyTopoComplexity** is a part of collactive effort within the [Landslide subteam](https://cascadiacopeshub.org/team-1-landslides/) of the 
-[Cascadia Coastlines and Peoples Hazards Research Hub (Cascadia CoPes Hub)](https://cascadiacopeshub.org), which is supported by funds from the 
-National Science Foundation Award ([#2103713](https://www.nsf.gov/awardsearch/showAward?AWD_ID=2103713&HistoricalAwards=false)). We express special thanks to 
-Dr. Eulogio Pardo-Igúzquiza who shared his Fortran code for fractal dimension analysis used in his work @PardoIguzquiza2022b, which greatly inspired the development 
-of **pyfracd.py** module.
-
 The development of **pyTopoComplexity** is part of a collaborative effort within the [Landslide subteam](https://cascadiacopeshub.org/team-1-landslides/) of the 
 [Cascadia Coastlines and Peoples Hazards Research Hub (Cascadia CoPes Hub)](https://cascadiacopeshub.org), funded by the National Science Foundation Award ([#2103713](https://www.nsf.gov/awardsearch/showAward?AWD_ID=2103713&HistoricalAwards=false)). 
 We extend special thanks to Dr. Eulogio Pardo-Igúzquiza, who generously shared his Fortran code for fractal dimension analysis used in his work 
