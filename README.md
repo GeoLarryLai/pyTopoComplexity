@@ -4,7 +4,7 @@
  <img src="image/pyTopoComplexity_logo.png" width="30%" height="30%""/>
 </p>
 
-`pytopocomplexity` is an open-source Python package designed to measure the topographic complexity (i.e., surface roughness) of land surfaces using digital elevation model (DEM) data. This package includes modules for three methods commonly used in the fields of geomorphology and oceanography for measuring topographic complexity, which are not fully available in Geographic Information System (GIS) software like QGIS.
+**pyTopoComplexity** is an open-source Python package designed to measure the topographic complexity (i.e., surface roughness) of land surfaces using digital elevation model (DEM) data. This package includes modules for three methods commonly used in the fields of geomorphology and oceanography for measuring topographic complexity, which are not fully available in Geographic Information System (GIS) software like QGIS.
 
 | Modules  | Classes | Method Descriptions |
 | ------------- | ------------- | ------------- |
@@ -14,7 +14,7 @@
 
 In this GitHub repository, each module has a corresponding example Jupyter Notebook file that includes detailed instructions on module usage and brief explanations of the applied theories with cited references. Example raster file data are included in the `~/example/` folder.
 
-There is also an additional Jupyter Notebook, `nonlineardiff_landlab.ipynb`, which leverages the power of [`landlab`](https://landlab.readthedocs.io/en/latest/index.html) to perform forward simulation of landscape smoothing through non-linear hillslope diffusion process.
+There is also an additional Jupyter Notebook, `nonlineardiff_landlab.ipynb`, which leverages the power of [Landlab](https://landlab.readthedocs.io/en/latest/index.html) to perform forward simulation of landscape smoothing through non-linear hillslope diffusion process.
 
 ## Installation
 
@@ -24,8 +24,8 @@ pip install pytopocomplexity
 
 ## Citation
 
-The current version is still a pre-release. If you use the current version of `pytopocomplexity` and associated Jupyter Notebooks (including nonlinear diffusion simulation) in your work, please cite the Zenodo DOI:
-* Lai, L. S.-H. (2024). pyTopoComplexity. Zenodo. https://doi.org/10.5281/zenodo.11239338
+The current version is still a pre-release. If you use the current version of **pyTopoComplexity** and associated Jupyter Notebooks (including nonlinear diffusion simulation) in your work, please cite the Zenodo DOI:
+* Zenodo: https://doi.org/10.5281/zenodo.11239338
 
 ## Modules for Surface Complexity Measurement
 
@@ -79,7 +79,7 @@ See `pyrugosity_example.ipynb` for detailed explanations and usage instructions.
 
 ## Forward Simulation of Landscape Smoothing by Nonlinear Hillslope Diffusion Process
 
-In the `~/example/` folder, the Jupyter Notebook file **nonlineardiff_landlab.ipynb** demonstrates the use of [`landlab`](https://landlab.readthedocs.io/en/latest/index.html), an open-source Python framework for simulating landscape evolution, to model topographic smoothing driven by near-surface soil disturbance and downslope soil creep processes. Specifically, this notebook employs the [`TaylorNonLinearDiffuser`](https://landlab.readthedocs.io/en/latest/reference/components/taylor_nonlinear_hillslope_flux.html) component from landLab, described as one element in the [`terrainBento`](https://github.com/TerrainBento/terrainbento) package, developed by [Barnhart et al. (2019)](https://gmd.copernicus.org/articles/12/1267/2019/), to simulate topographic smoothing over time through non-linear hillslope diffusion processes ([Roering et al., 1999](https://doi.org/10.1029/1998WR900090)).
+In the `~/example/` folder, the Jupyter Notebook file **nonlineardiff_Landlab.ipynb** demonstrates the use of [Landlab](https://landlab.readthedocs.io/en/latest/index.html), an open-source Python framework for simulating landscape evolution, to model topographic smoothing driven by near-surface soil disturbance and downslope soil creep processes. Specifically, this notebook employs the [`TaylorNonLinearDiffuser`](https://landlab.readthedocs.io/en/latest/reference/components/taylor_nonlinear_hillslope_flux.html) component from [Landlab](https://landlab.readthedocs.io/en/latest/index.html), described as one element in the [`terrainBento`](https://github.com/TerrainBento/terrainbento) package, developed by [Barnhart et al. (2019)](https://gmd.copernicus.org/articles/12/1267/2019/), to simulate topographic smoothing over time through non-linear hillslope diffusion processes ([Roering et al., 1999](https://doi.org/10.1029/1998WR900090)).
 
 Users need to define the diffusion coefficient (K) for the simulation. The code will automatically detect the units of the XYZ directions (must be in feet or meters) of the input DEM raster file and convert the unit for K accordingly.
 
@@ -91,7 +91,7 @@ Users need to define the diffusion coefficient (K) for the simulation. The code 
 
 This repository include example LiDAR DEM files under `~/example/ExampleDEM/` that cover the area and nearby region of a deep-seated landslide occurred in 2014 at Oso area of the North Fork Stillaguamish River (NFSR) valley, Washington State, USA. The souce LiDAR DEM files were compiled from 'Stillaguamish 2014' and 'Snohoco Hazel 2006' projects that was originally contracted by Washington State Department of Transportation (WSDOT), downloaded from the [Washington Lidar Portal](http://lidarportal.dnr.wa.gov) on April 4, 2024.
 
-A goal of this work allow users to reproduce the research by [Booth et al. (2017)](https://doi.org/10.1002/2016JF003934) and permit comparison of topographic complexity metrics derived from other regions using `pytopocomplexity` package and the `nonlineardiff_landlab.ipynb` simulation tools presented in this repository.
+A goal of this work allow users to reproduce the research by [Booth et al. (2017)](https://doi.org/10.1002/2016JF003934) and permit comparison of topographic complexity metrics derived from other regions using **pyTopoComplexity** package and the `nonlineardiff_landlab.ipynb` simulation tools presented in this repository.
 
 The example DEM raster files have various grid size, coordinate reference system (CRS), and unit of grid value (elevation, Z).
 
@@ -104,10 +104,10 @@ The example DEM raster files have various grid size, coordinate reference system
 | Osoarea2014_f_6ftgrid.tif | NAD83/Washington South (ftUS) (EPSG: 2286) | 6.0 [US survey feet] | US survey feet | 2014 Oso Landslide & nearby NFSR valley |
 
 > [!NOTE]
-> When testing the code with the example DEM files, users should place the entire `~/ExampleDEM/` subfolder in the same directory as the Jupyter Notebook files. Both the `pytopocomplexity` package and the `nonlineardiff_landlab.ipynb` land-smoothing modeling tool have the capability to automatically detect the grid spacing and the units of the XYZ directions (must be in feet or meters) of the input DEM raster and compute the results in SI units.
+> When testing the code with the example DEM files, users should place the entire `~/ExampleDEM/` subfolder in the same directory as the Jupyter Notebook files. Both the **pyTopoComplexity** package and the `nonlineardiff_landlab.ipynb` land-smoothing modeling tool have the capability to automatically detect the grid spacing and the units of the XYZ directions (must be in feet or meters) of the input DEM raster and compute the results in SI units.
 
 ## Requirements
-For `pytopocomplexity` package
+For **pyTopoComplexity** package
 * Python >= 3.10
 * `numpy` >= 1.24
 * `scipy` >= 1.10
