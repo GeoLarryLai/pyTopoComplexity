@@ -246,7 +246,7 @@ $$
 Here, $\mathbf{S} = -\nabla z$ represents the downslope topographic gradient, and $S$ is its magnitude. The parameter $K$ is a diffusion-like 
 transport coefficient with dimensions of length squared per time. The simulation also incorporates the critical slope gradient ($S_c$) to 
 ensure numerical stability and prevent the numerical instability when $S = S_c$. $N$ denotes the number of terms in the Taylor 
-expansion, while $i$ specifies the number of additional terms included. If $N = 1$, the expression simplifies to linear diffusion [@Culling1963]. 
+expansion, while $i$ specifies the number of additional terms included. If $N = 0$, the expression simplifies to linear diffusion [@Culling1963]. 
 The default is set to $N = 2$ that gives the behavior described in @Ganti2012 as an approximation of the nonlinear diffusion.
 
 This notebook provides a comprehensive workflow that guides users through setting up, importing raster files, and running simulations. Since 
