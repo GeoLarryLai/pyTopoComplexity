@@ -28,7 +28,7 @@ A manuscript is being prepared for submission to the [Journal of Open Source Sof
 
 ## Modules for Surface Complexity Measurement
 
-### 1. 2-D Continuous Wavelet Transform Analysis
+### 1. Two-Dimensional Continuous Wavelet Transform Analysis
 
 ```python
 from pytopocomplexity import CWTMexHat
