@@ -128,7 +128,7 @@ $$
 $$
 
 The Mexican hat wavelet is proportional to the second derivative of a Gaussian envelope, with its Fourier wavelength ($\lambda$) 
-ependent on the grid spacing ($\Delta$) of the input DTM raster. The wavelet function $\psi$ is scaled according to the 
+dependent on the grid spacing ($\Delta$) of the input DTM raster. The wavelet function $\psi$ is scaled according to the 
 wavelet scale parameter $s$ and the grid spacing $\Delta$, ensuring that the resultant wavelet coefficient $C$ signifies 
 concave and convex landforms corresponding to the wavelet scale $s$. Users can define the value of $\lambda$ in meters as the 
 targeted spatial scale for landform roughness analysis, and the **pycwtmexhat.py** module will automatically compute the wavelet 
