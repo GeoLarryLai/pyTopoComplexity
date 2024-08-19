@@ -107,7 +107,7 @@ The example DEM raster files have various grid size, coordinate reference system
 > When testing the code with the example DEM files, users should place the entire `~/ExampleDEM/` subfolder in the same directory as the Jupyter Notebook files. Both the **pyTopoComplexity** package and the **nonlineardiff_landlab.ipynb** land-smoothing modeling tool have the capability to automatically detect the grid spacing and the units of the XYZ directions (must be in feet or meters) of the input DEM raster and compute the results in SI units.
 
 ## Requirements
-For **pyTopoComplexity** package
+For **pyTopoComplexity** package:
 * Python >= 3.10
 * `numpy` >= 1.24
 * `scipy` >= 1.10
@@ -122,7 +122,7 @@ Additional packages for Jupyter Notebook examples:
 * `pandas` >= 2.1
 * `jupyter` >= 1.0
 
-for landscape smoothing simulation
+For landscape smoothing simulation:
 * [`landlab`](https://landlab.readthedocs.io/en/latest/index.html) >= 2.7
   * Used components: `TaylorNonLinearDiffuser`, `esri_ascii`, `imshowhs`
 * `gdal`>= 3.6
