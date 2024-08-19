@@ -8,6 +8,7 @@
 
 | Modules  | Classes | Method Descriptions |
 | ------------- | ------------- | ------------- |
+
 | pycwtmexhat.py | CWTMexHat | Quanitfy the wavelet-based curvature of the terrain surface using two-dimensional continuous wavelet transform (2D-CWT) with a Mexican Hat wevalet |
 | pyfracd.py | FracD | Conduct fractal dimension analysis on the terrain surface using variogram procedure |
 | pyrugostiy.py | RugosityIndex | Calculate rugosity index of the terrain surface |
