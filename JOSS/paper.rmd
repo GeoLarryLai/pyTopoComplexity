@@ -26,7 +26,7 @@ affiliations:
    index: 1
  - name: Department of Geology, Portland State University, Portland, Oregon, USA
    index: 2
-date: 31 August 2024
+date: 18 August 2024
 bibliography: paper.bib
 ---
 
