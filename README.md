@@ -1,4 +1,4 @@
-# pyTopoComlexity
+# pyTopoComplexity
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.11239338.svg)](https://doi.org/10.5281/zenodo.11239338)
 <p align="left">
  <img src="image/pyTopoComplexity_logo.png" width="30%" height="30%""/>
@@ -8,7 +8,6 @@
 
 | Modules  | Classes | Method Descriptions |
 | ------------- | ------------- | ------------- |
-
 | pycwtmexhat.py | CWTMexHat | Quanitfy the wavelet-based curvature of the terrain surface using two-dimensional continuous wavelet transform (2D-CWT) with a Mexican Hat wevalet |
 | pyfracd.py | FracD | Conduct fractal dimension analysis on the terrain surface using variogram procedure |
 | pyrugostiy.py | RugosityIndex | Calculate rugosity index of the terrain surface |
@@ -107,7 +106,7 @@ The example DEM raster files have various grid size, coordinate reference system
 > When testing the code with the example DEM files, users should place the entire `~/ExampleDEM/` subfolder in the same directory as the Jupyter Notebook files. Both the **pyTopoComplexity** package and the **nonlineardiff_landlab.ipynb** land-smoothing modeling tool have the capability to automatically detect the grid spacing and the units of the XYZ directions (must be in feet or meters) of the input DEM raster and compute the results in SI units.
 
 ## Requirements
-For **pyTopoComplexity** package:
+For **pyTopoComplexity** package"
 * Python >= 3.10
 * `numpy` >= 1.24
 * `scipy` >= 1.10
@@ -131,4 +130,4 @@ For landscape smoothing simulation:
 See also the `environment.yml` file which can be used to create a virtual environment.
 
 ## License
-**pyTopoComlexity** is licensed under the [Apache License 2.0](LICENSE).
+**pyTopoComplexity** is licensed under the [Apache License 2.0](LICENSE).
