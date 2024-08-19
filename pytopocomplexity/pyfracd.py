@@ -23,7 +23,7 @@ class FracD:
     Parameters:
     -----------
     window_size : int, optional
-        The size of the moving window for fractal dimension calculation. Default is 10.
+        The size of the moving window for fractal dimension calculation.
 
     Attributes:
     -----------
@@ -44,7 +44,7 @@ class FracD:
     ft2mInt : float
         Conversion factor from international feet to meters.
     window_size_m : float
-            Window size converted in meters based on grid size.
+        Window size converted in meters based on grid size.
 
     Methods:
     --------

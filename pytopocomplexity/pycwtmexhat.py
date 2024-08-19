@@ -104,7 +104,8 @@ class CWTMexHat:
 
     def Delta_s_Calculate(self, input_dir):
         """
-        Calculate the grid spacing (Delta) and scale parameter (s) based on the input DEM.
+        1. Dxtract grid spacing (Delta) from the input DEM.
+        2. Calculate scale parameter (s) based on Delta and the user-defined Lambda
 
         Parameters:
         -----------

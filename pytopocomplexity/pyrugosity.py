@@ -15,7 +15,11 @@ class RugosityIndex:
 
     The rugosity index is a measure of terrain complexity, calculated as the ratio of the real surface area
     to the planar area. This implementation uses a moving window approach and adapts the triangulated
-    irregular networks method described by Jenness (2004).
+    irregular networks method described by Jenness (2004). 
+    
+    If no local slope correction is applied, the planimetric area is considered to be the horizontal planar 
+    area of the moving window, as decribed in Jenness (2004). Another approach considers slope correction 
+    where to the planimetric area is projected onto an plane of the local gradient (Du Preez, 2015).
 
     Parameters:
     -----------
@@ -102,9 +106,8 @@ class RugosityIndex:
         which helps prevent numerical instability with extreme elevation differences.
         It also includes safeguards against invalid area calculations.
 
-        The surface area is approximated using 8 triangles per cell, connecting
-        the center point with its 8 neighbors. This approach is based on the method
-        described by Jenness (2004).
+        The surface area is approximated using 8 triangles per moving window, 
+        connecting the center point with its 8 neighbors, as described by Jenness (2004).
         """
         window_size = int(np.sqrt(len(values)))
         center = values[len(values) // 2]
