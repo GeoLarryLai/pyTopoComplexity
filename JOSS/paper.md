@@ -177,7 +177,7 @@ FD = TD + 1 - \frac{\beta}{2}
 $$
 
 , where $TD$ is the topological dimension in the Euclidean space of the fractional Brownian motion. For one-dimensional fractional Brownian 
-motion, $TD = 1$; thus, the fractal dimension of the two-dimensional surface $(FD)_2^*$ can be estimated as the average fractal dimension of 
+motion, $TD = 1$. The fractal dimension of the two-dimensional surface $(FD)_2^*$ can be estimated as the average fractal dimension of 
 the one-dimensional profiles $(FD)_1^*$:
 
 $$
@@ -197,7 +197,7 @@ the coefficient of determination ($R^2$) to assess the robustness of the analysi
 ## Rugosity index calculation
 
 The **pyrugosity.py** module in **pyTopoComplexity**  measures the rugosity index of the land surface, which is widely used to assess structural 
-complexity of the topography. Such method has been applied in classifying seafloor types by marine geologists and geomorphologist, small-scale 
+complexity of the topography. Such method has been applied in classifying seafloor types by marine geologists and geomorphologist, understanding small-scale 
 hydrodynamics by oceanographers, and studying available habitats in the landscape by ecologists and coral biologists [@Lundblad2006; @Wilson2007].
 
 The rugosity index is determined as the ratio of the contoured area (i.e., true geometric surface area) to the planimetric area within the square 
@@ -264,6 +264,6 @@ nonlinear hillslope diffusion model used in the `pyrugosity` module, in attempt 
 The development of **pyTopoComplexity** is part of a collaborative effort within the [Landslide subteam](https://cascadiacopeshub.org/team-1-landslides/) of the 
 [Cascadia Coastlines and Peoples Hazards Research Hub (Cascadia CoPes Hub)](https://cascadiacopeshub.org), funded by the National Science Foundation Award ([#2103713](https://www.nsf.gov/awardsearch/showAward?AWD_ID=2103713&HistoricalAwards=false)). 
 We extend special thanks to Dr. Eulogio Pardo-Igúzquiza, who generously shared his Fortran code for fractal dimension analysis used in his work 
-@PardoIguzquiza2022b, which significantly inspired the development of the **pyfracd.py** module.
+[@PardoIguzquiza2022b], which  inspired the development of the **pyfracd.py** module.
 
 # References
