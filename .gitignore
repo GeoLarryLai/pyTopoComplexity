@@ -27,6 +27,8 @@ share/python-wheels/
 MANIFEST
 
 # PyInstaller
+#  Usually these files are written by a python script from a template
+#  before PyInstaller builds the exe, so as to inject date/other infos into it.
 *.manifest
 *.spec
 
@@ -58,22 +60,6 @@ ipython_config.py
 
 # pyenv
 .python-version
-
-# pipenv
-Pipfile.lock
-
-# poetry
-poetry.lock
-
-# PEP 582; used by e.g. github.com/David-OConnor/pyflow
-__pypackages__/
-
-# Celery stuff
-celerybeat-schedule
-celerybeat.pid
-
-# SageMath parsed files
-*.sage.py
 
 # Environments
 .env
@@ -114,9 +100,6 @@ cython_debug/
 # VS Code
 .vscode/
 
-# Jupyter Notebook
-.ipynb_checkpoints
-
 # OS generated files
 .DS_Store
 .DS_Store?
@@ -128,3 +111,15 @@ Thumbs.db
 
 # Project specific
 examples/ExampleDEM/*.tif
+*.log
+output/
+temp/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# pyTopoComplexity specific
+*.tif
+*.asc
+*.prj
+simulation_results/

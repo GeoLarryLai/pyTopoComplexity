@@ -5,7 +5,7 @@ with open("README-pypi.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="pytopocomplexity",
-    version="0.7.4",
+    version="0.7.5",
     author="Larry Syu-Heng Lai",
     author_email="larrysyuhenglai@gmail.com",
     description="A package for topographic complexity analysis",
@@ -27,7 +27,6 @@ setup(
         "matplotlib>=3.3",
         "tqdm>=4.0",
         "numba>=0.53",
-        "gdal>=3.0",
         "statsmodels>=0.12",
     ],
     license="Apache License 2.0",
