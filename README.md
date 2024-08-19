@@ -25,7 +25,7 @@ pip install pytopocomplexity
 
 ## Citation
 
-A manuscript is being prepared for submission to the [Journal of Open Source Software](https://joss.theoj.org). If you use pyTopoComplexity and the associated Jupyter Notebooks in your work, please consider citing the paper once it is accepted. In the meantime, users may cite the [Zenodo DOI](https://doi.org/10.5281/zenodo.11239338)).
+A manuscript is being prepared for submission to the [Journal of Open Source Software](https://joss.theoj.org). If you use **pyTopoComplexity** and the associated Jupyter Notebooks in your work, please consider citing the paper once it is accepted. In the meantime, users may cite the [Zenodo DOI](https://doi.org/10.5281/zenodo.11239338)).
 
 ## Modules for Surface Complexity Measurement
 
