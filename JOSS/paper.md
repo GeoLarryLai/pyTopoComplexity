@@ -256,8 +256,8 @@ stop the simulation. The example included in the notebook uses LiDAR DTM data fr
 with parameter values provided in @Booth2017, in an attempt to reproduce the simulation results presented in that study (Figure 4\autoref{fig:4}).
 
 ![Figure 4. Hillshade map of the 2014 Oso Lanslide region and surface smoothing evolution over 15,000 years predicted by a 
-nonlinear hillslope diffusion model used in the `pyrugosity` module, in attempt to reproduce the simulation results in 
-@Booth2017.\label{fig:3}](fig4-smoothing.png){ width=100% }
+nonlinear hillslope diffusion model used in the [**nonlineardiff_Landlab.ipynb**](https://github.com/GeoLarryLai/pyTopoComplexity/blob/main/example/nonlineardiff_Landlab.ipynb) 
+notebook, in attempt to reproduce the simulation results in @Booth2017.\label{fig:3}](fig4-smoothing.png){ width=100% }
 
 # Acknowledgements
 
