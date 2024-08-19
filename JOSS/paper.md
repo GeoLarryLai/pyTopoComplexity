@@ -34,10 +34,10 @@ bibliography: paper.bib
 
 **pyTopoComplexity** is a Python package that provides a computationally efficient and customizable 
 implementation of three methods for quantifying topographic complexity. These methods include 
-two-dimensional continuous wavelet transform (2D-CWT) analysis, fractal dimension estimation, 
-and rugosity index calculation across various spatial scales. This package addresses the scarcity 
-of open-source software for these sophisticated methods, which are crucial in modern terrain analysis, 
-and facilitates data comparison and reproducibility. In the [software respository](https://github.com/GeoLarryLai/pyTopoComlexity.git), 
+two-dimensional continuous wavelet transform (2D-CWT) analysis, fractal dimension estimation, and 
+rugosity index calculation across various spatial scales. This package addresses the scarcity of 
+open-source software for these sophisticated methods, which are crucial in modern terrain analysis, 
+and facilitates data comparison and reproducibility. In the [software respository](https://github.com/GeoLarryLai/pyTopoComplexity.git), 
 we also include a Jupyter Notebook file that integrates components from the Python-based 
 surface-process modeling platform **Landlab** [@Hobley2017]. This allows researchers to 
 simulate the smoothing of topography over time through terrestrial nonlinear hillslope 
@@ -87,11 +87,11 @@ optimize performance (see details in the **Methods and features overview** secti
 | pyrugostiy.py | RugosityIndex | Calculates the rugosity index of the land surface | @Jenness2004; @DuPreez2015 |
 Table: Table 1 \label{tab:1}: Modules contained in the **pyTopoComplexity** package.
 
-Each module of the **pyTopoComplexity** is provided with a corresponding [example Jupyter Notebook file](https://github.com/GeoLarryLai/pyTopoComlexity/tree/main/example) 
+Each module of the **pyTopoComplexity** is provided with a corresponding [example Jupyter Notebook file](https://github.com/GeoLarryLai/pyTopoComplexity/tree/main/example) 
 for usage instructions, using the Light Detection and Ranging (LiDAR) DTM data of a deep-seated landslide that 
 occurred in 2014 in the Oso area of the North Fork Stillaguamish River valley, Washington State, USA 
 [@WashingtonGeologicalSurvey2023]. In the software repository, we also include an additional Jupyter Notebook file 
-[**nonlineardiff_Landlab.ipynb**](https://github.com/GeoLarryLai/pyTopoComlexity/blob/main/example/nonlineardiff_Landlab.ipynb), 
+[**nonlineardiff_Landlab.ipynb**](https://github.com/GeoLarryLai/pyTopoComplexity/blob/main/example/nonlineardiff_Landlab.ipynb), 
 which allows researchers to simulate the smoothing of topography over time via terrestrial nonlinear hillslope 
 diffusion processes [@Roering1999]. This is achieved by employing the `TaylorNonLinearDiffuser` module from the 
 `terrainBento` Python package [@Barnhart2019] and running the simulation in the **Landlab** environment [@Hobley2017].
@@ -225,7 +225,8 @@ moving window size (grid spacing = 3 U.S. survey feet ≈ 0.9144 meters). \label
 
 ## Forward simulation of landscape smoothing through nonlinear hillslope diffusion process
 
-The `nonlineardiff_Landlab.ipynb` notebook in the **pyTopoComplexity** package offers a sophisticated tool for simulating landscape evolution 
+The [**nonlineardiff_Landlab.ipynb**](https://github.com/GeoLarryLai/pyTopoComplexity/blob/main/example/nonlineardiff_Landlab.ipynb) notebook 
+in the **pyTopoComplexity** package offers a sophisticated tool for simulating landscape evolution 
 through nonlinear diffusion processes due to near-surface soil disturbances and downslope sediment creep [@Roering1999]. This tool runs the 
 simulation in the **Landlab** environment (version >= 2.7) [@Hobley2017] with the `TaylorNonLinearDiffuser` module from the `terrainBento` 
 Python package [@Barnhart2019]. The main simulation iteratively applies the nonlinear diffusion model to predict changes in surface 
