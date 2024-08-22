@@ -5,7 +5,7 @@ with open("README-pypi.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="pytopocomplexity",
-    version="0.7.5",
+    version="0.8.0",
     author="Larry Syu-Heng Lai",
     author_email="larrysyuhenglai@gmail.com",
     description="A package for topographic complexity analysis",
