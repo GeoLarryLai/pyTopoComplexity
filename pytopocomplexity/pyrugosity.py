@@ -322,7 +322,7 @@ class RugosityIndex:
             # Calculate window size in meters
             self.window_size_m = gridsize * self.window_size
 
-        return self.Z, self.result, self.meta, self.window_size_m
+        return self.Z, self.result, self.window_size_m
 
     def export_result(self, output_dir):
         """
@@ -390,16 +390,16 @@ class RugosityIndex:
         axes[0].set_ylabel(f'Y-axis grids \n(grid size ≈ {-round(gridsize[4],4)} [{Zunit}])')
         cbar1 = fig.colorbar(hs, ax=axes[0], orientation='horizontal', fraction=0.045, pad=0.13)
         cbar1.ax.set_visible(False)
-
-        # Plot the rugosity
-        im = axes[1].imshow(self.result, cmap='viridis')
-        im.set_clim(round(np.nanpercentile(self.result, 1), 2), round(np.nanpercentile(self.result, 99), 2))
-        
-        # Set the title based on whether slope correction was applied
+       
+        # Plot the rugosity and set the title based on whether slope correction was applied
         if self.slope_correction:
             axes[1].set_title(f'Arc-Chord Ratio (ACR) Rugosity Index\n(~{round(self.window_size_m, 2)}m x ~{round(self.window_size_m, 2)}m window)')
+            im = axes[1].imshow(self.result, cmap='viridis')
+            im.set_clim(round(np.nanpercentile(self.result, 1), 2), round(np.nanpercentile(self.result, 99), 2))
         else:
             axes[1].set_title(f'Conventional Rugosity Index\n(~{round(self.window_size_m, 2)}m x ~{round(self.window_size_m, 2)}m window)')
+            im = axes[1].imshow(self.result, cmap='plasma')
+            im.set_clim(round(np.nanpercentile(self.result, 1), 2), round(np.nanpercentile(self.result, 99), 2))
         
         axes[1].set_xlabel(f'X-axis grids \n(grid size ≈ {round(gridsize[0],4)} [{Zunit}])')
         axes[1].set_ylabel(f'Y-axis grids \n(grid size ≈ {-round(gridsize[4],4)} [{Zunit}])')
