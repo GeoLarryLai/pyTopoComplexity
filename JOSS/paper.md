@@ -74,8 +74,8 @@ To address this gap, we have developed an open-source Python toolkit called **py
 offers computationally efficient and easily customizable implementations for performing and visualizing the results 
 of 2D-CWT, fractal dimension, and rugosity index calculations (see Table 1\autoref{tab:1}). Additionally, **pyTopoComplexity** 
 includes a module for calculating the Terrain Position Index (TPI), a widely used metric that is considered effective 
-in geomorphology research [@Newman2018; @Deumlich2010; @Liu2011]. The TPI is also often used alongside rugosity index 
-calculations in marine geological and ecological analyses [@Wilson2007; @Walbridge2018].
+in geomorphology research [@Newman2018; @Deumlich2010; @Liu2011] and often used alongside Rugosity Index in marine 
+geological and ecological studies [@Wilson2007; @Walbridge2018].
 
 This toolkit can detect the grid spacing and unit of the projected coordinate system (acceptable in meters, 
 U.S. survey feet, and international feet) from the input raster DTM file (GeoTIFF format) and 
