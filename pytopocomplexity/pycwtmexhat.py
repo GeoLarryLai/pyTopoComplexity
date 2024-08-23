@@ -326,12 +326,11 @@ class CWTMexHat:
         # Plot the 2D-CWT roughness
         im = axes[1].imshow(self.result, cmap='viridis')
         im.set_clim(0, round(np.nanpercentile(self.result, 99), 2))
-        axes[1].set_title(f'Mexican Hat {self.Lambda}m 2D-CWT')
+        axes[1].set_title(f'2D-CWT surface roughness [m$^{{-1}}$] \n measured with {self.Lambda}m Mexican Hat wavelet')
         axes[1].set_xlabel(f'X-axis grids \n(grid size ≈ {round(gridsize[0],4)} [{Zunit}])')
         axes[1].set_ylabel(f'Y-axis grids \n(grid size ≈ {-round(gridsize[4],4)} [{Zunit}])')
         cbar2 = fig.colorbar(im, ax=axes[1], orientation='horizontal', fraction=0.045, pad=0.13)
-        cbar2.set_label(f'Mexican Hat {self.Lambda} m 2D-CWT surface roughness [m$^{{-1}}$]')
-
+        
         plt.tight_layout()
         
         if savefig:
