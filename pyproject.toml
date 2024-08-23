@@ -27,7 +27,6 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/GeoLarryLai/pyTopoComplexity"
 Repository = "https://github.com/GeoLarryLai/pyTopoComplexity.git"
 
 [tool.setuptools]
