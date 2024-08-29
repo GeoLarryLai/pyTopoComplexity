@@ -178,7 +178,7 @@ class CWTMexHat:
         with ProgressBar():
             self.result = processed_data.compute()
         
-        fringeval = int(np.ceil(s * 4))
+        fringeval = int(np.ceil(s * 2))
         self.result[:fringeval, :] = np.nan
         self.result[:, :fringeval] = np.nan
         self.result[-fringeval:, :] = np.nan

@@ -8,10 +8,10 @@
 
 | Modules  | Classes | Method Descriptions |
 | ------------- | ------------- | ------------- |
-| pycwtmexhat.py | CWTMexHat | Quanitfy the wavelet-based curvature of the terrain surface using two-dimensional continuous wavelet transform (2D-CWT) with a Mexican Hat wevalet |
-| pyfracd.py | FracD | Conduct fractal dimension analysis on the terrain surface using variogram procedure |
-| pyrugostiy.py | RugosityIndex | Calculate Rugosity Index of the terrain surface |
-| pytpi.py | TPI | Calculate Terrain Position Index of the topography |
+| pycwtmexhat.py | CWTMexHat | Quanitfies the wavelet-based curvature of the terrain surface using two-dimensional continuous wavelet transform (2D-CWT) with a Mexican Hat wevalet |
+| pyfracd.py | FracD | Conducts fractal dimension analysis on the terrain surface using variogram procedure |
+| pyrugostiy.py | RugosityIndex | Calculates Rugosity Index of the terrain surface |
+| pytpi.py | TPI | Calculates Terrain Position Index of the topography |
 
 In this GitHub repository, each module has a corresponding example Jupyter Notebook file that includes detailed instructions on module usage and brief explanations of the applied theories with cited references. Example DEM raster file data are included in the `~/example/` folder.
 
@@ -40,7 +40,7 @@ The module **pycwtmexhat.py** uses two-dimensional continuous wavelet transform 
 See [**pycwtmexhat_example.ipynb**](https://github.com/GeoLarryLai/pyTopoComplexity/blob/main/example/pycwtmexhat_example.ipynb) for detailed explanations and usage instructions.
 
 <p align="center">
- <img src="image/fig1-pycwtmexhat.png" width="100%" height="100%""/>
+ <img src="image/cwtmexhat.png" width="100%" height="100%""/>
 </p>
 
 ### 2. Fractal Dimentsion Analysis
@@ -54,7 +54,7 @@ The **pyfracd.py** module calculates local fractal dimensions to assess topograp
 See [**pyfracd_example.ipynb**](https://github.com/GeoLarryLai/pyTopoComplexity/blob/main/example/pyfracd_example.ipynb) for detailed explanations and usage instructions.
 
 <p align="center">
- <img src="image/fig2-pyfracd.png" width="100%" height="100%""/>
+ <img src="image/fracd.png" width="100%" height="100%""/>
 </p>
 
 ### 3. Rugosity Index Calculation
@@ -68,7 +68,7 @@ The module **pyrugosity.py** measure Rugosity Index of the land surface, which i
 See [**pyrugosity_example.ipynb**](https://github.com/GeoLarryLai/pyTopoComplexity/blob/main/example/pyrugosity_example.ipynb) for detailed explanations and usage instructions.
 
 <p align="center">
- <img src="image/fig3-pyrugosity.png" width="100%" height="100%""/>
+ <img src="image/rugosity.png" width="100%" height="100%""/>
 </p>
 
 ### 4. Terrain Position Index Calculation
@@ -82,7 +82,7 @@ The module **pytpi.py** calculates the Terrain Position Index (TPI) of the land 
 See [**pytpi_example.ipynb**](https://github.com/GeoLarryLai/pyTopoComplexity/blob/main/example/pytpi_example.ipynb) for detailed explanations and usage instructions.
 
 <p align="center">
- <img src="image/fig4-pytpi.png" width="100%" height="100%""/>
+ <img src="image/tpi.png" width="100%" height="100%""/>
 </p>
 ```
 
