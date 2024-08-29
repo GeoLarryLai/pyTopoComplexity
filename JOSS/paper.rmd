@@ -250,7 +250,7 @@ $$
 
 In this module, the TPI is calculated for the central grid within a square moving window. Users can specify the size of the window (i.e., the 
 number of grids along each edge) to evaluate topographic positions at various spatial scales. Positive TPI values indicate generally convex, 
-elevated features, while negative values represent concave depressions (i.e., saddle features). Values close to zero denote relatively flat surface 
+elevated features (e.g., ridges), while negative values represent concave depressions (e.g., valleys, saddles). Values close to zero denote relatively flat surface 
 or area with near continuous slope. The **pytpi.py** module also returns the absolute values of the TPI (Figure 4\autoref{fig:4}). This absolute TPI calculation is suggested to be effective for 
 quick assessments in mapping and relative dating of deep-seated landslide deposits using high-resolution DTM data [@Lai2023].
 
