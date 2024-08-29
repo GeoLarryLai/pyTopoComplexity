@@ -154,7 +154,7 @@ of topographic complexity (i.e., surface roughness).
 
 ![Figure 1. Hillshade map of the 2014 Oso Landslide region (upper-left) and the results of the two-dimensional continuous wavelet 
 transform (2D-CWT) analysis using the **pycwtmexhat.py** module, with designated Fourier wavelengths ($\lambda$) of the Mexican Hat 
-wavelet at 15 m, 30 m, 45 m, 60 m, and 75 m. \label{fig:1}](fig1-pycwtmexhat.png){ width=100% }
+wavelet at 15 m, 45 m, and 75 m. \label{fig:1}](fig1-pycwtmexhat.png){ width=100% }
 
 ## Fractal dimension analysis
 
@@ -226,9 +226,9 @@ By definition, the Rugosity Index has a minimum value of one (completely flat su
 index (without slope correction) range from one to three although larger values are possible in very steep terrains. The slope-corrected rugosity 
 index, also called arc-chord ratio (ACR) Rugosity Index, could provide a better representation of local surface complexity because it is not biased by slope (Figure 3)\autoref{fig:3}.
 
-![Figure 3. Calculated results of the Arc-Chord Ratio Rugosity Index (upper) and the conventional Rugosity Index (lower) for the 2014 Oso Landslide 
-region, using the **pyrugosity.py** module. The calculations were performed with different moving window sizes: 17 by 17 grids (left), 49 by 49 grids 
-(middle), and 83 by 83 grids (right). Grid spacing is 3 U.S. survey feet (approximately 0.9144 meters). \label{fig:3}](fig3-pyrugosity.png){ width=100% }
+![Figure 3. Calculated results of the Arc-Chord Ratio Rugosity Index (left) and the conventional Rugosity Index (right) for the 2014 Oso Landslide 
+region, using the **pyrugosity.py** module. The calculations were performed with different moving window sizes: 17 by 17 grids (top) and 49 by 49 grids 
+(bottom). Grid spacing is 3 U.S. survey feet (approximately 0.9144 meters). \label{fig:3}](fig3-pyrugosity.png){ width=100% }
 
 
 ## Terrain Position Index calculation
@@ -250,13 +250,13 @@ $$
 
 In this module, the TPI is calculated for the central grid within a square moving window. Users can specify the size of the window (i.e., the 
 number of grids along each edge) to evaluate topographic positions at various spatial scales. Positive TPI values indicate generally convex, 
-elevated features, while negative values represent concave depressions. Values close to zero denote relatively planar areas. The **pytpi.py** 
-module also returns the absolute values of the TPI (Figure 4\autoref{fig:4}). This absolute TPI calculation is suggested to be effective for 
+elevated features, while negative values represent concave depressions (i.e., saddle features). Values close to zero denote relatively flat surface 
+or area with near continuous slope. The **pytpi.py** module also returns the absolute values of the TPI (Figure 4\autoref{fig:4}). This absolute TPI calculation is suggested to be effective for 
 quick assessments in mapping and relative dating of deep-seated landslide deposits using high-resolution DTM data [@Lai2023].
 
-![Figure 4. Calculated results of the Terrain Position Index (upper) and its absolute values (lower) for the 2014 Oso Landslide region, 
-using the **pytpi.py** module. The calculations were performed with different moving window sizes: 17 by 17 grids (left), 49 by 49 grids 
-(middle), and 83 by 83 grids (right). Grid spacing is 3 U.S. survey feet (approximately 0.9144 meters). \label{fig:4}](fig4-pytpi.png){ width=100% }
+![Figure 4. Calculated results of the Terrain Position Index (left) and its absolute values (right) for the 2014 Oso Landslide region, 
+using the **pytpi.py** module. The calculations were performed with different moving window sizes: 17 by 17 grids (top) and 83 by 83 grids (bottom). 
+Grid spacing is 3 U.S. survey feet (approximately 0.9144 meters). \label{fig:4}](fig4-pytpi.png){ width=100% }
 
 ## Forward simulation of landscape smoothing through nonlinear hillslope diffusion processes
 
