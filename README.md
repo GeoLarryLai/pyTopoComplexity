@@ -40,7 +40,7 @@ The module **pycwtmexhat.py** uses two-dimensional continuous wavelet transform 
 See [**pycwtmexhat_example.ipynb**](https://github.com/GeoLarryLai/pyTopoComplexity/blob/main/example/pycwtmexhat_example.ipynb) for detailed explanations and usage instructions.
 
 <p align="center">
- <img src="image/pycwtmexhat.png" width="100%" height="100%""/>
+ <img src="image/cwtmexhat.png" width="100%" height="100%""/>
 </p>
 
 ### 2. Fractal Dimentsion Analysis
@@ -54,7 +54,7 @@ The **pyfracd.py** module calculates local fractal dimensions to assess topograp
 See [**pyfracd_example.ipynb**](https://github.com/GeoLarryLai/pyTopoComplexity/blob/main/example/pyfracd_example.ipynb) for detailed explanations and usage instructions.
 
 <p align="center">
- <img src="image/pyfracd.png" width="100%" height="100%""/>
+ <img src="image/fracd.png" width="100%" height="100%""/>
 </p>
 
 ### 3. Rugosity Index Calculation
@@ -68,7 +68,7 @@ The module **pyrugosity.py** measure Rugosity Index of the land surface, which i
 See [**pyrugosity_example.ipynb**](https://github.com/GeoLarryLai/pyTopoComplexity/blob/main/example/pyrugosity_example.ipynb) for detailed explanations and usage instructions.
 
 <p align="center">
- <img src="image/pyrugosity.png" width="100%" height="100%""/>
+ <img src="image/rugosity.png" width="100%" height="100%""/>
 </p>
 
 ### 4. Terrain Position Index Calculation
@@ -82,7 +82,7 @@ The module **pytpi.py** calculates the Terrain Position Index (TPI) of the land 
 See [**pytpi_example.ipynb**](https://github.com/GeoLarryLai/pyTopoComplexity/blob/main/example/pytpi_example.ipynb) for detailed explanations and usage instructions.
 
 <p align="center">
- <img src="image/pytpi.png" width="100%" height="100%""/>
+ <img src="image/tpi.png" width="100%" height="100%""/>
 </p>
 ```
 
