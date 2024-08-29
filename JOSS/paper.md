@@ -124,10 +124,6 @@ identifying deep-seated landslides [@Booth2009; @Berti2013], and estimating the 
 Unlike techniques that use moving windows to detect regional topographic complexity, the 2D-CWT method stands out by isolating specific landform features at the scale of the 
 designated $\lambda$ while filtering out noise from terrain variations at longer or shorter wavelengths.
 
-filter
-
-which exclude information about longer wavelength features without excluding short wavelength data—
-
 The 2D-CWT is computed by convolving the elevation data $z$ with a wavelet family $\psi$, using a wavelet scale parameter $s$ at every location ($x$, $y$):
 
 $$

@@ -93,6 +93,7 @@ optimize performance (see details in the **Methods and features overview** secti
 | pytpi.py | TPI | Calculates Terrain Position Index of the land or seafloor surface | @Weiss2001; @Walbridge2018 |
 Table: Table 1 \label{tab:1}: Modules contained in the **pyTopoComplexity** package.
 
+
 Each module of **pyTopoComplexity** includes a corresponding [example Jupyter Notebook file](https://github.com/GeoLarryLai/pyTopoComplexity/tree/main/example)
 with usage instructions. These examples utilize lidar DTM data (~1 m resolution) from the 2014 ‘Oso’ deep-seated landslide
 along the North Fork Stillaguamish River valley in Washington State, USA [@WashingtonGeologicalSurvey2023]. In the software repository, we also include an additional Jupyter Notebook file 
@@ -123,10 +124,6 @@ space. When used with the Gaussian family of wavelets, this method is particular
 identifying deep-seated landslides [@Booth2009; @Berti2013], and estimating the depositional ages of landslide deposits [@Booth2017; @LaHusen2020; @Underwood2022; @Herzig2023]. 
 Unlike techniques that use moving windows to detect regional topographic complexity, the 2D-CWT method stands out by isolating specific landform features at the scale of the 
 designated $\lambda$ while filtering out noise from terrain variations at longer or shorter wavelengths.
-
-filter
-
-which exclude information about longer wavelength features without excluding short wavelength data—
 
 The 2D-CWT is computed by convolving the elevation data $z$ with a wavelet family $\psi$, using a wavelet scale parameter $s$ at every location ($x$, $y$):
 
