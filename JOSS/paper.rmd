@@ -115,12 +115,6 @@ The **pycwtmexhat.py** module in **pyTopoComplexity** implements the 2D-CWT meth
 amplitude is distributed across spatial frequencies at each position in the data by transforming spatial data into position-frequency 
 space. When used with the Gaussian family of wavelets, this method is particularly effective for depicting the Laplacian of topography 
 [@Torrence1998; @Lashermes2007], revealing concave and convex regions of topography at various smoothing-length scales [@Malamud2001; @Struble2021], 
-identifying deep-seated landslides [@Booth2009; @Berti2013], and estimating the depositional ages of landslide deposits [@Booth2017; @LaHusen2020; @Underwood2022; @Herzig2023].
-
-The **pycwtmexhat.py** module in **pyTopoComplexity** implements the 2D-CWT method for terrain analysis, providing detailed information on how 
-amplitude is distributed across spatial frequencies at each position in the data by transforming spatial data into position-frequency 
-space. When used with the Gaussian family of wavelets, this method is particularly effective for depicting the Laplacian of topography 
-[@Torrence1998; @Lashermes2007], revealing concave and convex regions of topography at various smoothing-length scales [@Malamud2001; @Struble2021], 
 identifying deep-seated landslides [@Booth2009; @Berti2013], and estimating the depositional ages of landslide deposits [@Booth2017; @LaHusen2020; @Underwood2022; @Herzig2023]. 
 Unlike techniques that use moving windows to detect regional topographic complexity, the 2D-CWT method stands out by isolating specific landform features at the scale of the 
 designated $\lambda$ while filtering out noise from terrain variations at longer or shorter wavelengths.
