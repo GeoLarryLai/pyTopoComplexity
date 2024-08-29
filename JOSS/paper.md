@@ -35,7 +35,7 @@ bibliography: paper.bib
 
 **pyTopoComplexity** is a Python package that provides a computationally efficient and customizable 
 implementation of four modern methods for quantifying topographic complexity. These methods include 
-two-dimensional continuous wavelet transform (2D-CWT) analysis, fractal dimension estimation, Rugosity 
+two-dimensional continuous wavelet transform analysis, fractal dimension estimation, Rugosity 
 Index and Terrain Position Index calculations across various spatial scales. This package addresses 
 the scarcity of open-source software for these sophisticated methods needed in modern 
 terrain analysis, and facilitates data comparison and reproducibility. In the [software respository](https://github.com/GeoLarryLai/pyTopoComplexity.git), 
@@ -54,36 +54,28 @@ hydrosphere [@Dietrich2006]. With the increasing availability, utility, and popu
 data, quantifying topographic complexity has become an essential step in terrain analysis across 
 various research fields. This necessity spans applications such as terrain classification and mapping 
 at various spatial scales [@Weiss2001; @Robbins2018; @Lindsay2019; @PardoIguzquiza2022a], evaluating 
-the depositional age of event sedimentation (e.g., landslides, alluvial fans) and subsequent erosion processes 
+the depositional age of event sedimentation (e.g., landslides, avulsion on alluvial fans) and subsequent erosion processes 
 [@Hetz2016; @Johnstone2018; @Booth2017; @LaHusen2020; @Herzig2023], and identifying habitats to assess 
 ecological diversity on land and seafloor [@Frost2005; @Hetz2016; @Wilson2007].
 
 In recent years, several advanced methods for quantifying topographic complexity have been developed, 
 including two-dimensional continuous wavelet transform (2D-CWT) analysis [@Booth2009; @Berti2013], 
-fractal dimension estimation [@Taud2005; @Robbins2018; @PardoIguzquiza2020], and Rugosity Index 
-calculation [@Jenness2004; @DuPreez2015]. These methods are considered more effective for terrain analysis 
-tasks compared to conventional morphological metrics such as variations in local slope and relief. 
+fractal dimension estimation [@Taud2005; @Glenn2006; @Robbins2018; @PardoIguzquiza2020], and Rugosity Index 
+calculation [@Jenness2004; @DuPreez2015]. These methods are considered more effective for topographic 
+complexity analysis tasks compared to conventional morphological metrics such as variations in local slope and relief. 
 Despite their importance, comprehensive publicly available tools that incorporate these advanced 
 methods for studying topographic complexity are lacking. Common open-source geospatial analysis software, 
 such as QGIS [@QGIS_software], GRASS GIS [@GRASS_GIS_software], and WhiteboxTools [@Lindsay2016], only 
 implement basic conventional methods, limiting the reproducibility and comparability of these newer 
-approaches. Although some specialized programs for calculating the Rugosity Index exist [@Walbridge2018; @Benham2022], 
-they have been limited to marine bathymetric studies and involve various mathematical choices and designs.
+approaches. Although specialized programs for calculating the Rugosity Index exist [@Walbridge2018; @Benham2022], 
+they have been confined to marine bathymetric studies and involve various mathematical limitations, assumptions, and designs.
 
 To address this gap, we have developed an open-source Python toolkit called **pyTopoComplexity**. This toolkit 
 offers computationally efficient and easily customizable implementations for performing and visualizing the results 
-of 2D-CWT, fractal dimension, and rugosity index calculations (see Table 1\autoref{tab:1}). Additionally, **pyTopoComplexity** 
-includes a module for calculating the Terrain Position Index (TPI), a widely used metric in geomorphology 
+of 2D-CWT, fractal dimension, and Rugosity Index calculations (see Table 1\autoref{tab:1}). Additionally, **pyTopoComplexity** 
+includes a module for calculating the Terrain Position Index, a widely used metric in geomorphology 
 research [@Newman2018; @Deumlich2010; @Liu2011] and often used alongside Rugosity Index in marine 
 geological and ecological studies [@Wilson2007; @Walbridge2018].
-
-This toolkit detects the grid spacing and units of the projected coordinate system (acceptable in meters, 
-U.S. survey feet, and international feet) from the input raster DTM file (GeoTIFF format) and 
-automatically conducts unit conversions in necessary calculation steps to ensure data consistency and 
-reproducibility. Removal of results at nodes affected by edge effects due to no-data values outside the input 
-raster occurs by default. Users can define the suitable spatial scale to match their research purposes 
-and choose computational approaches (e.g., chunk processing, faster mathematical approximations) to 
-optimize performance (see details in the **Methods and features overview** section).
 
 | Modules  | Classes | Method Descriptions | References |
 | ------------- | ------------- | ------------- | ------------- |
@@ -92,6 +84,14 @@ optimize performance (see details in the **Methods and features overview** secti
 | pyrugostiy.py | RugosityIndex | Calculates the Rugosity Index of the land surface | @Jenness2004; @DuPreez2015 |
 | pytpi.py | TPI | Calculates Terrain Position Index of the land or seafloor surface | @Weiss2001; @Walbridge2018 |
 Table: Table 1 \label{tab:1}: Modules contained in the **pyTopoComplexity** package.
+
+This toolkit detects the grid spacing and units of the projected coordinate system (acceptable in meters, 
+U.S. survey feet, and international feet) from the input raster DTM file (GeoTIFF format) and 
+automatically conducts unit conversions in necessary calculation steps to ensure data consistency and 
+reproducibility. Removal of results at nodes affected by edge effects due to no-data values outside the input 
+raster occurs by default. Users can define the suitable spatial scale to match their research purposes 
+and choose computational approaches (e.g., chunk processing, faster mathematical approximations) to 
+optimize performance (see details in the **Methods and features overview** section).
 
 Each module of **pyTopoComplexity** includes a corresponding [example Jupyter Notebook file](https://github.com/GeoLarryLai/pyTopoComplexity/tree/main/example)
 with usage instructions. These examples utilize lidar DTM data (~1 m resolution) from the 2014 ‘Oso’ deep-seated landslide
@@ -114,15 +114,7 @@ The **pycwtmexhat.py** module in **pyTopoComplexity** implements the 2D-CWT meth
 amplitude is distributed across spatial frequencies at each position in the data by transforming spatial data into position-frequency 
 space. When used with the Gaussian family of wavelets, this method is particularly effective for depicting the Laplacian of topography 
 [@Torrence1998; @Lashermes2007], revealing concave and convex regions of topography at various smoothing-length scales [@Malamud2001; @Struble2021], 
-identifying deep-seated landslides [@Booth2009; @Berti2013], and estimating the depositional ages of landslide deposits [@Booth2017; @LaHusen2020; @Underwood2022; @Herzig2023].
-
-The **pycwtmexhat.py** module in **pyTopoComplexity** implements the 2D-CWT method for terrain analysis, providing detailed information on how 
-amplitude is distributed across spatial frequencies at each position in the data by transforming spatial data into position-frequency 
-space. When used with the Gaussian family of wavelets, this method is particularly effective for depicting the Laplacian of topography 
-[@Torrence1998; @Lashermes2007], revealing concave and convex regions of topography at various smoothing-length scales [@Malamud2001; @Struble2021], 
 identifying deep-seated landslides [@Booth2009; @Berti2013], and estimating the depositional ages of landslide deposits [@Booth2017; @LaHusen2020; @Underwood2022; @Herzig2023]. 
-Unlike techniques that use moving windows to detect regional topographic complexity, the 2D-CWT method stands out by isolating specific landform features at the scale of the 
-designated $\lambda$ while filtering out noise from terrain variations at longer or shorter wavelengths.
 
 The 2D-CWT is computed by convolving the elevation data $z$ with a wavelet family $\psi$, using a wavelet scale parameter $s$ at every location ($x$, $y$):
 
@@ -131,8 +123,9 @@ C (s, x, y) = \Delta^2 \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} z(x, y) \
 $$
 
 , where the resultant wavelet coefficient $C(s,x,y)$ provides a measure of how well the wavelet $\psi$ matches the data $z$ at each grid point [@Torrence1998]. 
-When $s$ is large, $\psi$ is spread out, capturing long-wavelength features of $z$; when $s$ is small, $\psi$ becomes more localized, making it sensitive 
-to fine-scale features of $z$. In this implementation, we use the 2D Ricker or Marr wavelet (i.e., Mexican hat wavelet) function to define $\psi$:
+Unlike other techniques that use moving windows to detect regional topographic complexity, the 2D-CWT method stands out by isolating specific landform features 
+at the scale of the designated wavelength while filtering out noise from terrain variations at longer or shorter wavelengths. When $s$ is large, $\psi$ is spread out, capturing long-wavelength features of $z$; when $s$ is small, $\psi$ becomes more localized, making it sensitive 
+to fine-scale features of $z$. In this implementation, we use the 2D Ricker or Marr wavelet (i.e., Mexican hat wavelet) function to define $\psi$ [@Ricker1943]:
 
 $$
 \psi = − \frac{1}{\pi(s\Delta)^4}(1-\frac{𝑥^2+𝑦^2}{2s^2})e^{(-\frac{𝑥^2+𝑦^2}{2s^2})}
@@ -140,18 +133,20 @@ $$
 \lambda=\frac{2\pi s}{\sqrt{5/2}}\Delta
 $$
 
-The Mexican hat wavelet as defined above is equal to the second derivative of a Gaussian envelope, with its Fourier wavelength ($\lambda$) 
-dependent on the chosen wavelet scale ($s$) and the grid spacing ($\Delta$) of the input DTM raster. The wavelet function $\psi$ is scaled according to the 
-wavelet scale parameter $s$ and the grid spacing $\Delta$, ensuring that the resultant wavelet coefficient $C$ signifies 
-concave and convex landforms corresponding to the wavelet scale $s$. Users can define the value of $\lambda$ in meters as the 
-targeted spatial scale for landform roughness analysis, and the **pycwtmexhat.py** module will automatically compute the wavelet 
-scale $s$ based on the grid spacing ($\Delta$) of the input raster file (Figure 1)\autoref{fig:1}.
+The Mexican hat wavelet, as defined above, corresponds to the second derivative of a Gaussian envelope. Its Fourier wavelength ($\lambda$) 
+depends on the chosen wavelet scale ($s$) and the grid spacing ($\Delta$) of the input DTM raster. The wavelet function $\psi$ is scaled based on the wavelet 
+scale parameter $s$ and the grid spacing $\Delta$, ensuring that the resultant wavelet coefficient $C$ represents concave and convex landforms according to the 
+wavelet scale $s$. Users can specify the wavelength $\lambda$ in meters as the target spatial scale for landform roughness analysis. The **pycwtmexhat.py** 
+module will automatically compute the wavelet scale $s$ based on the grid spacing ($\Delta$) of the input raster file (Figure 1\autoref{fig:1}). In this module, 
+users can choose to perform convolution either in the original domain (i.e., direct convolution) or in the frequency domain (i.e., using the Fast Fourier Transform) 
+with the `convolve2d` and `fftconvolve` functions from the **SciPy** package, respectively [@2020SciPy-NMeth]. By default, the module uses `fftconvolve` for greater 
+computational efficiency.
 
 We note that the equations for $C$ and $\psi$ presented here are mathematical approaches adapted in later publications 
 [@LaHusen2020; @Underwood2022; @Herzig2023] and ongoing works on landslide mapping and age dating studies [@Booth2023; @Lai2023; @Ozioko2023]. 
 There are minor differences in the proportionality constant used to define $\psi$ and the conventions used to present the magnitude of the wavelet 
 coefficients $C$, compared to earlier similar research by @Booth2009 and @Booth2017 (original MATLAB codes 
-available from [Booth's personal website](https://web.pdx.edu/~boothad/tools.html)). These differences in methatical approach will by definition 
+available from [Booth's personal website](https://web.pdx.edu/~boothad/tools.html)). These differences in mathematical approach will by definition 
 result in $C$ values in different units and order of magnitude (e.g., $10^{-3}$ to $10^{-4}$ [m$^{-2}$] in @Booth2017 
 and prior studies; $10^{-2}$ to $10^{-3}$ [m$^{-1}$] in @LaHusen2020 thereafter). Despite this discrepancy, the $C$ values 
 yielded from these two approaches are linearly scaled and interconvertible, and they both reflect identical spatiotemporal patterns 
@@ -176,7 +171,7 @@ $$
 \gamma_1(k) = \frac{1}{2(L-k)} \sum_{l=1}^{L-k} [Z(i) - Z(i+l)]^2
 $$
 
-, where $Z(i)$ is the elevation at location $i$ along the profile. The local fractal dimension ($FD$) is estimated from one-dimensional 
+, where $Z(i)$ is the elevation at location $i$ along the profile. The local fractal dimension ($\text{FD}$) is estimated from one-dimensional 
 profiles in principal directions (i.e., horizontal, vertical, and diagonal) within a square moving window. Assuming that fractional 
 Brownian motion is an appropriate stochastic model for natural surfaces, its variogram follows a power-law model with respect to $k$ [@Wen1997]:
 
@@ -184,18 +179,18 @@ $$
 \gamma_1(k) = \alpha h^\beta, \quad \alpha \geq 0; \quad 0 \leq \beta < 2
 $$
 
-, and its exponent $\beta$ is related to the local fractal dimension ($FD$) by:
+, and its exponent $\beta$ is related to the local fractal dimension ($\text{FD}$) by:
 
 $$
-FD = TD + 1 - \frac{\beta}{2}
+\text{FD} = \text{TD} + 1 - \frac{\beta}{2}
 $$
 
-, where $TD$ is the topological dimension in the Euclidean space of the fractional Brownian motion. For one-dimensional fractional Brownian 
-motion, $TD = 1$. The fractal dimension of the two-dimensional surface $(FD)_2^*$ can be estimated as the average fractal dimension of 
-the one-dimensional profiles $(FD)_1^*$:
+, where $\text{TD}$ is the topological dimension in the Euclidean space of the fractional Brownian motion. For one-dimensional fractional Brownian 
+motion, $\text{TD} = 1$. The fractal dimension of the two-dimensional surface $(\text{FD})_2^*$ can be estimated as the average fractal dimension of 
+the one-dimensional profiles $(\text{FD})_1^*$:
 
 $$
-(FD)_2^* = 1 + (FD)_1^*
+(\text{FD})_2^* = 1 + (\text{FD})_1^*
 $$
 
 Users can specify the size (number of grids along each edge) of the moving window to study fractal characteristics at desired spatial scales.
@@ -218,7 +213,7 @@ The Rugosity Index is determined as the ratio of the contoured area (i.e., true 
 moving window, highlighting smaller-scale variations in surface height: 
 
 $$
-\text{Rugosity Index} = \frac{\text{contoured area}}{\text{planimetric area}}
+\text{Rugosity Index} = \frac{\text{Contoured area}}{\text{Planimetric area}}
 $$
 
 This module adapts the Triangulated Irregular Networks method from @Jenness2004 to approximate the contoured area as the sum of 
@@ -227,7 +222,7 @@ surrounding edges within the moving window. If no local slope correction is appl
 planar area of the moving window, as described in @Jenness2004. Another approach considers slope correction where to the planimetric area is 
 projected onto a plane of the local gradient [@DuPreez2015].
 
-By definition, the Rugosity Index is as a minimum value of one (completely flat surface). Typical values of the conventional rugosity 
+By definition, the Rugosity Index has a minimum value of one (completely flat surface). Typical values of the conventional rugosity 
 index (without slope correction) range from one to three although larger values are possible in very steep terrains. The slope-corrected rugosity 
 index, also called arc-chord ratio (ACR) Rugosity Index, could provide a better representation of local surface complexity because it is not biased by slope (Figure 3)\autoref{fig:3}.
 
@@ -250,13 +245,13 @@ by comparing the elevation of a grid cell ($Z_{\text{grid}}$) to the mean elevat
 within a specified neighborhood:
 
 $$
-TPI = Z_{\text{grid}} - \text{mean}(Z_{\text{neighborhood}})
+\text{TPI} = Z_{\text{grid}} - \text{mean}(Z_{\text{neighborhood}})
 $$
 
 In this module, the TPI is calculated for the central grid within a square moving window. Users can specify the size of the window (i.e., the 
 number of grids along each edge) to evaluate topographic positions at various spatial scales. Positive TPI values indicate generally convex, 
 elevated features, while negative values represent concave depressions. Values close to zero denote relatively planar areas. The **pytpi.py** 
-module also returns the absolute values of the TPI (Figure 4\autoref{fig:4}). This absolute TPI raster is suggested to be effective for 
+module also returns the absolute values of the TPI (Figure 4\autoref{fig:4}). This absolute TPI calculation is suggested to be effective for 
 quick assessments in mapping and relative dating of deep-seated landslide deposits using high-resolution DTM data [@Lai2023].
 
 ![Figure 4. Calculated results of the Terrain Position Index (upper) and its absolute values (lower) for the 2014 Oso Landslide region, 
