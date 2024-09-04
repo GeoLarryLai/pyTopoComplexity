@@ -268,17 +268,17 @@ Python package [@Barnhart2019]. The main simulation iteratively applies the nonl
 elevation $z$ over time $t$:
 
 $$
-\frac{\partial z}{\partial t} = -\nabla \cdot \mathbf{q}_s
+\frac{\partial z}{\partial t} = -\nabla \cdot \textbf{q}_s
 $$
 
-, where \(\mathbf{q}_s\) represents the sediment flux at the surface. The sediment flux is further defined by a nonlinear flux law [@Roering1999] that is 
+, where \(\textbf{q}_s\) represents the sediment flux at the surface. The sediment flux is further defined by a nonlinear flux law [@Roering1999] that is 
 approximated using a Taylor series expansion [@Ganti2012]:
 
 $$
-\mathbf{q}_s = K \mathbf{S} \left[1 + \sum_{i=1}^N \left( \frac{S}{S_c}\right)^{2i}\right]
+\textbf{q}_s = K \textbf{S} \left[1 + \sum_{i=1}^N \left( \frac{S}{S_c}\right)^{2i}\right]
 $$
 
-Here, $\mathbf{S} = -\nabla z$ represents the downslope topographic gradient, and $S$ is its magnitude. $S_c$ is the critical slope representing the asymptotic 
+Here, $\textbf{S} = -\nabla z$ represents the downslope topographic gradient, and $S$ is its magnitude. $S_c$ is the critical slope representing the asymptotic 
 maximum hillslope gradient. The parameter $K$ is a diffusion-like transport coefficient with dimensions of length squared per time. 
 $N$ denotes the number of terms in the Taylor expansion, while $i$ specifies the number of additional terms included. If $N = 0$, the expression simplifies to 
 linear diffusion [@Culling1963]. By default, $N$ is set to $2$, that gives the behavior described in @Ganti2012.
