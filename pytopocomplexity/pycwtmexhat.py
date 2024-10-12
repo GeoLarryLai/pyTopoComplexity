@@ -43,7 +43,7 @@ class CWTMexHat:
         Perform the 2D-CWT analysis on the input DEM.
     export_result(output_dir)
         Export the result of the analysis to a GeoTIFF file.
-    plot_result(savefig=True)
+    plot_result(savefig=True, figshow=True)
         Plot the original DEM and the 2D-CWT result side by side.
 
     Example:
@@ -293,7 +293,7 @@ class CWTMexHat:
         
         print(f"Processed result saved to {os.path.basename(output_dir)}")
 
-    def plot_result(self, savefig=True):
+    def plot_result(self, savefig=True, figshow=True, output_dir=None):
         """
         Plot the original DEM and the 2D-CWT result side by side.
 
@@ -301,12 +301,16 @@ class CWTMexHat:
         -----------
         savefig : bool, optional
             Whether to save the figure as a PNG file (default is True).
+        figshow : bool, optional
+            Whether to display the figure (default is False).
+        output_dir : str, optional
+            Directory to save the figure. If None, uses the input file's directory.
         """
         if self.Z is None or self.result is None or self.input_dir is None:
             raise ValueError("Analysis must be run before plotting results.")
 
         input_file = os.path.basename(self.input_dir)
-        base_dir = os.path.dirname(self.input_dir)
+        base_dir = output_dir if output_dir else os.path.dirname(self.input_dir)
 
         with rasterio.open(self.input_dir) as src:
             gridsize = src.transform
@@ -335,8 +339,11 @@ class CWTMexHat:
         
         if savefig:
             output_filename = os.path.splitext(input_file)[0] + f'_pyCWTMexHat({self.Lambda}m).png'
-            output_dir = os.path.join(base_dir, output_filename)
-            plt.savefig(output_dir, dpi=200, bbox_inches='tight')
-            print(f"Figure saved as '{output_filename}'")
-        
-        plt.show()
+            output_path = os.path.join(base_dir, output_filename)
+            plt.savefig(output_path, dpi=200, bbox_inches='tight')
+            print(f"Figure saved as '{output_path}'")
+
+        if figshow:
+            plt.show()
+        else:
+            plt.close(fig)

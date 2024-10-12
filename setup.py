@@ -5,10 +5,10 @@ with open("README-pypi.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="pytopocomplexity",
-    version="0.8.1",
+    version="1.0.0",
     author="Larry Syu-Heng Lai",
     author_email="larrysyuhenglai@gmail.com",
-    description="A package for topographic complexity analysis",
+    description="A package for multiscaletopographic complexity analysis",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/GeoLarryLai/pyTopoComplexity",
@@ -28,6 +28,9 @@ setup(
         "tqdm>=4.0",
         "numba>=0.53",
         "statsmodels>=0.12",
+        "gdal>=3.9",
+        "ipython>=8.14",
+        "imageio>=2.11",
     ],
     license="Apache License 2.0",
 )
