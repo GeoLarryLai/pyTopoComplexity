@@ -311,12 +311,12 @@ class CWTMexHat:
 
         Parameters:
         -----------
+        output_dir : str, optional
+            Specified directory to save the figure. If None, uses the input file's directory.
         savefig : bool, optional
             Whether to save the figure as a PNG file (default is True).
         figshow : bool, optional
             Whether to display the figure (default is True).
-        output_dir : str, optional
-            Specified directory to save the figure. If None, uses the input file's directory.
         showhillshade : bool, optional
             Whether to show the hillshade plot alongside the roughness data (default is True).
         """

@@ -21,27 +21,39 @@ class RugosityIndex:
     area of the moving window, as decribed in Jenness (2004). Another approach considers slope correction 
     where to the planimetric area is projected onto an plane of the local gradient (Du Preez, 2015).
 
-    Parameters:
+    Required parameters:
     -----------
-    window_size : int, optional
-        The size of the moving window for rugosity calculation. Must be an odd integer >= 3. Default is 3.
+    window_size : int
+        The size of the moving window for rugosity calculation. Must be an odd integer >= 3.
+    input_dir : str
+        Path and filename of the input DEM file.
+    output_dir : str
+        Path and filename to save the output GeoTIFF file.
 
     Attributes:
     -----------
+    window_size : int
+        Size of the moving window for rugosity calculation.
     ft2mUS : float
         Conversion factor from US survey feet to meters.
     ft2mInt : float
         Conversion factor from international feet to meters.
-    window_size : int
-        Size of the moving window for rugosity calculation.
+    input_dir : str
+        Path to the input DEM file.
     Z : numpy.ndarray
         The input elevation data.
     result : numpy.ndarray
         The calculated rugosity index.
-    input_dir : str
-        Path to the input DEM file.
+    meta : dict
+        Metadata of the input raster.
     window_size_m : float
         Window size in meters.
+    slope_correction : bool
+        Whether slope correction is applied.
+    chunk_processing : bool
+        Whether to use Dask for chunk processing.
+    chunksize : tuple
+        Size of chunks for Dask processing.
 
     Methods:
     --------
@@ -49,13 +61,13 @@ class RugosityIndex:
         Perform rugosity analysis on the input DEM.
     export_result(output_dir)
         Export the rugosity result to a GeoTIFF file.
-    plot_result(savefig=True)
+    plot_result(output_dir=None, savefig=True, figshow=True, showhillshade=True)
         Plot and optionally save the original DEM and rugosity result.
 
     Example:
     --------
-    >>> rgty = pyrugosity(window_size=11)
-    >>> Z, result, meta, window_m = rgty.analyze('input_dem.tif')
+    >>> rgty = RugosityIndex(window_size=11)
+    >>> Z, result, window_m = rgty.analyze('input_dem.tif')
     >>> rgty.export_result('output_rugosity.tif')
     >>> rgty.plot_result()
 
@@ -68,7 +80,7 @@ class RugosityIndex:
     landscape structural complexity. Landscape Ecol 30, 181–192. https://doi.org/10.1007/s10980-014-0118-8
     """
 
-    def __init__(self, window_size=3):
+    def __init__(self, window_size):
         self.ft2mUS = 1200/3937  # US survey foot to meter conversion factor
         self.ft2mInt = 0.3048    # International foot to meter conversion factor
         self.window_size = window_size
@@ -353,69 +365,85 @@ class RugosityIndex:
         
         print(f"Processed result saved to {os.path.basename(output_dir)}")
 
-    def plot_result(self, savefig=True):
+    def plot_result(self, output_dir=None, savefig=True, figshow=True, showhillshade=True):
         """
-        Plot the original DEM and the rugosity result side by side.
-
-        This method creates a figure with two subplots: one showing the original DEM
-        as a hillshade, and the other showing the calculated rugosity index.
+        Plot the original DEM and the rugosity result side by side, or only the rugosity result.
 
         Parameters:
         -----------
+        output_dir : str, optional
+            Specified directory to save the figure. If None, uses the input file's directory.
         savefig : bool, optional
-            Whether to save the figure as a PNG file. Default is True.
-
-        Raises:
-        -------
-        ValueError
-            If the analysis hasn't been run before calling this method.
+            Whether to save the figure as a PNG file (default is True).
+        figshow : bool, optional
+            Whether to display the figure (default is True).
+        showhillshade : bool, optional
+            Whether to show the hillshade plot alongside the rugosity data (default is True).
         """
-        if self.Z is None or self.result is None:
+        if self.Z is None or self.result is None or self.input_dir is None:
             raise ValueError("Analysis must be run before plotting results.")
 
         input_file = os.path.basename(self.input_dir)
-        base_dir = os.path.dirname(self.input_dir)
+        base_dir = output_dir if output_dir else os.path.dirname(self.input_dir)
 
         with rasterio.open(self.input_dir) as src:
             gridsize = src.transform
             Zunit = src.crs.linear_units
 
-        fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(12, 6))
+        if showhillshade:
+            # Scenario with hillshade
+            fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(12, 6))
+            
+            # Plot the hillshade
+            ls = LightSource(azdeg=315, altdeg=45)
+            hs = axes[0].imshow(ls.hillshade(self.Z, vert_exag=2), cmap='gray')
+            axes[0].set_title(input_file)
+            axes[0].set_xlabel(f'X-axis grids \n(grid size ≈ {round(gridsize[0],4)} [{Zunit}])')
+            axes[0].set_ylabel(f'Y-axis grids \n(grid size ≈ {-round(gridsize[4],4)} [{Zunit}])')
+            cbar1 = fig.colorbar(hs, ax=axes[0], orientation='horizontal', fraction=0.045, pad=0.13)
+            cbar1.ax.set_visible(False)
 
-        # Plot the hillshade
-        ls = LightSource(azdeg=315, altdeg=45)
-        hs = axes[0].imshow(ls.hillshade(self.Z, vert_exag=2), cmap='gray')
-        axes[0].set_title(input_file)
-        axes[0].set_xlabel(f'X-axis grids \n(grid size ≈ {round(gridsize[0],4)} [{Zunit}])')
-        axes[0].set_ylabel(f'Y-axis grids \n(grid size ≈ {-round(gridsize[4],4)} [{Zunit}])')
-        cbar1 = fig.colorbar(hs, ax=axes[0], orientation='horizontal', fraction=0.045, pad=0.13)
-        cbar1.ax.set_visible(False)
-       
-        # Plot the rugosity and set the title based on whether slope correction was applied
-        if self.slope_correction:
-            axes[1].set_title(f'Arc-Chord Ratio (ACR) Rugosity Index\n(~{round(self.window_size_m, 2)}m x ~{round(self.window_size_m, 2)}m window)')
-            im = axes[1].imshow(self.result, cmap='viridis')
-            im.set_clim(round(np.nanpercentile(self.result, 1), 2), round(np.nanpercentile(self.result, 99), 2))
+            # Plot the rugosity
+            if self.slope_correction:
+                im = axes[1].imshow(self.result, cmap='viridis')
+                im.set_clim(round(np.nanpercentile(self.result, 1), 2), round(np.nanpercentile(self.result, 99), 2))
+                axes[1].set_title(f'Arc-Chord Ratio (ACR) Rugosity Index\n(~{round(self.window_size_m, 2)}m x ~{round(self.window_size_m, 2)}m window)')
+            else:
+                im = axes[1].imshow(self.result, cmap='plasma')
+                im.set_clim(round(np.nanpercentile(self.result, 1), 2), round(np.nanpercentile(self.result, 99), 2))
+                axes[1].set_title(f'Conventional Rugosity Index\n(~{round(self.window_size_m, 2)}m x ~{round(self.window_size_m, 2)}m window)')
+            axes[1].set_xlabel(f'X-axis grids \n(grid size ≈ {round(gridsize[0],4)} [{Zunit}])')
+            axes[1].set_ylabel(f'Y-axis grids \n(grid size ≈ {-round(gridsize[4],4)} [{Zunit}])')
+            cbar2 = fig.colorbar(im, ax=axes[1], orientation='horizontal', fraction=0.045, pad=0.13)
         else:
-            axes[1].set_title(f'Conventional Rugosity Index\n(~{round(self.window_size_m, 2)}m x ~{round(self.window_size_m, 2)}m window)')
-            im = axes[1].imshow(self.result, cmap='plasma')
-            im.set_clim(round(np.nanpercentile(self.result, 1), 2), round(np.nanpercentile(self.result, 99), 2))
-        
-        axes[1].set_xlabel(f'X-axis grids \n(grid size ≈ {round(gridsize[0],4)} [{Zunit}])')
-        axes[1].set_ylabel(f'Y-axis grids \n(grid size ≈ {-round(gridsize[4],4)} [{Zunit}])')
-        cbar2 = fig.colorbar(im, ax=axes[1], orientation='horizontal', fraction=0.045, pad=0.13)
+            # Scenario without hillshade
+            fig, ax = plt.subplots(nrows=1, ncols=1, figsize=(6, 6))
+            
+            # Plot only the rugosity
+            if self.slope_correction:
+                im = ax.imshow(self.result, cmap='viridis')
+                im.set_clim(round(np.nanpercentile(self.result, 1), 2), round(np.nanpercentile(self.result, 99), 2))
+                ax.set_title(f'Arc-Chord Ratio (ACR) Rugosity Index\n(~{round(self.window_size_m, 2)}m x ~{round(self.window_size_m, 2)}m window)')
+            else:
+                im = ax.imshow(self.result, cmap='plasma')
+                im.set_clim(round(np.nanpercentile(self.result, 1), 2), round(np.nanpercentile(self.result, 99), 2))
+                ax.set_title(f'Conventional Rugosity Index\n(~{round(self.window_size_m, 2)}m x ~{round(self.window_size_m, 2)}m window)')
+            ax.set_xlabel(f'X-axis grids \n(grid size ≈ {round(gridsize[0],4)} [{Zunit}])')
+            ax.set_ylabel(f'Y-axis grids \n(grid size ≈ {-round(gridsize[4],4)} [{Zunit}])')
+            cbar = fig.colorbar(im, ax=ax, orientation='horizontal', fraction=0.045, pad=0.13)
 
         plt.tight_layout()
         
         if savefig:
-            # Set the file name based on whether slope correction was applied
             if self.slope_correction:
                 output_filename = os.path.splitext(input_file)[0] + f'_pyRugosity_ACR({round(self.window_size_m, 2)}m).png'
             else:
                 output_filename = os.path.splitext(input_file)[0] + f'_pyRugosity_Conv({round(self.window_size_m, 2)}m).png'
+            output_path = os.path.join(base_dir, output_filename)
+            plt.savefig(output_path, dpi=200, bbox_inches='tight')
+            print(f"Figure saved as '{os.path.basename(output_path)}'")
 
-            output_dir = os.path.join(base_dir, output_filename)
-            plt.savefig(output_dir, dpi=200, bbox_inches='tight')
-            print(f"Figure saved as '{output_filename}'")
-        
-        plt.show()
+        if figshow:
+            plt.show()
+        else:
+            plt.close(fig)
