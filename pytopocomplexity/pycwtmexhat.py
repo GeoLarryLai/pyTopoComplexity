@@ -17,15 +17,19 @@ class CWTMexHat:
     curvature of the surface, which has been proposed as an effective geomorphic metric for 
     identifying and estimating the ages of historical deep-seated landslide deposits.
 
-    Parameters:
+    Required parameters:
     -----------
     Lambda : float
         The wavelength (in meters) for the Mexican Hat wavelet.
+    input_dir : str
+        Path and filename of the input DEM file.
+    output_dir : str
+        Path and filename to save the output GeoTIFF file.
 
     Attributes:
     -----------
     Lambda : float
-        The wavelength for the Mexican Hat wavelet.
+        The wavelength (in meters) for the Mexican Hat wavelet.
     ft2mUS : float
         Conversion factor from US survey feet to meters.
     ft2mInt : float
@@ -33,22 +37,30 @@ class CWTMexHat:
     input_dir : str
         Path to the input DEM file.
     Z : numpy.ndarray
-        The input elevation data.
+        Array storing the input DEM data.
     result : numpy.ndarray
-        The result of the 2D-CWT analysis.
+        Array storing the result of the 2D-CWT analysis.
+    meta : dict
+        Metadata of the input raster.
+    conv_method : str
+        Convolution method to use ('fft' or 'conv').
+    chunk_processing : bool
+        Whether to use Dask for chunk processing.
+    chunksize : tuple
+        Size of chunks for Dask processing.
 
     Methods:
     --------
-    analyze(input_dir, conv_method='fft', chunk_processing=True, chunksize=(512, 512))
+    analyze(input_dir)
         Perform the 2D-CWT analysis on the input DEM.
     export_result(output_dir)
         Export the result of the analysis to a GeoTIFF file.
-    plot_result(savefig=True, figshow=True)
+    plot_result()
         Plot the original DEM and the 2D-CWT result side by side.
 
     Example:
     --------
-    >>> cwt = pycwtmexhat(Lambda=15)
+    >>> cwt = CWTMexHat(Lambda=15)
     >>> Z, result = cwt.analyze('input_dem.tif')
     >>> cwt.export_result('output_cwt.tif')
     >>> cwt.plot_result()
@@ -293,18 +305,20 @@ class CWTMexHat:
         
         print(f"Processed result saved to {os.path.basename(output_dir)}")
 
-    def plot_result(self, savefig=True, figshow=True, output_dir=None):
+    def plot_result(self, output_dir=None, savefig=True, figshow=True, showhillshade=True):
         """
-        Plot the original DEM and the 2D-CWT result side by side.
+        Plot the original DEM and the 2D-CWT result side by side, or only the 2D-CWT result.
 
         Parameters:
         -----------
         savefig : bool, optional
             Whether to save the figure as a PNG file (default is True).
         figshow : bool, optional
-            Whether to display the figure (default is False).
+            Whether to display the figure (default is True).
         output_dir : str, optional
-            Directory to save the figure. If None, uses the input file's directory.
+            Specified directory to save the figure. If None, uses the input file's directory.
+        showhillshade : bool, optional
+            Whether to show the hillshade plot alongside the roughness data (default is True).
         """
         if self.Z is None or self.result is None or self.input_dir is None:
             raise ValueError("Analysis must be run before plotting results.")
@@ -316,32 +330,45 @@ class CWTMexHat:
             gridsize = src.transform
             Zunit = src.crs.linear_units
 
-        fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(12, 6))
+        if showhillshade:
+            # Scenario with hillshade
+            fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(12, 6))
+            
+            # Plot the hillshade
+            ls = LightSource(azdeg=315, altdeg=45)
+            hs = axes[0].imshow(ls.hillshade(self.Z, vert_exag=2), cmap='gray')
+            axes[0].set_title(input_file)
+            axes[0].set_xlabel(f'X-axis grids \n(grid size ≈ {round(gridsize[0],4)} [{Zunit}])')
+            axes[0].set_ylabel(f'Y-axis grids \n(grid size ≈ {-round(gridsize[4],4)} [{Zunit}])')
+            cbar1 = fig.colorbar(hs, ax=axes[0], orientation='horizontal', fraction=0.045, pad=0.13)
+            cbar1.ax.set_visible(False)
 
-        # Plot the hillshade
-        ls = LightSource(azdeg=315, altdeg=45)
-        hs = axes[0].imshow(ls.hillshade(self.Z, vert_exag=2), cmap='gray')
-        axes[0].set_title(input_file)
-        axes[0].set_xlabel(f'X-axis grids \n(grid size ≈ {round(gridsize[0],4)} [{Zunit}])')
-        axes[0].set_ylabel(f'Y-axis grids \n(grid size ≈ {-round(gridsize[4],4)} [{Zunit}])')
-        cbar1 = fig.colorbar(hs, ax=axes[0], orientation='horizontal', fraction=0.045, pad=0.13)
-        cbar1.ax.set_visible(False)
+            # Plot the 2D-CWT roughness
+            im = axes[1].imshow(self.result, cmap='viridis')
+            im.set_clim(0, round(np.nanpercentile(self.result, 99), 2))
+            axes[1].set_title(f'2D-CWT surface roughness [m$^{{-1}}$] \n measured with {self.Lambda}m Mexican Hat wavelet')
+            axes[1].set_xlabel(f'X-axis grids \n(grid size ≈ {round(gridsize[0],4)} [{Zunit}])')
+            axes[1].set_ylabel(f'Y-axis grids \n(grid size ≈ {-round(gridsize[4],4)} [{Zunit}])')
+            cbar2 = fig.colorbar(im, ax=axes[1], orientation='horizontal', fraction=0.045, pad=0.13)
+        else:
+            # Scenario without hillshade
+            fig, ax = plt.subplots(nrows=1, ncols=1, figsize=(6, 6))
+            
+            # Plot only the 2D-CWT roughness
+            im = ax.imshow(self.result, cmap='viridis')
+            im.set_clim(0, round(np.nanpercentile(self.result, 99), 2))
+            ax.set_title(f'2D-CWT surface roughness [m$^{{-1}}$] \n measured with {self.Lambda}m Mexican Hat wavelet')
+            ax.set_xlabel(f'X-axis grids \n(grid size ≈ {round(gridsize[0],4)} [{Zunit}])')
+            ax.set_ylabel(f'Y-axis grids \n(grid size ≈ {-round(gridsize[4],4)} [{Zunit}])')
+            cbar = fig.colorbar(im, ax=ax, orientation='horizontal', fraction=0.045, pad=0.13)
 
-        # Plot the 2D-CWT roughness
-        im = axes[1].imshow(self.result, cmap='viridis')
-        im.set_clim(0, round(np.nanpercentile(self.result, 99), 2))
-        axes[1].set_title(f'2D-CWT surface roughness [m$^{{-1}}$] \n measured with {self.Lambda}m Mexican Hat wavelet')
-        axes[1].set_xlabel(f'X-axis grids \n(grid size ≈ {round(gridsize[0],4)} [{Zunit}])')
-        axes[1].set_ylabel(f'Y-axis grids \n(grid size ≈ {-round(gridsize[4],4)} [{Zunit}])')
-        cbar2 = fig.colorbar(im, ax=axes[1], orientation='horizontal', fraction=0.045, pad=0.13)
-        
         plt.tight_layout()
         
         if savefig:
             output_filename = os.path.splitext(input_file)[0] + f'_pyCWTMexHat({self.Lambda}m).png'
             output_path = os.path.join(base_dir, output_filename)
             plt.savefig(output_path, dpi=200, bbox_inches='tight')
-            print(f"Figure saved as '{output_path}'")
+            print(f"Figure saved as '{os.path.basename(output_path)}'")
 
         if figshow:
             plt.show()
