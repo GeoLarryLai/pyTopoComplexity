@@ -288,14 +288,14 @@ class TPI:
         # Write TPI to a new GeoTIFF
         with rasterio.open(output_dir, 'w', **self.meta) as dst:
             dst.write(self.TPI.astype(rasterio.float32), 1)
-        print(f"Processed TPI result saved to {os.path.basename(output_dir)}")
+        print(f"'{os.path.basename(output_dir)}' is saved")
 
         # Write TPIabs to a new GeoTIFF
         with rasterio.open(output_abs_dir, 'w', **self.meta) as dst:
             dst.write(self.TPIabs.astype(rasterio.float32), 1)
-        print(f"Processed absolute TPI result saved to {os.path.basename(output_abs_dir)}")
+        print(f"'{os.path.basename(output_abs_dir)}' is saved")
 
-    def plot_result(self, output_dir=None, savefig=True, figshow=True, showhillshade=True, showtpi=True, showabstpi=True):
+    def plot_result(self, output_dir=None, savefig=True, figshow=True, showhillshade=True, showtpi=True, showabstpi=True, tpicolormax=None, abstpicolormax=None):
         """
         Plot the original DEM, TPI, and absolute TPI results side by side, or only the TPI and/or absolute TPI results.
 
@@ -313,6 +313,10 @@ class TPI:
             Whether to show the Terrain Position Index plot (default is True).
         showabstpi : bool, optional
             Whether to show the Absolute Values of Terrain Position Index plot (default is True).
+        tpicolormax : float, optional
+            Maximum value for TPI color scale. If None, uses data-derived values.
+        abstpicolormax : float, optional
+            Maximum value for absolute TPI color scale. If None, uses data-derived values.
 
         Raises:
         -------
@@ -354,8 +358,11 @@ class TPI:
         if showtpi:
             # Plot the TPI
             im = axes[plot_index].imshow(self.TPI, cmap='RdBu_r')
-            boundary = np.max([np.abs(np.nanpercentile(self.TPI, 1)), np.abs(np.nanpercentile(self.TPI, 99))])
-            im.set_clim(-round(boundary,2), round(boundary,2))
+            if tpicolormax is None:
+                boundary = np.max([np.abs(np.nanpercentile(self.TPI, 1)), np.abs(np.nanpercentile(self.TPI, 99))])
+                im.set_clim(-round(boundary,2), round(boundary,2))
+            else:
+                im.set_clim(-tpicolormax, tpicolormax)
             axes[plot_index].set_title(f'Terrain Position Index [m]\n(~{round(self.window_size_m, 2)}m x ~{round(self.window_size_m, 2)}m window)')
             axes[plot_index].set_xlabel(f'X-axis grids \n(grid size ≈ {round(gridsize[0],4)} [{Zunit}])')
             axes[plot_index].set_ylabel(f'Y-axis grids \n(grid size ≈ {-round(gridsize[4],4)} [{Zunit}])')
@@ -365,7 +372,10 @@ class TPI:
         if showabstpi:
             # Plot the TPIabs
             im = axes[plot_index].imshow(self.TPIabs, cmap='viridis')
-            im.set_clim(round(np.nanpercentile(self.TPIabs, 1), 2), round(np.nanpercentile(self.TPIabs, 99), 2))
+            if abstpicolormax is None:
+                im.set_clim(0, round(np.nanpercentile(self.TPIabs, 99), 2))
+            else:
+                im.set_clim(0, abstpicolormax)
             axes[plot_index].set_title(f'Absolute Values of Terrain Position Index [m]\n(~{round(self.window_size_m, 2)}m x ~{round(self.window_size_m, 2)}m window)')
             axes[plot_index].set_xlabel(f'X-axis grids \n(grid size ≈ {round(gridsize[0],4)} [{Zunit}])')
             axes[plot_index].set_ylabel(f'Y-axis grids \n(grid size ≈ {-round(gridsize[4],4)} [{Zunit}])')

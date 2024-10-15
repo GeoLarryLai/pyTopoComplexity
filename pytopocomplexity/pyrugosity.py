@@ -363,9 +363,9 @@ class RugosityIndex:
         with rasterio.open(output_dir, 'w', **self.meta) as dst:
             dst.write(self.result.astype(rasterio.float32), 1)
         
-        print(f"Processed result saved to {os.path.basename(output_dir)}")
+        print(f"'{os.path.basename(output_dir)}' is saved")
 
-    def plot_result(self, output_dir=None, savefig=True, figshow=True, showhillshade=True):
+    def plot_result(self, output_dir=None, savefig=True, figshow=True, showhillshade=True, rugositycolormax=None):
         """
         Plot the original DEM and the rugosity result side by side, or only the rugosity result.
 
@@ -379,6 +379,8 @@ class RugosityIndex:
             Whether to display the figure (default is True).
         showhillshade : bool, optional
             Whether to show the hillshade plot alongside the rugosity data (default is True).
+        rugositycolormax : float, optional
+            Maximum value for rugosity color scale. If None, uses data-derived values.
         """
         if self.Z is None or self.result is None or self.input_dir is None:
             raise ValueError("Analysis must be run before plotting results.")
@@ -406,11 +408,17 @@ class RugosityIndex:
             # Plot the rugosity
             if self.slope_correction:
                 im = axes[1].imshow(self.result, cmap='viridis')
-                im.set_clim(round(np.nanpercentile(self.result, 1), 2), round(np.nanpercentile(self.result, 99), 2))
+                if rugositycolormax is None:
+                    im.set_clim(round(np.nanpercentile(self.result, 1), 2), round(np.nanpercentile(self.result, 99), 2))
+                else:
+                    im.set_clim(1, rugositycolormax)
                 axes[1].set_title(f'Arc-Chord Ratio (ACR) Rugosity Index\n(~{round(self.window_size_m, 2)}m x ~{round(self.window_size_m, 2)}m window)')
             else:
                 im = axes[1].imshow(self.result, cmap='plasma')
-                im.set_clim(round(np.nanpercentile(self.result, 1), 2), round(np.nanpercentile(self.result, 99), 2))
+                if rugositycolormax is None:
+                    im.set_clim(round(np.nanpercentile(self.result, 1), 2), round(np.nanpercentile(self.result, 99), 2))
+                else:
+                    im.set_clim(1, rugositycolormax)
                 axes[1].set_title(f'Conventional Rugosity Index\n(~{round(self.window_size_m, 2)}m x ~{round(self.window_size_m, 2)}m window)')
             axes[1].set_xlabel(f'X-axis grids \n(grid size ≈ {round(gridsize[0],4)} [{Zunit}])')
             axes[1].set_ylabel(f'Y-axis grids \n(grid size ≈ {-round(gridsize[4],4)} [{Zunit}])')
@@ -422,11 +430,17 @@ class RugosityIndex:
             # Plot only the rugosity
             if self.slope_correction:
                 im = ax.imshow(self.result, cmap='viridis')
-                im.set_clim(round(np.nanpercentile(self.result, 1), 2), round(np.nanpercentile(self.result, 99), 2))
+                if rugositycolormax is None:
+                    im.set_clim(round(np.nanpercentile(self.result, 1), 2), round(np.nanpercentile(self.result, 99), 2))
+                else:
+                    im.set_clim(1, rugositycolormax)
                 ax.set_title(f'Arc-Chord Ratio (ACR) Rugosity Index\n(~{round(self.window_size_m, 2)}m x ~{round(self.window_size_m, 2)}m window)')
             else:
                 im = ax.imshow(self.result, cmap='plasma')
-                im.set_clim(round(np.nanpercentile(self.result, 1), 2), round(np.nanpercentile(self.result, 99), 2))
+                if rugositycolormax is None:
+                    im.set_clim(round(np.nanpercentile(self.result, 1), 2), round(np.nanpercentile(self.result, 99), 2))
+                else:
+                    im.set_clim(1, rugositycolormax)
                 ax.set_title(f'Conventional Rugosity Index\n(~{round(self.window_size_m, 2)}m x ~{round(self.window_size_m, 2)}m window)')
             ax.set_xlabel(f'X-axis grids \n(grid size ≈ {round(gridsize[0],4)} [{Zunit}])')
             ax.set_ylabel(f'Y-axis grids \n(grid size ≈ {-round(gridsize[4],4)} [{Zunit}])')

@@ -303,9 +303,9 @@ class CWTMexHat:
         with rasterio.open(output_dir, 'w', **self.meta) as dst:
             dst.write(self.result.astype(rasterio.float32), 1)
         
-        print(f"Processed result saved to {os.path.basename(output_dir)}")
+        print(f"'{os.path.basename(output_dir)}' is saved")
 
-    def plot_result(self, output_dir=None, savefig=True, figshow=True, showhillshade=True):
+    def plot_result(self, output_dir=None, savefig=True, figshow=True, showhillshade=True, cwtcolormax=None):
         """
         Plot the original DEM and the 2D-CWT result side by side, or only the 2D-CWT result.
 
@@ -319,6 +319,8 @@ class CWTMexHat:
             Whether to display the figure (default is True).
         showhillshade : bool, optional
             Whether to show the hillshade plot alongside the roughness data (default is True).
+        cwtcolormax : float, optional
+            Maximum value for roughness color scale. If None, uses data-derived values.
         """
         if self.Z is None or self.result is None or self.input_dir is None:
             raise ValueError("Analysis must be run before plotting results.")
@@ -345,7 +347,10 @@ class CWTMexHat:
 
             # Plot the 2D-CWT roughness
             im = axes[1].imshow(self.result, cmap='viridis')
-            im.set_clim(0, round(np.nanpercentile(self.result, 99), 2))
+            if cwtcolormax is None:
+                im.set_clim(0, round(np.nanpercentile(self.result, 99), 2))
+            else:
+                im.set_clim(0, cwtcolormax)
             axes[1].set_title(f'2D-CWT surface roughness [m$^{{-1}}$] \n measured with {self.Lambda}m Mexican Hat wavelet')
             axes[1].set_xlabel(f'X-axis grids \n(grid size ≈ {round(gridsize[0],4)} [{Zunit}])')
             axes[1].set_ylabel(f'Y-axis grids \n(grid size ≈ {-round(gridsize[4],4)} [{Zunit}])')
@@ -356,7 +361,10 @@ class CWTMexHat:
             
             # Plot only the 2D-CWT roughness
             im = ax.imshow(self.result, cmap='viridis')
-            im.set_clim(0, round(np.nanpercentile(self.result, 99), 2))
+            if cwtcolormax is None:
+                im.set_clim(0, round(np.nanpercentile(self.result, 99), 2))
+            else:
+                im.set_clim(0, cwtcolormax)
             ax.set_title(f'2D-CWT surface roughness [m$^{{-1}}$] \n measured with {self.Lambda}m Mexican Hat wavelet')
             ax.set_xlabel(f'X-axis grids \n(grid size ≈ {round(gridsize[0],4)} [{Zunit}])')
             ax.set_ylabel(f'Y-axis grids \n(grid size ≈ {-round(gridsize[4],4)} [{Zunit}])')
