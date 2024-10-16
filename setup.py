@@ -8,7 +8,7 @@ setup(
     version="1.0.0",
     author="Larry Syu-Heng Lai",
     author_email="larrysyuhenglai@gmail.com",
-    description="A package for multiscaletopographic complexity analysis",
+    description="A package for multiscale topographic complexity analysis", 
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/GeoLarryLai/pyTopoComplexity",
