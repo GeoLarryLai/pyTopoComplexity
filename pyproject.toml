@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "pytopocomplexity"
 dynamic = ["version"]
-description = "A package for multiscale topographic complexity analysis"
+description = "A package for topographic complexity analysis"
 readme = "README-pypi.md"
 authors = [{name = "Larry Syu-Heng Lai", email = "larrysyuhenglai@gmail.com"}]
 license = {file = "LICENSE"}
@@ -26,11 +26,11 @@ dependencies = [
     "statsmodels>=0.12",
     "gdal>=3.9",
     "ipython>=8.14",
-    "imageio>=2.11",
+    "imageio>=2.11"
 ]
 
 [project.urls]
-Repository = "https://github.com/GeoLarryLai/pyTopoComplexity.git"
+repository = "https://github.com/GeoLarryLai/pyTopoComplexity.git"
 
 [tool.setuptools]
-packages = find_packages(exclude=['image', 'image.*', 'examples', 'examples.*'])
+packages = {find = {where = ["."], exclude = ["image", "image.*", "examples", "examples.*"]}}
