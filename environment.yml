@@ -14,12 +14,13 @@ dependencies:
   - jupyter
   - jupyterlab
   - notebook
-  - ipywidgets
-  - landlab
   - gdal
   - geopandas
   - scikit-image
   - statsmodels
+  - imageio
+  - IPython
   - pip
   - pip:
     - pytopocomplexity
+    - landlab

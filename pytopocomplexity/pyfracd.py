@@ -20,10 +20,18 @@ class FracD:
     dimension of these profiles is estimated using the variogram method, which models the
     relationship between dissimilarity and distance using a power-law function.
 
-    Parameters:
+    Required parameters:
     -----------
-    window_size : int, optional
+    window_size : int
         The size of the moving window for fractal dimension calculation.
+    input_dir : str
+        Path and filename of the input DEM file.
+    fd2_output_dir : str
+        Path and filename to save the fractal dimension output GeoTIFF file.
+    se2_output_dir : str
+        Path and filename to save the standard error output GeoTIFF file.
+    r2_output_dir : str
+        Path and filename to save the R² output GeoTIFF file.
 
     Attributes:
     -----------
@@ -45,19 +53,25 @@ class FracD:
         Conversion factor from international feet to meters.
     window_size_m : float
         Window size converted in meters based on grid size.
+    input_dir : str
+        Path to the input DEM file.
+    Z : numpy.ndarray
+        Array storing the input DEM data.
+    meta : dict
+        Metadata of the input raster.
 
     Methods:
     --------
-    analyze(input_dir, variograms=True, chunk_processing=True, chunksize=(512, 512))
+    analyze(input_dir)
         Perform fractal dimension analysis on the input DEM.
     export_results(fd2_output_dir, se2_output_dir, r2_output_dir)
         Export the analysis results to GeoTIFF files.
-    plot_result(savefig=True)
+    plot_result()
         Plot and optionally save the analysis results.
 
     Example:
     --------
-    >>> fa = pyfracd(window_size=10)
+    >>> fa = FracD(window_size=10)
     >>> Z, fd_result, se_result, r2_result, window_m = fa.analyze('input_dem.tif')
     >>> fa.export_results('fd_output.tif', 'se_output.tif', 'r2_output.tif')
     >>> fa.plot_result()
@@ -488,88 +502,131 @@ class FracD:
 
         with rasterio.open(fd2_output_dir, 'w', **self.meta) as dst:
             dst.write(self.fd2_out.astype(rasterio.float32), 1)
-        print(f"Processed result saved to {os.path.basename(fd2_output_dir)}")
+        print(f"'{os.path.basename(fd2_output_dir)}' is saved")
 
         with rasterio.open(se2_output_dir, 'w', **self.meta) as dst:
             dst.write(self.se2_out.astype(rasterio.float32), 1)
-        print(f"Processed result saved to {os.path.basename(se2_output_dir)}")
+        print(f"'{os.path.basename(se2_output_dir)}' is saved")
 
         with rasterio.open(r2_output_dir, 'w', **self.meta) as dst:
             dst.write(self.r2_out.astype(rasterio.float32), 1)
-        print(f"Processed result saved to {os.path.basename(r2_output_dir)}")
+        print(f"'{os.path.basename(r2_output_dir)}' is saved")
 
-    def plot_result(self, savefig=True):
+    def plot_result(self, output_dir=None, savefig=True, figshow=True, showhillshade=True, showse=True, showr2=True, fdcolormax=None, secolormax=None, r2colormax=None):
         """
         Plot the original DEM and the fractal dimension analysis results side by side.
 
-        This method creates a 2x2 plot showing:
-        1. The original DEM as a hillshade
+        This method creates a plot showing:
+        1. The original DEM as a hillshade (optional)
         2. The calculated fractal dimensions
-        3. The standard errors of the fractal dimension estimates
-        4. The R² values of the variogram fits
+        3. The standard errors of the fractal dimension estimates (optional)
+        4. The R² values of the variogram fits (optional)
 
         Parameters:
         -----------
+        output_dir : str, optional
+            Specified directory to save the figure. If None, uses the input file's directory.
         savefig : bool, optional
             Whether to save the figure as a PNG file. Default is True.
+        figshow : bool, optional
+            Whether to display the figure. Default is True.
+        showhillshade : bool, optional
+            Whether to show the hillshade plot alongside the fractal dimension data. Default is True.
+        showse : bool, optional
+            Whether to show the standard error plot. Default is True.
+        showr2 : bool, optional
+            Whether to show the R² plot. Default is True.
+        fdcolormax : float, optional
+            Maximum value for fractal dimension color scale. If None, uses data-derived values.
+        secolormax : float, optional
+            Maximum value for standard error color scale. If None, uses data-derived values.
+        r2colormax : float, optional
+            Maximum value for R² color scale. If None, uses data-derived values.
 
         Raises:
         -------
         ValueError
-            If the analysis hasn't been run before calling this method.
+            If the analysis hasn't been run before calling this method or if both savefig and figshow are False.
         """
         if self.Z is None or self.fd2_out is None or self.input_dir is None:
             raise ValueError("Analysis must be run before plotting results.")
 
+        if not savefig and not figshow:
+            raise ValueError("At least one of savefig or figshow must be True.")
+
         input_file = os.path.basename(self.input_dir)
-        base_dir = os.path.dirname(self.input_dir)
+        base_dir = output_dir if output_dir else os.path.dirname(self.input_dir)
 
         with rasterio.open(self.input_dir) as src:
             gridsize = src.transform
             Zunit = src.crs.linear_units
 
-        fig, axes = plt.subplots(nrows=2, ncols=2, figsize=(12, 12))
+        num_plots = sum([showhillshade, True, showse, showr2])  # Always include fractal dimension plot
+        fig, axes = plt.subplots(nrows=1, ncols=num_plots, figsize=(6*num_plots, 6))
 
-        # Plot the hillshade
-        ls = LightSource(azdeg=315, altdeg=45)
-        hillshade = ls.hillshade(self.Z, vert_exag=2)
-        hs = axes[0, 0].imshow(hillshade, cmap='gray')
-        axes[0, 0].set_title(input_file)
-        axes[0, 0].set_xlabel(f'X-axis grids \n(grid size ≈ {round(gridsize[0],4)} [{Zunit}])')
-        axes[0, 0].set_ylabel(f'Y-axis grids \n(grid size ≈ {-round(gridsize[4],4)} [{Zunit}])')
-        cbar1 = fig.colorbar(hs, ax=axes[0, 0], orientation='horizontal', fraction=0.045, pad=0.13)
-        cbar1.ax.set_visible(False)
+        if num_plots == 1:
+            axes = [axes]
+
+        plot_index = 0
+
+        if showhillshade:
+            # Plot the hillshade
+            ls = LightSource(azdeg=315, altdeg=45)
+            hillshade = ls.hillshade(self.Z, vert_exag=2)
+            hs = axes[plot_index].imshow(hillshade, cmap='gray')
+            axes[plot_index].set_title(input_file)
+            axes[plot_index].set_xlabel(f'X-axis grids \n(grid size ≈ {round(gridsize[0],4)} [{Zunit}])')
+            axes[plot_index].set_ylabel(f'Y-axis grids \n(grid size ≈ {-round(gridsize[4],4)} [{Zunit}])')
+            cbar = fig.colorbar(hs, ax=axes[plot_index], orientation='horizontal', fraction=0.045, pad=0.13)
+            cbar.ax.set_visible(False)
+            plot_index += 1
 
         # Plot the Fractal Dimension
-        im1 = axes[0, 1].imshow(self.fd2_out, cmap='viridis')
-        im1.set_clim(2, 3)
-        axes[0, 1].set_title(f'Fractal Dimension (~{round(self.window_size_m, 2)}m x ~{round(self.window_size_m, 2)}m window)')
-        axes[0, 1].set_xlabel(f'X-axis grids \n(grid size ≈ {round(gridsize[0],4)} [{Zunit}])')
-        axes[0, 1].set_ylabel(f'Y-axis grids \n(grid size ≈ {-round(gridsize[4],4)} [{Zunit}])')
-        cbar2 = fig.colorbar(im1, ax=axes[0, 1], orientation='horizontal', fraction=0.045, pad=0.13)
+        im1 = axes[plot_index].imshow(self.fd2_out, cmap='viridis')
+        if fdcolormax is None:
+            im1.set_clim(2, 3)
+        else:
+            im1.set_clim(2, fdcolormax)
+        axes[plot_index].set_title(f'Fractal Dimension (~{round(self.window_size_m, 2)}m x ~{round(self.window_size_m, 2)}m window)')
+        axes[plot_index].set_xlabel(f'X-axis grids \n(grid size ≈ {round(gridsize[0],4)} [{Zunit}])')
+        axes[plot_index].set_ylabel(f'Y-axis grids \n(grid size ≈ {-round(gridsize[4],4)} [{Zunit}])')
+        fig.colorbar(im1, ax=axes[plot_index], orientation='horizontal', fraction=0.045, pad=0.13)
+        plot_index += 1
 
-        # Plot the Standard Error
-        im2 = axes[1, 0].imshow(self.se2_out, cmap='plasma')
-        im2.set_clim(round(np.nanpercentile(self.se2_out, 0), 2), round(np.nanpercentile(self.se2_out, 100), 2))
-        axes[1, 0].set_title('Standard Error of Fractal Dimension')
-        axes[1, 0].set_xlabel(f'X-axis grids \n(grid size ≈ {round(gridsize[0],4)} [{Zunit}])')
-        axes[1, 0].set_ylabel(f'Y-axis grids \n(grid size ≈ {-round(gridsize[4],4)} [{Zunit}])')
-        cbar3 = fig.colorbar(im2, ax=axes[1, 0], orientation='horizontal', fraction=0.045, pad=0.13)
+        if showse:
+            # Plot the Standard Error
+            im2 = axes[plot_index].imshow(self.se2_out, cmap='plasma')
+            if secolormax is None:
+                im2.set_clim(round(np.nanpercentile(self.se2_out, 0), 2), round(np.nanpercentile(self.se2_out, 100), 2))
+            else:
+                im2.set_clim(0, secolormax)
+            axes[plot_index].set_title('Standard Error of Fractal Dimension')
+            axes[plot_index].set_xlabel(f'X-axis grids \n(grid size ≈ {round(gridsize[0],4)} [{Zunit}])')
+            axes[plot_index].set_ylabel(f'Y-axis grids \n(grid size ≈ {-round(gridsize[4],4)} [{Zunit}])')
+            fig.colorbar(im2, ax=axes[plot_index], orientation='horizontal', fraction=0.045, pad=0.13)
+            plot_index += 1
 
-        # Plot the r-square
-        im3 = axes[1, 1].imshow(self.r2_out, cmap='coolwarm_r')
-        im3.set_clim(0, round(np.nanpercentile(self.r2_out, 100), 2))
-        axes[1, 1].set_title('Coefficient of determination (R$^{2}$)')
-        axes[1, 1].set_xlabel(f'X-axis grids \n(grid size ≈ {round(gridsize[0],4)} [{Zunit}])')
-        axes[1, 1].set_ylabel(f'Y-axis grids \n(grid size ≈ {-round(gridsize[4],4)} [{Zunit}])')
-        cbar4 = fig.colorbar(im3, ax=axes[1, 1], orientation='horizontal', fraction=0.045, pad=0.13)
+        if showr2:
+            # Plot the r-square
+            im3 = axes[plot_index].imshow(self.r2_out, cmap='coolwarm_r')
+            if r2colormax is None:
+                im3.set_clim(0, 1)
+            else:
+                im3.set_clim(0, r2colormax)
+            axes[plot_index].set_title('Coefficient of determination (R$^{2}$)')
+            axes[plot_index].set_xlabel(f'X-axis grids \n(grid size ≈ {round(gridsize[0],4)} [{Zunit}])')
+            axes[plot_index].set_ylabel(f'Y-axis grids \n(grid size ≈ {-round(gridsize[4],4)} [{Zunit}])')
+            fig.colorbar(im3, ax=axes[plot_index], orientation='horizontal', fraction=0.045, pad=0.13)
 
         plt.tight_layout()
         
         if savefig:
             output_filename = os.path.splitext(input_file)[0] + f'_pyFD({round(self.window_size_m, 2)}m).png'
-            output_dir = os.path.join(base_dir, output_filename)
-            plt.savefig(output_dir, dpi=200, bbox_inches='tight')
-            print(f"Figure saved as '{output_filename}'")
+            output_path = os.path.join(base_dir, output_filename)
+            plt.savefig(output_path, dpi=200, bbox_inches='tight')
+            print(f"Figure saved as '{os.path.basename(output_path)}'")
         
-        plt.show()
+        if figshow:
+            plt.show()
+        else:
+            plt.close(fig)
