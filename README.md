@@ -25,7 +25,7 @@ pip install pytopocomplexity
 
 ## Citation
 
-We are currently in the process of preparing a manuscript about this tool for submission. If you use **pyTopoComplexity** and the associated Jupyter Notebooks in your work, please consider citing the paper once it has been peer-reviewed. In the meantime, you may cite the [Zenodo DOI](https://doi.org/10.5281/zenodo.11239338)).
+A manuscript about this tool is undergoing a peer-review process at Earth Surface Dynamics (Preprint is available at https://doi.org/10.5194/egusphere-2024-3415). If you use **pyTopoComplexity** and the associated Jupyter Notebooks in your work, please consider citing the paper once it has been peer-reviewed. In the meantime, you may cite the [Zenodo DOI](https://doi.org/10.5281/zenodo.11239338)).
 
 ## Modules for Surface Complexity Measurement
 
