@@ -64,7 +64,7 @@ class FracD:
     --------
     analyze(input_dir)
         Perform fractal dimension analysis on the input DEM.
-    export_results(fd2_output_dir, se2_output_dir, r2_output_dir)
+    export_result(fd2_output_dir, se2_output_dir, r2_output_dir)
         Export the analysis results to GeoTIFF files.
     plot_result()
         Plot and optionally save the analysis results.
@@ -73,7 +73,7 @@ class FracD:
     --------
     >>> fa = FracD(window_size=10)
     >>> Z, fd_result, se_result, r2_result, window_m = fa.analyze('input_dem.tif')
-    >>> fa.export_results('fd_output.tif', 'se_output.tif', 'r2_output.tif')
+    >>> fa.export_result('fd_output.tif', 'se_output.tif', 'r2_output.tif')
     >>> fa.plot_result()
 
     References:
@@ -474,7 +474,7 @@ class FracD:
         fd2 = 3.0 - slope / 2.0
         print(f"Estimated Fractal Dimension: {fd2}")
 
-    def export_results(self, fd2_output_dir, se2_output_dir, r2_output_dir):
+    def export_result(self, fd2_output_dir, se2_output_dir, r2_output_dir):
         """
         Export the analysis results to GeoTIFF files.
 
