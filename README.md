@@ -33,7 +33,13 @@ To run the simulations for landscape evolution in the [**Landlab_simulation.ipyn
 ## Citation
 
 If you use **pyTopoComplexity** and the associated Jupyter Notebooks in your work, please cite the following paper:
-* Lai, L. S.-H., Booth, A. M., Duvall, A. R., and Herzig, E. (2024) Short Communications: Multiscale topographic complexity analysis with pyTopoComplexity. Earth Surface Dynamics. https://doi.org/10.5194/egusphere-2024-3415.
+* Lai, L. S.-H., Booth, A. M., Duvall, A. R., and Herzig, E. (In Revision) Short Communication: Multiscale topographic complexity analysis with pyTopoComplexity. Earth Surface Dynamics. https://doi.org/10.5194/egusphere-2024-3415.
+
+## Workflow
+
+<p align="center">
+ <img src="image/workflow_schematic.png" width="100%" height="100%""/>
+</p>
 
 ## Modules for Surface Complexity Measurement
 
