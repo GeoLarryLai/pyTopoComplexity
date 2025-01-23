@@ -19,13 +19,21 @@ There is also an additional Jupyter Notebook, [**Landlab_simulation.ipynb**](htt
 
 ## Installation
 
+Users can install **pyTopoComplexity** directly from [PyPI](https://pypi.org/project/pytopocomplexity/) with `pip` command:
 ```
 pip install pytopocomplexity
 ```
+or from `conda-forge` repository with `conda`:
+```
+conda install pytopocomplexity
+```
+To run the simulations for landscape evolution in the [**Landlab_simulation.ipynb**](https://github.com/GeoLarryLai/pyTopoComplexity/blob/main/Landlab_simulation.ipynb), users need to install [Landlab](https://landlab.readthedocs.io/en/latest/index.html) in addition to **pyTopoComplexity**. Please visit [Landlab](https://landlab.readthedocs.io/en/latest/index.html)'s installation instruction on CSDMS website: https://landlab.readthedocs.io/en/latest/installation.html.
+
 
 ## Citation
 
-A manuscript about this tool is undergoing a peer-review process at Earth Surface Dynamics (Preprint is available at https://doi.org/10.5194/egusphere-2024-3415). If you use **pyTopoComplexity** and the associated Jupyter Notebooks in your work, please consider citing the paper once it has been peer-reviewed. In the meantime, you may cite the [Zenodo DOI](https://doi.org/10.5281/zenodo.11239338)).
+If you use **pyTopoComplexity** and the associated Jupyter Notebooks in your work, please cite the following paper:
+* Lai, L. S.-H., Booth, A. M., Duvall, A. R., and Herzig, E. (2024) Short Communications: Multiscale topographic complexity analysis with pyTopoComplexity. Earth Surface Dynamics. https://doi.org/10.5194/egusphere-2024-3415.
 
 ## Modules for Surface Complexity Measurement
 
@@ -133,7 +141,6 @@ Additional packages for Jupyter Notebook pyTopoComplexity examples:
 
 For landscape smoothing simulation:
 * [`landlab`](https://landlab.readthedocs.io/en/latest/index.html) >= 2.7
-  * See its installation instruction on CSDMS website: https://landlab.readthedocs.io/en/latest/installation.html
   * Used modeling components: `TaylorNonLinearDiffuser`, `FlowAccumulator`, `StreamPowerEroder`
   * Used data processing and visualization components: `esri_ascii`, `imshowhs`, `imshowhs_grid`
 
