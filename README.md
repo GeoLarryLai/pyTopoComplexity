@@ -38,7 +38,7 @@ If you use **pyTopoComplexity** and the associated Jupyter Notebooks in your wor
 ## Workflow
 
 <p align="center">
- <img src="image/workflow-schematic.png" width="100%" height="100%""/>
+ <img src="image/schematic.png" width="100%" height="100%""/>
 </p>
 
 ## Modules for Surface Complexity Measurement
