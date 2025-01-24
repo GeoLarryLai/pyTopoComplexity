@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "pytopocomplexity"
 dynamic = ["version"]
-description = "A package for topographic complexity analysis"
+description = "A package for multiscale topographic complexity analysis"
 readme = "README-pypi.md"
 authors = [{name = "Larry Syu-Heng Lai", email = "larrysyuhenglai@gmail.com"}]
 license = {file = "LICENSE"}
