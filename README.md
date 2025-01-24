@@ -29,12 +29,6 @@ conda install pytopocomplexity
 ```
 To run the simulations for landscape evolution in the [**Landlab_simulation.ipynb**](https://github.com/GeoLarryLai/pyTopoComplexity/blob/main/Landlab_simulation.ipynb), users need to install [Landlab](https://landlab.readthedocs.io/en/latest/index.html) in addition to **pyTopoComplexity**. Please visit [Landlab](https://landlab.readthedocs.io/en/latest/index.html)'s installation instruction on CSDMS website: https://landlab.readthedocs.io/en/latest/installation.html.
 
-
-## Citation
-
-If you use **pyTopoComplexity** and the associated Jupyter Notebooks in your work, please cite the following paper:
-* Lai, L. S.-H., Booth, A. M., Duvall, A. R., and Herzig, E. (In Revision) Short Communication: Multiscale topographic complexity analysis with pyTopoComplexity. Earth Surface Dynamics. https://doi.org/10.5194/egusphere-2024-3415.
-
 ## Workflow
 
 <p align="center">
