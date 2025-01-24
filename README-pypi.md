@@ -15,8 +15,13 @@
 
 ## Installation
 
+Users can install **pyTopoComplexity** directly from [PyPI](https://pypi.org/project/pytopocomplexity/) with `pip` command:
 ```
 pip install pytopocomplexity
+```
+or from `conda-forge` repository with `conda`:
+```
+conda install pytopocomplexity
 ```
 
 ## Modules for Surface Complexity Measurement

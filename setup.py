@@ -5,10 +5,10 @@ with open("README-pypi.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="pytopocomplexity",
-    version="1.0.0",
+    version="1.0.1",
     author="Larry Syu-Heng Lai",
     author_email="larrysyuhenglai@gmail.com",
-    description="A package for topographic complexity analysis", 
+    description="A package for multiscale topographic complexity analysis", 
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/GeoLarryLai/pyTopoComplexity",
