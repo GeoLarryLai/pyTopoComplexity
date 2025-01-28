@@ -1,5 +1,5 @@
 # pyTopoComplexity
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.11239338.svg)](https://doi.org/10.5281/zenodo.11239338) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/pytopocomplexity.svg)](https://anaconda.org/conda-forge/pytopocomplexity) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/pytopocomplexity.svg)](https://anaconda.org/conda-forge/pytopocomplexity)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.11239338.svg)](https://doi.org/10.5281/zenodo.11239338)  [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/pytopocomplexity.svg)](https://anaconda.org/conda-forge/pytopocomplexity)  [![Conda Version](https://img.shields.io/conda/vn/conda-forge/pytopocomplexity.svg)](https://anaconda.org/conda-forge/pytopocomplexity)
 <p align="left">
  <img src="image/pyTopoComplexity_logo.png" width="30%" height="30%""/>
 </p>
