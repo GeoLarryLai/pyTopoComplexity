@@ -128,21 +128,21 @@ The example DEM raster files have various grid size, coordinate reference system
 ## Requirements
 For **pyTopoComplexity** package"
 * Python >= 3.10
-* `numpy` >= 1.24
-* `scipy` >= 1.10
-* `rasterio` >= 1.3
-* `dask` >= 2024.3
-* `matplotlib` >= 3.7
-* `tqdm` >= 4.66
-* `numba` >= 0.57
-* `statsmodels` >= 0.14
+* `numpy` >= 1.20
+* `scipy` >= 1.5
+* `rasterio` >= 1.2
+* `dask` >= 2021.0
+* `matplotlib` >= 3.3
+* `tqdm` >= 4.0
+* `numba` >= 0.50
+* `statsmodels` >= 0.12
 
 Additional packages for Jupyter Notebook pyTopoComplexity examples:
 * `pandas`  >= 2.1
 * `jupyter` >= 1.0
-* `IPython` >= 8.14
-* `imageio` >= 2.11
-* `gdal` >= 3.6
+* `IPython` >= 7.0
+* `imageio` >= 2.9
+* `gdal` >= 3.0
 
 For landscape smoothing simulation:
 * [`landlab`](https://landlab.readthedocs.io/en/latest/index.html) >= 2.7
