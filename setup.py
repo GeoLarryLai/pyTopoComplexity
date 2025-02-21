@@ -5,7 +5,7 @@ with open("README-pypi.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="pytopocomplexity",
-    version="1.0.1",
+    version="1.1.0",
     author="Larry Syu-Heng Lai",
     author_email="larrysyuhenglai@gmail.com",
     description="A package for multiscale topographic complexity analysis", 
@@ -21,16 +21,16 @@ setup(
     python_requires=">=3.10",
     install_requires=[
         "numpy>=1.20",
-        "scipy>=1.6",
+        "scipy>=1.5",
         "rasterio>=1.2",
         "dask>=2021.0",
         "matplotlib>=3.3",
         "tqdm>=4.0",
-        "numba>=0.53",
+        "numba>=0.50",
         "statsmodels>=0.12",
-        "gdal>=3.9",
-        "ipython>=8.14",
-        "imageio>=2.11"
+        "gdal>=3.0",
+        "ipython>=7.0",
+        "imageio>=2.9"
     ],
     license="Apache License 2.0",
 )
