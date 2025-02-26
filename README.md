@@ -17,11 +17,6 @@ In this repository, each module has a corresponding example Jupyter Notebook fil
 
 There is also an additional Jupyter Notebook, [**Landlab_simulation.ipynb**](https://github.com/GeoLarryLai/pyTopoComplexity/blob/main/Landlab_simulation.ipynb), which leverages the power of [Landlab](https://landlab.readthedocs.io/en/latest/index.html) to perform forward simulation of landscape smoothing through non-linear hillslope diffusion process.
 
-## Citation
-
-If you use **pyTopoComplexity** and the associated Jupyter Notebooks in your work, please cite the following paper:
-* Lai, L. S.-H., Booth, A. M., Duvall, A. R., and Herzig, E. (In Revision) Short Communication: Multiscale topographic complexity analysis with pyTopoComplexity. Earth Surface Dynamics. https://doi.org/10.5194/egusphere-2024-3415.
-
 ## Installation
 
 Users can install **pyTopoComplexity** directly from [PyPI](https://pypi.org/project/pytopocomplexity/) with `pip` command:
@@ -52,6 +47,8 @@ The module **pycwtmexhat.py** uses two-dimensional continuous wavelet transform 
 
 See [**Example_pycwtmexhat.ipynb**](https://github.com/GeoLarryLai/pyTopoComplexity/blob/main/Example_pycwtmexhat.ipynb) for detailed explanations and usage instructions.
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/GeoLarryLai/pyTopoComplexity/blob/main/Example_pycwtmexhat.ipynb)
+
 <p align="center">
  <img src="image/cwtmexhat.png" width="100%" height="100%""/>
 </p>
@@ -65,6 +62,9 @@ from pytopocomplexity import FracD
 The **pyfracd.py** module calculates local fractal dimensions to assess topographic complexity. It also computes reliability parameters such as the standard error and the coefficient of determination (R²). The development of this module was greatly influenced by the Fortran code shared by Dr. Eulogio Pardo-Igúzquiza from his work in [Pardo-Igúzquiza and Dowd (2022)](https://doi.org/10.1016/j.icarus.2022.115109). The local fractal dimension is determined by intersecting the surface within a moving window with four vertical planes in principal geographical directions, simplifying the problem to one-dimensional topographic profiles. The fractal dimension of these profiles is estimated using the variogram method, which models the relationship between dissimilarity and distance using a power-law function. While the fractal dimension value does not directly scale with the degree of surface roughness, smoother or more regular surfaces generally have lower fractal dimension values (closer to 2), whereas surfaces with higher fractal dimension values tend to be more complex or irregular. This method has been applied in terrain analysis for understanding spatial variability in surface roughness, classifying geomorphologic features, uncovering hidden spatial structures, and supporting geomorphological and geological mapping on Earth and other planetary bodies.
 
 See [**Example_pyfracd.ipynb**](https://github.com/GeoLarryLai/pyTopoComplexity/blob/main/Example_pyfracd.ipynb) for detailed explanations and usage instructions.
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/GeoLarryLai/pyTopoComplexity/blob/main/Example_pyfracd.ipynb)
+
 
 <p align="center">
  <img src="image/fracd.png" width="100%" height="100%""/>
@@ -80,6 +80,8 @@ The module **pyrugosity.py** measure Rugosity Index of the land surface, which i
 
 See [**Example_pyrugosity.ipynb**](https://github.com/GeoLarryLai/pyTopoComplexity/blob/main/Example_pyrugosity.ipynb) for detailed explanations and usage instructions.
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/GeoLarryLai/pyTopoComplexity/blob/main/Example_pyrugosity.ipynb)
+
 <p align="center">
  <img src="image/rugosity.png" width="100%" height="100%""/>
 </p>
@@ -94,16 +96,21 @@ The module **pytpi.py** calculates the Terrain Position Index (TPI) of the land 
 
 See [**Example_pytpi.ipynb**](https://github.com/GeoLarryLai/pyTopoComplexity/blob/main/Example_pytpi.ipynb) for detailed explanations and usage instructions.
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/GeoLarryLai/pyTopoComplexity/blob/main/Example_pytpi.ipynb)
+
 <p align="center">
  <img src="image/tpi.png" width="100%" height="100%""/>
 </p>
-```
 
 ## Combinding pyTopoComplexity with Landscape Evolution Modeling
 
-The Jupyter Notebook file [**Landlab_simulation.ipynb**](https://github.com/GeoLarryLai/pyTopoComplexity/blob/main/example/nonlineardiff_Landlab.ipynb) demonstrates the use of [Landlab](https://landlab.readthedocs.io/en/latest/index.html), an open-source Python framework for simulating landscape evolution and modeling time-dependent changes in topographic complexity driven by hillslope and fluvial processes. It specifically employs two components from **Landlab**: the [`TaylorNonLinearDiffuser`](https://landlab.readthedocs.io/en/latest/generated/api/landlab.components.taylor_nonlinear_hillslope_flux.taylor_nonlinear_hillslope_flux.html#landlab.components.taylor_nonlinear_hillslope_flux.taylor_nonlinear_hillslope_flux.TaylorNonLinearDiffuser) from the [`terrainBento`](https://github.com/TerrainBento/terrainbento) package, developed by [Barnhart et al. (2019)](https://gmd.copernicus.org/articles/12/1267/2019/), which simulates topographic smoothing over time through nonlinear hillslope diffusion processes caused by near-surface soil disturbance and downslope soil creeping ([Roering et al., 1999](https://doi.org/10.1029/1998WR900090)), and the [`StreamPowerEroder`](https://landlab.readthedocs.io/en/latest/generated/api/landlab.components.stream_power.stream_power.html#landlab.components.stream_power.stream_power.StreamPowerEroder), a core component in **Landlab** that simulates topographic dissection through fluvial incision over time, following the method described by [Braun & Willett (2013)](https://doi.org/10.1016/j.geomorph.2012.10.008).
+The Jupyter Notebook file [**Landlab_simulation.ipynb**](https://github.com/GeoLarryLai/pyTopoComplexity/blob/main/example/nonlineardiff_Landlab.ipynb) demonstrates the use of [Landlab](https://landlab.readthedocs.io/en/latest/index.html), an open-source Python framework for simulating landscape evolution and modeling time-dependent changes in topographic complexity driven by hillslope and fluvial processes. 
 
-This notebook also includes functions that utilize modules from **pyTopoComplexity** to perform topographic complexity analysis on the simulated landscape from **Landlab** at each modeling timestep. The resulting GeoTIFF rasters, figures, and animations provide users with insights into the time-dependent changes in topographic complexity caused by land-surface processes.
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/GeoLarryLai/pyTopoComplexity/blob/main/Landlab_simulation.ipynb)
+
+This notebook specifically employs two components from **Landlab**: the [`TaylorNonLinearDiffuser`](https://landlab.readthedocs.io/en/latest/generated/api/landlab.components.taylor_nonlinear_hillslope_flux.taylor_nonlinear_hillslope_flux.html#landlab.components.taylor_nonlinear_hillslope_flux.taylor_nonlinear_hillslope_flux.TaylorNonLinearDiffuser) from the [`terrainBento`](https://github.com/TerrainBento/terrainbento) package, developed by [Barnhart et al. (2019)](https://gmd.copernicus.org/articles/12/1267/2019/), which simulates topographic smoothing over time through nonlinear hillslope diffusion processes caused by near-surface soil disturbance and downslope soil creeping ([Roering et al., 1999](https://doi.org/10.1029/1998WR900090)), and the [`StreamPowerEroder`](https://landlab.readthedocs.io/en/latest/generated/api/landlab.components.stream_power.stream_power.html#landlab.components.stream_power.stream_power.StreamPowerEroder), a core component in **Landlab** that simulates topographic dissection through fluvial incision over time, following the method described by [Braun & Willett (2013)](https://doi.org/10.1016/j.geomorph.2012.10.008).
+
+The notebook also includes functions that utilize modules from **pyTopoComplexity** to perform topographic complexity analysis on the simulated landscape from **Landlab** at each modeling timestep. The resulting GeoTIFF rasters, figures, and animations provide users with insights into the time-dependent changes in topographic complexity caused by land-surface processes.
 
 <p align="center">
 <img src="image/Landlab_demo.gif" width="100%" height="100%" align="center"/>

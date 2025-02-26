@@ -34,7 +34,9 @@ from pytopocomplexity import CWTMexHat
 
 The module **pycwtmexhat.py** uses two-dimensional continuous wavelet transform (2D-CWT) with a Mexican Hat wevalet to measure the topographic complexity (i.e., surface roughness) of a land surface from a Digital Elevation Model (DEM). Such method quanitfy the wavelet-based curvature of the surface, which has been proposed to be a effective geomorphic metric for identifying and estimating the ages of historical deep-seated landslide deposits. The method and early version of the code was developed by Dr. Adam M. Booth (Portland State Univeristy) in [2009](https://doi.org/10.1016/j.geomorph.2009.02.027), written in MATLAB (source code available from [Booth's personal website](https://web.pdx.edu/~boothad/tools.html)). This MATLAB code was later revised and adapted by Dr. Sean R. LaHusen (Univeristy of Washington) and Dr. Erich N. Herzig (Univeristy of Washington) in their research ([LaHusen et al., 2020](https://doi.org/10.1126/sciadv.aba6790); [Herzig et al. (2023)](https://doi.org/10.1785/0120230079)). Dr. Larry Syu-Heng Lai (Univeristy of Washington), under the supervision of Dr. Alison R. Duvall (Univeristy of Washington), translated the code into this optimized open-source Python version in 2024.
 
-See [**Example_pycwtmexhat.ipynb**](https://github.com/GeoLarryLai/pyTopoComplexity/blob/main/Example_pycwtmexhat.ipynb) for detailed explanations and usage instructions.
+See [**Example_pycwtmexhat.ipynb**](https://github.com/GeoLarryLai/pyTopoComplexity/blob/main/Example_pycwtmexhat.ipynb) for detailed explanations and usage instructions. 
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/GeoLarryLai/pyTopoComplexity/blob/main/Example_pycwtmexhat.ipynb)
 
 ### 2. Fractal Dimentsion Analysis
 
@@ -46,6 +48,8 @@ The **pyfracd.py** module calculates local fractal dimensions to assess topograp
 
 See [**Example_pyfracd.ipynb**](https://github.com/GeoLarryLai/pyTopoComplexity/blob/main/Example_pyfracd.ipynb) for detailed explanations and usage instructions.
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/GeoLarryLai/pyTopoComplexity/blob/main/Example_pyfracd.ipynb)
+
 ### 3. Rugosity Index Calculation
 
 ```python
@@ -56,6 +60,8 @@ The module **pyrugosity.py** measure Rugosity Index of the land surface, which i
 
 See [**Example_pyrugosity.ipynb**](https://github.com/GeoLarryLai/pyTopoComplexity/blob/main/Example_pyrugosity.ipynb) for detailed explanations and usage instructions.
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/GeoLarryLai/pyTopoComplexity/blob/main/Example_pyrugosity.ipynb)
+
 ### 4. Terrain Position Index Calculation
 
 ```python
@@ -65,6 +71,8 @@ from pytopocomplexity import TPI
 The module **pytpi.py** calculates the Terrain Position Index (TPI) of the land surface following ([Weiss, 2001](https://www.jennessent.com/arcview/TPI_Weiss_poster.htm)), which is a measure of the relative topographic position of a point in relation to the surrounding landforms. This metric is useful for determining surface ruggedness, classifying terrain, assessing local hydrodynamics, and identifying habitat hotspots. TPI, also known as the Topographic Position Index in terrestrial studies, distinguishes landscape features such as hilltops, valleys, flat plains, and upper or lower slopes. In oceanography, researchers adapt the Bathymetric Position Index (BPI), which applies the equivalent TPI algorithm to bathymetric data to assess seafloor complexity. Positive TPI values indicate locations that are higher than the average of their surroundings (e.g., ridges), while negative values indicate locations that are lower (e.g., valleys). Values near zero indicate flat areas or areas of constant slope. The module also returns the absolute values of the TPI, which only indicate the magnitude of the vertical position at each grid point relative to its neighbors.
 
 See [**Example_pytpi.ipynb**](https://github.com/GeoLarryLai/pyTopoComplexity/blob/main/Example_pytpi.ipynb) for detailed explanations and usage instructions.
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/GeoLarryLai/pyTopoComplexity/blob/main/Example_pytpi.ipynb)
 
 ## Requirements
 For **pyTopoComplexity** package"
