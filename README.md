@@ -17,6 +17,12 @@ In this repository, each module has a corresponding example Jupyter Notebook fil
 
 There is also an additional Jupyter Notebook, [**Landlab_simulation.ipynb**](https://github.com/GeoLarryLai/pyTopoComplexity/blob/main/Landlab_simulation.ipynb), which leverages the power of [Landlab](https://landlab.readthedocs.io/en/latest/index.html) to perform forward simulation of landscape smoothing through non-linear hillslope diffusion process.
 
+## Citation
+
+If you use **pyTopoComplexity** and the associated Jupyter Notebooks in your work, please cite the following paper:
+
+Lai, L. S.-H., Booth, A. M., Duvall, A. R., and Herzig, E. (In Revision) Short Communication: Multiscale topographic complexity analysis with pyTopoComplexity. Earth Surface Dynamics. https://doi.org/10.5194/egusphere-2024-3415.
+
 ## Installation
 
 Users can install **pyTopoComplexity** directly from [PyPI](https://pypi.org/project/pytopocomplexity/) with `pip` command:
