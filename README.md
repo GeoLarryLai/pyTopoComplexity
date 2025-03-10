@@ -21,7 +21,7 @@ There is also an additional Jupyter Notebook, [**Landlab_simulation.ipynb**](htt
 
 If you use **pyTopoComplexity** and the associated Jupyter Notebooks in your work, please cite the following paper:
 
-Lai, L. S.-H., Booth, A. M., Duvall, A. R., and Herzig, E. (In Revision) Short Communication: Multiscale topographic complexity analysis with pyTopoComplexity. Earth Surface Dynamics. https://doi.org/10.5194/egusphere-2024-3415.
+Lai, L. S.-H., Booth, A. M., Duvall, A. R., and Herzig, E. (Accepted) Short Communication: Multiscale topographic complexity analysis with pyTopoComplexity. Earth Surface Dynamics. https://doi.org/10.5194/egusphere-2024-3415.
 
 ## Installation
 
