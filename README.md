@@ -23,6 +23,8 @@ If you use **pyTopoComplexity** and the associated Jupyter Notebooks in your wor
 
 Lai, L. S.-H., Booth, A. M., Duvall, A. R., and Herzig, E. (2025) Short Communication: Multiscale topographic complexity analysis with pyTopoComplexity. Earth Surface Dynamics, 13, 417-435. https://doi.org/10.5194/esurf-13-417-2025
 
+If you have any questions, feedback, or interest in collaboration, feel free to reach out to me at larrysyuhenglai@gmail.com or larry.lai@beg.utexas.edu
+
 ## Installation
 
 Users can install **pyTopoComplexity** directly from [PyPI](https://pypi.org/project/pytopocomplexity/) with `pip` command:
