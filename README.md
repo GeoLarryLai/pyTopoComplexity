@@ -15,7 +15,9 @@
 
 In this repository, each module has a corresponding example Jupyter Notebook file that includes detailed instructions on module usage and brief explanations of the applied theories with cited references. Example DEM raster file data are included in the `~/ExampleDEM/` folder.
 
-There is also an additional Jupyter Notebook, [**Landlab_simulation.ipynb**](https://github.com/GeoLarryLai/pyTopoComplexity/blob/main/Landlab_simulation.ipynb), which leverages the power of [Landlab](https://landlab.readthedocs.io/en/latest/index.html) to perform forward simulation of landscape smoothing through non-linear hillslope diffusion process.
+There is an additional Jupyter Notebook, [**Landlab_simulation.ipynb**](https://github.com/GeoLarryLai/pyTopoComplexity/blob/main/Landlab_simulation.ipynb), which leverages the power of [Landlab](https://landlab.readthedocs.io/en/latest/index.html) to perform forward simulation of landscape smoothing through non-linear hillslope diffusion process.
+
+There is also a toolan [**DEM_proprocessing.ipynb**](https://github.com/GeoLarryLai/pyTopoComplexity/blob/main/DEM_proprocessing.ipynb), which provides dedicated functions and exmaple for pre-processing DEM data in case your DEM contains emtpy/invalid grids or does not have the proper XYZ units and coordinate system.
 
 ## Citation
 
