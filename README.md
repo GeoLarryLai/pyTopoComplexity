@@ -21,7 +21,7 @@ There is also a toolan [**DEM_proprocessing.ipynb**](https://github.com/GeoLarry
 
 ## Citation
 
-If you use **pyTopoComplexity** and the associated Jupyter Notebooks in your work, please cite the following paper:
+If you use pyTopoComplexity and the associated Jupyter Notebooks in your work, please cite the following paper:
 
 Lai, L. S.-H., Booth, A. M., Duvall, A. R., and Herzig, E. (2025) Short Communication: Multiscale topographic complexity analysis with pyTopoComplexity. Earth Surface Dynamics, 13(3), 417-435. https://doi.org/10.5194/esurf-13-417-2025
 
