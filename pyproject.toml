@@ -11,7 +11,7 @@ authors = [{name = "Larry Syu-Heng Lai", email = "larrysyuhenglai@gmail.com"}]
 license = {file = "LICENSE"}
 classifiers = [
     "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: GNU Affero General Public License v3 (AGPLv3)",
+    "License :: OSI Approved :: GNU Affero General Public License v3",
     "Operating System :: OS Independent",
 ]
 requires-python = ">=3.10"
