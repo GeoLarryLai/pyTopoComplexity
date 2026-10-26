@@ -15,6 +15,10 @@ If you use pyTopoComplexity and the associated Jupyter Notebooks in your work, p
 
 Lai, L. S.-H., Booth, A. M., Duvall, A. R., and Herzig, E. (2025) Short Communication: Multiscale topographic complexity analysis with pyTopoComplexity. Earth Surface Dynamics, 13(3), 417-435. https://doi.org/10.5194/esurf-13-417-2025
 
+To cite the software itself (all versions), please use:
+
+Lai, L. S.-H. pyTopoComplexity. *Zenodo*, https://doi.org/10.5281/zenodo.11239338
+
 If you have any questions, feedback, or interest in collaboration, feel free to reach out to me at larrysyuhenglai@gmail.com
 
 ## Introduction
