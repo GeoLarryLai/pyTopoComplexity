@@ -1,8 +1,7 @@
+<p align="center"><img src="image/pyTopoComplexity_logo.png" alt="pyTopoComplexity" width="200"></p>
+
 # pyTopoComplexity
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.11239338.svg)](https://doi.org/10.5281/zenodo.11239338) [![PyPI version](https://img.shields.io/pypi/v/pytopocomplexity.svg)](https://pypi.org/project/pytopocomplexity/) [![PyPI downloads](https://static.pepy.tech/badge/pytopocomplexity/month)](https://pepy.tech/project/pytopocomplexity) [![Conda Version](https://img.shields.io/conda/vn/conda-forge/pytopocomplexity.svg)](https://anaconda.org/conda-forge/pytopocomplexity) [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/pytopocomplexity.svg)](https://anaconda.org/conda-forge/pytopocomplexity) [![License: AGPL-3.0-or-later](https://img.shields.io/badge/License-AGPL--3.0--or--later-blue.svg)](./LICENSE)
-<p align="left">
- <img src="image/pyTopoComplexity_logo.png" width="45%" height="45%"/>
-</p>
 
 **pyTopoComplexity** is an open-source Python package designed to measure the topographic complexity (i.e., surface roughness) of land surfaces using digital elevation model (DEM) data. This package includes modules for **four** modern methods used to measure topographic complexity in the fields of geology, geomorphology, geography, ecology, and oceanography.
 
