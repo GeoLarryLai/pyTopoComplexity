@@ -17,7 +17,7 @@ Lai, L. S.-H., Booth, A. M., Duvall, A. R., and Herzig, E. (2025) Short Communic
 
 To cite the software itself (all versions), please use:
 
-Lai, L. S.-H. pyTopoComplexity. *Zenodo*, https://doi.org/10.5281/zenodo.11239338
+Lai, L. S.-H. pyTopoComplexity. *Zenodo*, [https://doi.org/10.5281/zenodo.11239338](https://doi.org/10.5281/zenodo.11239338)
 
 If you have any questions, feedback, or interest in collaboration, feel free to reach out to me at larrysyuhenglai@gmail.com
 
