@@ -175,3 +175,7 @@ For landscape smoothing simulation:
   * Used data processing and visualization components: `esri_ascii`, `imshowhs`, `imshowhs_grid`
 
 See also the `environment.yml` file which can be used to create a virtual environment.
+
+## License
+
+Code: **AGPL-3.0-or-later**. You are free to use, modify, and share it; anyone distributing modified code or running a modified version as a network service must share its source under the same license.

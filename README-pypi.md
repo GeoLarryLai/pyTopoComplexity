@@ -85,3 +85,7 @@ For **pyTopoComplexity** package"
 * `tqdm` >= 4.0
 * `numba` >= 0.50
 * `statsmodels` >= 0.12
+
+## License
+
+Code: **AGPL-3.0-or-later**. You are free to use, modify, and share it; anyone distributing modified code or running a modified version as a network service must share its source under the same license.
